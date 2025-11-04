@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Time until Costa Rica</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-image: url('https://explorerspassage.com/wp-content/uploads/2023/03/costa-rica-beach-Cahuita-National-Park.jpg');
+      background-size: cover;
+      background-position: center;
+      color: white;
+      font-family: 'Helvetica Neue', sans-serif;
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+      overflow: hidden;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .countdown {
+      font-size: 2rem;
+      letter-spacing: 2px;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.3);
+      z-index: 0;
+    }
+
+    .content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
+
+    button {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      color: white;
+      font-size: 1rem;
+      padding: 10px 20px;
+      border-radius: 25px;
+      cursor: pointer;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: rgba(255, 255, 255, 0.4);
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay"></div>
+  <div class="content">
+    <h1>Time until Costa Rica</h1>
+    <div class="countdown" id="countdown">Loading...</div>
+  </div>
+
+  <button id="muteBtn">🔊 Mute</button>
+
+  <audio id="tropicalSound" loop autoplay>
+    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_9f1a25e8e9.mp3?filename=tropical-beach-waves-ambient-10691.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const countdownEl = document.getElementById('countdown');
+    const targetDate = new Date('February 7, 2026 23:10:00').getTime();
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+
+      if (distance < 0) {
+        countdownEl.innerHTML = 'Enjoy your honeymoon!';
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      countdownEl.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    const audio = document.getElementById('tropicalSound');
+    const muteBtn = document.getElementById('muteBtn');
+    let isMuted = false;
+
+    muteBtn.addEventListener('click', () => {
+      isMuted = !isMuted;
+      audio.muted = isMuted;
+      muteBtn.textContent = isMuted ? '🔇 Unmute' : '🔊 Mute';
+    });
+  </script>
+</body>
+</html>

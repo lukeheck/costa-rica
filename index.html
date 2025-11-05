@@ -1,120 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Time until Costa Rica</title>
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      background-image: url('https://explorerspassage.com/wp-content/uploads/2023/03/costa-rica-beach-Cahuita-National-Park.jpg');
-      background-size: cover;
-      background-position: center;
-      color: white;
-      font-family: 'Helvetica Neue', sans-serif;
-      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
-      overflow: hidden;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Time Until Kel and Luke's Trip to Costa Rica</title>
 
-    h1 {
-      font-size: 3rem;
-      margin-bottom: 1rem;
-    }
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background-image: url('https://explorerspassage.com/wp-content/uploads/2023/03/costa-rica-beach-Cahuita-National-Park.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    color: white;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    backdrop-filter: brightness(0.7);
+  }
 
-    .countdown {
-      font-size: 2rem;
-      letter-spacing: 2px;
-    }
+  h1 {
+    font-size: 2.5rem;
+    margin-top: 40px;
+    text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
+  }
 
-    .overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.3);
-      z-index: 0;
-    }
+  #countdown {
+    font-size: 2rem;
+    margin: 10px 0 30px;
+    text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
+  }
 
-    .content {
-      position: relative;
-      z-index: 1;
-      text-align: center;
-    }
+  #muteBtn {
+    margin-bottom: 30px;
+    background: rgba(255, 255, 255, 0.3);
+    border: none;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    backdrop-filter: blur(5px);
+    font-size: 1rem;
+  }
 
-    button {
-      position: absolute;
-      bottom: 20px;
-      right: 20px;
-      background: rgba(255, 255, 255, 0.2);
-      border: none;
-      color: white;
-      font-size: 1rem;
-      padding: 10px 20px;
-      border-radius: 25px;
-      cursor: pointer;
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-      transition: background 0.3s;
-    }
+  #muteBtn:hover {
+    background: rgba(255, 255, 255, 0.5);
+  }
 
-    button:hover {
-      background: rgba(255, 255, 255, 0.4);
-    }
-  </style>
+  .calendar {
+    width: 90%;
+    max-width: 900px;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 12px;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+    margin-bottom: 40px;
+  }
+
+  .day-header {
+    font-weight: bold;
+    text-transform: uppercase;
+    opacity: 0.8;
+  }
+
+  .day {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    padding: 8px;
+    text-align: left;
+    font-size: 0.9rem;
+    line-height: 1.3em;
+    white-space: pre-line;
+  }
+
+  .empty {
+    background: transparent;
+  }
+</style>
 </head>
 <body>
-  <div class="overlay"></div>
-  <div class="content">
-    <h1>Time Until Kel and Luke's Trip to Costa Rica</h1>
-    <div class="countdown" id="countdown">Loading...</div>
-  </div>
-
+  <h1>Time until Costa Rica 🌴</h1>
+  <div id="countdown"></div>
   <button id="muteBtn">🔊 Mute</button>
-
-  <audio id="tropicalSound" loop autoplay>
-    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_9f1a25e8e9.mp3?filename=tropical-beach-waves-ambient-10691.mp3" type="audio/mpeg">
+  <audio id="tropicalSound" loop>
+    <source src="https://cdn.pixabay.com/audio/2022/10/10/audio_4e57d7323b.mp3" type="audio/mpeg">
   </audio>
 
-  <script>
-    const countdownEl = document.getElementById('countdown');
-    const targetDate = new Date('February 7, 2026 23:10:00').getTime();
+  <div class="calendar">
+    <div class="day-header">Sun</div>
+    <div class="day-header">Mon</div>
+    <div class="day-header">Tue</div>
+    <div class="day-header">Wed</div>
+    <div class="day-header">Thur</div>
+    <div class="day-header">Fri</div>
+    <div class="day-header">Sat</div>
 
-    function updateCountdown() {
-      const now = new Date().getTime();
-      const distance = targetDate - now;
+    <div class="empty"></div>
+    <div class="empty"></div>
+    <div class="empty"></div>
+    <div class="empty"></div>
+    <div class="empty"></div>
+    <div class="day">7<br>YYC ➜ LIR (WS 2260)<br>23:10 | 7:00 +1 day</div>
+    <div class="day">8<br>Arrive LIR 7:00<br>Car Rental<br>Drive to Playa Hermosa<br>Stay: El Mangroove Autograph</div>
+    <div class="day">9<br>Playa Hermosa</div>
+    <div class="day">10<br>Playa Hermosa</div>
+    <div class="day">11<br>Drive to La Fortuna<br>Stay: Tabacon</div>
+    <div class="day">12<br>La Fortuna</div>
+    <div class="day">13<br>La Fortuna</div>
+    <div class="day">14<br>Drive to Nosara<br>Stay: Tierra Magnifica</div>
+    <div class="day">15</div>
+    <div class="day">16</div>
+    <div class="day">17<br>Stay at Airbnb in Nosara</div>
+    <div class="day">18</div>
+    <div class="day">19</div>
+    <div class="day">20</div>
+    <div class="day">21</div>
+    <div class="day">22<br>Stay at Hilton Garden Inn</div>
+    <div class="day">23<br>LIR ➜ YYC (WS 2261)<br>7:50 | 14:14</div>
+  </div>
 
-      if (distance < 0) {
-        countdownEl.innerHTML = 'Enjoy your honeymoon!';
-        return;
-      }
+<script>
+  const countdownEl = document.getElementById('countdown');
+  const targetDate = new Date('February 7, 2026 23:10:00').getTime();
 
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+  function updateCountdown() {
+    const now = new Date().getTime();
+    const distance = targetDate - now;
 
-      countdownEl.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    if (distance < 0) {
+      countdownEl.innerHTML = 'Enjoy your honeymoon!';
+      return;
     }
 
-    setInterval(updateCountdown, 1000);
-    updateCountdown();
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-    const audio = document.getElementById('tropicalSound');
-    const muteBtn = document.getElementById('muteBtn');
-    let isMuted = false;
+    countdownEl.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+  }
 
-    muteBtn.addEventListener('click', () => {
-      isMuted = !isMuted;
-      audio.muted = isMuted;
-      muteBtn.textContent = isMuted ? '🔇 Unmute' : '🔊 Mute';
-    });
-  </script>
+  setInterval(updateCountdown, 1000);
+  updateCountdown();
+
+  const audio = document.getElementById('tropicalSound');
+  const muteBtn = document.getElementById('muteBtn');
+  let isMuted = false;
+
+  // Allow sound to start after first click
+  function startAudio() {
+    audio.play().catch(() => {});
+    document.removeEventListener('click', startAudio);
+  }
+  document.addEventListener('click', startAudio);
+
+  muteBtn.addEventListener('click', () => {
+    isMuted = !isMuted;
+    audio.muted = isMuted;
+    muteBtn.textContent = isMuted ? '🔇 Unmute' : '🔊 Mute';
+  });
+</script>
 </body>
 </html>
-
 

@@ -5,42 +5,83 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Time Until Kel and Luke's Trip to Costa Rica</title>
 
+<!-- Font Import -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
 <style>
   body {
     margin: 0;
     padding: 0;
     font-family: 'Poppins', sans-serif;
+    color: white;
+    text-align: center;
+    background: #111;
+    scroll-behavior: smooth;
+  }
+
+  /* Fixed Countdown Section */
+  .countdown-section {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
     background-image: url('https://explorerspassage.com/wp-content/uploads/2023/03/costa-rica-beach-Cahuita-National-Park.jpg');
     background-size: cover;
     background-position: center;
-    height: 100vh;
-    color: white;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
     backdrop-filter: brightness(0.7);
+    padding: 20px;
+    box-sizing: border-box;
+    z-index: 1000;
+    transition: all 0.3s ease; /* Smooth shrink effect */
+  }
+
+  .countdown-section.shrink {
+    padding: 10px; /* Reduce padding when scrolled */
   }
 
   h1 {
-    font-size: 2.5rem;
-    margin-top: 40px;
+    font-size: 2rem;
+    margin-bottom: 10px;
     text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
+    transition: font-size 0.3s ease;
+  }
+
+  .countdown-section.shrink h1 {
+    font-size: 1.5rem; /* Smaller title when scrolled */
   }
 
   #countdown {
-    font-size: 2rem;
-    margin: 10px 0 30px;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
     text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
+    transition: font-size 0.3s ease;
+  }
+
+  .countdown-section.shrink #countdown {
+    font-size: 1.2rem;
+  }
+
+  #progressBar {
+    width: 80%;
+    height: 12px;
+    background: rgba(255,255,255,0.3);
+    border-radius: 6px;
+    margin: 0 auto 15px;
+    overflow: hidden;
+  }
+
+  #progressFill {
+    height: 100%;
+    background: #fff;
+    width: 0%;
+    transition: width 0.5s ease;
   }
 
   #muteBtn {
-    margin-bottom: 30px;
     background: rgba(255, 255, 255, 0.3);
     border: none;
     color: white;
-    padding: 10px 18px;
+    padding: 8px 14px;
     border-radius: 8px;
     cursor: pointer;
     backdrop-filter: blur(5px);
@@ -51,83 +92,108 @@
     background: rgba(255, 255, 255, 0.5);
   }
 
-  .calendar {
+  /* Add top padding so content doesn't hide behind fixed header */
+  .content-wrapper {
+    padding-top: 220px; /* Adjust based on header height */
+    transition: padding-top 0.3s ease;
+  }
+
+  .countdown-section.shrink ~ .content-wrapper {
+    padding-top: 160px; /* Reduce padding when header shrinks */
+  }
+
+  main.calendar {
     width: 90%;
     max-width: 900px;
-    background: rgba(0, 0, 0, 0.4);
+    background: #222;
     border-radius: 12px;
     padding: 20px;
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 8px;
-    margin-bottom: 40px;
+    margin: 40px auto;
+    color: #fff;
   }
 
   .day-header {
     font-weight: bold;
     text-transform: uppercase;
-    opacity: 0.8;
+    opacity: 0.9;
+    text-align: center;
   }
 
   .day {
-    background: rgba(255, 255, 255, 0.15);
+    background: #444;
     border-radius: 8px;
     padding: 8px;
-    text-align: left;
     font-size: 0.9rem;
-    line-height: 1.3em;
-    white-space: pre-line;
+    cursor: pointer;
   }
 
-  .empty {
-    background: transparent;
+  .day.trip-day {
+    background: #008080;
+    font-weight: bold;
+  }
+
+  section.details {
+    width: 90%;
+    max-width: 900px;
+    background: rgba(0,0,0,0.6);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    text-align: left;
+    color: #fff;
+  }
+
+  section.details h2 {
+    margin-top: 0;
   }
 </style>
 </head>
 <body>
-  <h1>Time until Costa Rica 🌴</h1>
-  <div id="countdown"></div>
-  <button id="muteBtn">🔊 Mute</button>
-  <audio id="tropicalSound" loop>
-    <source src="https://cdn.pixabay.com/audio/2022/10/10/audio_4e57d7323b.mp3" type="audio/mpeg">
-  </audio>
+  <!-- Fixed Countdown Section -->
+  <div class="countdown-section" id="header">
+    <h1>Time until Costa Rica 🌴</h1>
+    <div id="countdown"></div>
+    <div id="progressBar"><div id="progressFill"></div></div>
+    <button id="muteBtn">🔊 Mute</button>
+    <audio id="tropicalSound" loop preload="auto">
+      https://cdn.pixabay.com/audio/2022/10/10/audio_4e57d7323b.mp3
+    </audio>
+  </div>
 
-  <div class="calendar">
-    <div class="day-header">Sun</div>
-    <div class="day-header">Mon</div>
-    <div class="day-header">Tue</div>
-    <div class="day-header">Wed</div>
-    <div class="day-header">Thur</div>
-    <div class="day-header">Fri</div>
-    <div class="day-header">Sat</div>
+  <!-- Content Wrapper -->
+  <div class="content-wrapper">
+    <!-- Calendar -->
+    <main class="calendar" id="calendar"></main>
 
-    <div class="empty"></div>
-    <div class="empty"></div>
-    <div class="empty"></div>
-    <div class="empty"></div>
-    <div class="empty"></div>
-    <div class="day">7<br>YYC ➜ LIR (WS 2260)<br>23:10 | 7:00 +1 day</div>
-    <div class="day">8<br>Arrive LIR 7:00<br>Car Rental<br>Drive to Playa Hermosa<br>Stay: El Mangroove Autograph</div>
-    <div class="day">9<br>Playa Hermosa</div>
-    <div class="day">10<br>Playa Hermosa</div>
-    <div class="day">11<br>Drive to La Fortuna<br>Stay: Tabacon</div>
-    <div class="day">12<br>La Fortuna</div>
-    <div class="day">13<br>La Fortuna</div>
-    <div class="day">14<br>Drive to Nosara<br>Stay: Tierra Magnifica</div>
-    <div class="day">15</div>
-    <div class="day">16</div>
-    <div class="day">17<br>Stay at Airbnb in Nosara</div>
-    <div class="day">18</div>
-    <div class="day">19</div>
-    <div class="day">20</div>
-    <div class="day">21</div>
-    <div class="day">22<br>Stay at Hilton Garden Inn</div>
-    <div class="day">23<br>LIR ➜ YYC (WS 2261)<br>7:50 | 14:14</div>
+    <!-- Daily Details -->
+    <div id="detailsContainer"></div>
   </div>
 
 <script>
   const countdownEl = document.getElementById('countdown');
+  const progressFill = document.getElementById('progressFill');
+  const calendarEl = document.getElementById('calendar');
+  const detailsContainer = document.getElementById('detailsContainer');
+  const header = document.getElementById('header');
   const targetDate = new Date('February 7, 2026 23:10:00').getTime();
+  const startDate = new Date().getTime();
+
+  const tripEvents = {
+    7: "YYC ➜ LIR (WS 2260)\n23:10 | 7:00 +1 day",
+    8: "Arrive LIR 7:00\nCar Rental\nDrive to Playa Hermosa\nStay: El Mangroove Autograph",
+    9: "Playa Hermosa",
+    10: "Playa Hermosa",
+    11: "Drive to La Fortuna\nStay: Tabacon",
+    12: "La Fortuna",
+    13: "La Fortuna",
+    14: "Drive to Nosara\nStay: Tierra Magnifica",
+    17: "Stay at Airbnb in Nosara",
+    22: "Stay at Hilton Garden Inn",
+    23: "LIR ➜ YYC (WS 2261)\n7:50 | 14:14"
+  };
 
   function updateCountdown() {
     const now = new Date().getTime();
@@ -135,6 +201,7 @@
 
     if (distance < 0) {
       countdownEl.innerHTML = 'Enjoy your honeymoon!';
+      progressFill.style.width = '100%';
       return;
     }
 
@@ -144,16 +211,79 @@
     const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
     countdownEl.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+
+    const totalDuration = targetDate - startDate;
+    const elapsed = now - startDate;
+    const progressPercent = (elapsed / totalDuration) * 100;
+    progressFill.style.width = `${progressPercent}%`;
   }
 
   setInterval(updateCountdown, 1000);
   updateCountdown();
 
+  function generateCalendar() {
+    const year = 2026;
+    const month = 1; // February
+    const firstDay = new Date(year, month, 1).getDay();
+    const daysInMonth = 28;
+
+    const headers = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    headers.forEach(day => {
+      const headerDiv = document.createElement('div');
+      headerDiv.className = 'day-header';
+      headerDiv.textContent = day;
+      calendarEl.appendChild(headerDiv);
+    });
+
+    for (let i = 0; i < firstDay; i++) {
+      const emptyDiv = document.createElement('div');
+      emptyDiv.className = 'empty';
+      calendarEl.appendChild(emptyDiv);
+    }
+
+    for (let day = 1; day <= daysInMonth; day++) {
+      const dayDiv = document.createElement('div');
+      dayDiv.className = 'day';
+      dayDiv.textContent = day;
+
+      if (tripEvents[day]) {
+        dayDiv.classList.add('trip-day');
+        dayDiv.addEventListener('click', () => {
+          document.getElementById(`details-${day}`).scrollIntoView({ behavior: 'smooth' });
+        });
+      }
+
+      calendarEl.appendChild(dayDiv);
+    }
+  }
+
+  function generateDetails() {
+    for (const [day, details] of Object.entries(tripEvents)) {
+      const section = document.createElement('section');
+      section.className = 'details';
+      section.id = `details-${day}`;
+      section.innerHTML = `<h2>February ${day}, 2026</h2><p>${details.replace(/\n/g, '<br>')}</p>`;
+      detailsContainer.appendChild(section);
+    }
+  }
+
+  generateCalendar();
+  generateDetails();
+
+  // Shrink header on scroll
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      header.classList.add('shrink');
+    } else {
+      header.classList.remove('shrink');
+    }
+  });
+
+  // Audio controls
   const audio = document.getElementById('tropicalSound');
   const muteBtn = document.getElementById('muteBtn');
   let isMuted = false;
 
-  // Allow sound to start after first click
   function startAudio() {
     audio.play().catch(() => {});
     document.removeEventListener('click', startAudio);
@@ -168,4 +298,3 @@
 </script>
 </body>
 </html>
-

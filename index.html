@@ -32,11 +32,11 @@
     padding: 20px;
     box-sizing: border-box;
     z-index: 1000;
-    transition: all 0.3s ease; /* Smooth shrink effect */
+    transition: all 0.3s ease;
   }
 
   .countdown-section.shrink {
-    padding: 10px; /* Reduce padding when scrolled */
+    padding: 10px;
   }
 
   h1 {
@@ -47,7 +47,7 @@
   }
 
   .countdown-section.shrink h1 {
-    font-size: 1.5rem; /* Smaller title when scrolled */
+    font-size: 1.5rem;
   }
 
   #countdown {
@@ -66,7 +66,7 @@
     height: 12px;
     background: rgba(255,255,255,0.3);
     border-radius: 6px;
-    margin: 0 auto 15px;
+    margin: 0 auto;
     overflow: hidden;
   }
 
@@ -77,29 +77,14 @@
     transition: width 0.5s ease;
   }
 
-  #muteBtn {
-    background: rgba(255, 255, 255, 0.3);
-    border: none;
-    color: white;
-    padding: 8px 14px;
-    border-radius: 8px;
-    cursor: pointer;
-    backdrop-filter: blur(5px);
-    font-size: 1rem;
-  }
-
-  #muteBtn:hover {
-    background: rgba(255, 255, 255, 0.5);
-  }
-
   /* Add top padding so content doesn't hide behind fixed header */
   .content-wrapper {
-    padding-top: 220px; /* Adjust based on header height */
+    padding-top: 220px;
     transition: padding-top 0.3s ease;
   }
 
   .countdown-section.shrink ~ .content-wrapper {
-    padding-top: 160px; /* Reduce padding when header shrinks */
+    padding-top: 160px;
   }
 
   main.calendar {
@@ -149,6 +134,11 @@
   section.details h2 {
     margin-top: 0;
   }
+
+  section.details a {
+    color: #00ffff;
+    text-decoration: underline;
+  }
 </style>
 </head>
 <body>
@@ -157,10 +147,6 @@
     <h1>Time until Costa Rica 🌴</h1>
     <div id="countdown"></div>
     <div id="progressBar"><div id="progressFill"></div></div>
-    <button id="muteBtn">🔊 Mute</button>
-    <audio id="tropicalSound" loop preload="auto">
-      https://cdn.pixabay.com/audio/2022/10/10/audio_4e57d7323b.mp3
-    </audio>
   </div>
 
   <!-- Content Wrapper -->
@@ -186,7 +172,7 @@
     8: "Arrive LIR 7:00\nCar Rental\nDrive to Playa Hermosa\nStay: El Mangroove Autograph",
     9: "Playa Hermosa",
     10: "Playa Hermosa",
-    11: "Drive to La Fortuna\nStay: Tabacon",
+    11: `Drive to La Fortuna<br>Stay: <a href="https://www.tabacon.com/?utm_source=google_search&utm_medium=cpc&utm_campaign=amadeus_brand&gclsrc=aw.ds&gad_source=1&gad_campaignid=649208604&gbraid=0AAAAADdWOtYJklLWANtzy171Lsz1NB1dr&gclid=CjwKCAiA_dDIBhB6EiwAvzc1cChVD50azvKP0RFosAZfVMwcNAiJngplcu0VL_hTaZ81sE3ULU3izhoCZmsQAvD_BwE" target="_blank">Tabacón Resort</a>`,
     12: "La Fortuna",
     13: "La Fortuna",
     14: "Drive to Nosara\nStay: Tierra Magnifica",
@@ -277,23 +263,6 @@
     } else {
       header.classList.remove('shrink');
     }
-  });
-
-  // Audio controls
-  const audio = document.getElementById('tropicalSound');
-  const muteBtn = document.getElementById('muteBtn');
-  let isMuted = false;
-
-  function startAudio() {
-    audio.play().catch(() => {});
-    document.removeEventListener('click', startAudio);
-  }
-  document.addEventListener('click', startAudio);
-
-  muteBtn.addEventListener('click', () => {
-    isMuted = !isMuted;
-    audio.muted = isMuted;
-    muteBtn.textContent = isMuted ? '🔇 Unmute' : '🔊 Mute';
   });
 </script>
 </body>

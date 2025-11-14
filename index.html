@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -235,7 +236,11 @@
       if (tripEvents[day]) {
         dayDiv.classList.add('trip-day');
         dayDiv.addEventListener('click', () => {
-          document.getElementById(`details-${day}`).scrollIntoView({ behavior: 'smooth' });
+          const targetSection = document.getElementById(`details-${day}`);
+          const headerHeight = document.querySelector('.countdown-section').offsetHeight;
+          const yOffset = -headerHeight + 20; // offset so section starts below header
+          const yPosition = targetSection.getBoundingClientRect().top + window.scrollY + yOffset;
+          window.scrollTo({ top: yPosition, behavior: 'smooth' });
         });
       }
 

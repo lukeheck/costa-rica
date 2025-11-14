@@ -6,7 +6,7 @@
 <title>Time Until Kel and Luke's Trip to Costa Rica</title>
 
 <!-- Font Import -->
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap
 
 <style>
   body {
@@ -19,7 +19,6 @@
     scroll-behavior: smooth;
   }
 
-  /* Fixed Countdown Section */
   .countdown-section {
     position: fixed;
     top: 0;
@@ -77,7 +76,6 @@
     transition: width 0.5s ease;
   }
 
-  /* Add top padding so content doesn't hide behind fixed header */
   .content-wrapper {
     padding-top: 220px;
     transition: padding-top 0.3s ease;
@@ -129,6 +127,7 @@
     margin-bottom: 20px;
     text-align: left;
     color: #fff;
+    scroll-margin-top: 180px; /* Key fix for header offset */
   }
 
   section.details h2 {
@@ -138,23 +137,19 @@
   section.details a {
     color: #00ffff;
     text-decoration: underline;
+    font-weight: bold;
   }
 </style>
 </head>
 <body>
-  <!-- Fixed Countdown Section -->
   <div class="countdown-section" id="header">
     <h1>Time until Costa Rica 🌴</h1>
     <div id="countdown"></div>
     <div id="progressBar"><div id="progressFill"></div></div>
   </div>
 
-  <!-- Content Wrapper -->
   <div class="content-wrapper">
-    <!-- Calendar -->
     <main class="calendar" id="calendar"></main>
-
-    <!-- Daily Details -->
     <div id="detailsContainer"></div>
   </div>
 
@@ -167,15 +162,18 @@
   const targetDate = new Date('February 7, 2026 23:10:00').getTime();
   const startDate = new Date().getTime();
 
+  // Update: PDF link added for Feb 11
   const tripEvents = {
     7: "YYC ➜ LIR (WS 2260)\n23:10 | 7:00 +1 day",
     8: "Arrive LIR 7:00\nCar Rental\nDrive to Playa Hermosa\nStay: El Mangroove Autograph",
     9: "Playa Hermosa",
     10: "Playa Hermosa",
-    11: `Drive to La Fortuna<br>Stay: <a href="https://www.tabacon.com/?utm_source=google_search&utm_medium=cpc&utm_campaign=amadeus_brand&gclsrc=aw.ds&gad_source=1&gad_campaignid=649208604&gbraid=0AAAAADdWOtYJklLWANtzy171Lsz1NB1dr&gclid=CjwKCAiA_dDIBhB6EiwAvzc1cChVD50azvKP0RFosAZfVMwcNAiJngplcu0VL_hTaZ81sE3ULU3izhoCZmsQAvD_BwE" target="_blank">Tabacón Resort</a>`,
+    11: `Drive to La Fortuna<br>
+         Stay: <a href="https://www.tabacon.com/?utm_source=google_search&utm_medium=cpc&utm_campaign=amadeus_brand&gclsrc=aw.ds&gad_source=1&gad_campaignid=649208604&gbraid=0AAAAADdWOtYJklLWANtzy171Lsz1NB1dr&gclid=CjwKCAiA_dDIBhB6EiwAvzc1cChVD50azvKP0RFosAZfVMwcNAiJngplcu0VL_hTaZ81sE3ULU3izhoCZmsQAvD_BwE" target="_blank">Tabacón Resort</a><br>
+         <a href="Tabacon-confirmation.pdf" target="_blank">View Tabacón Confirmation PDF</a>`,
     12: "La Fortuna",
     13: "La Fortuna",
-    14: "Drive to Nosara\nStay: Tierra Magnifica",
+    14: "Drive to Nosara<br>Stay: Tierra Magnifica",
     17: "Stay at Airbnb in Nosara",
     22: "Stay at Hilton Garden Inn",
     23: "LIR ➜ YYC (WS 2261)\n7:50 | 14:14"
@@ -256,7 +254,6 @@
   generateCalendar();
   generateDetails();
 
-  // Shrink header on scroll
   window.addEventListener('scroll', () => {
     if (window.scrollY > 50) {
       header.classList.add('shrink');

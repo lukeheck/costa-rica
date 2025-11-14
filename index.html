@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -78,7 +77,6 @@
     transition: width 0.5s ease;
   }
 
-  /* Add top padding so content doesn't hide behind fixed header */
   .content-wrapper {
     padding-top: 220px;
     transition: padding-top 0.3s ease;
@@ -130,6 +128,7 @@
     margin-bottom: 20px;
     text-align: left;
     color: #fff;
+    scroll-margin-top: 180px; /* Key fix for header offset */
   }
 
   section.details h2 {
@@ -143,19 +142,14 @@
 </style>
 </head>
 <body>
-  <!-- Fixed Countdown Section -->
   <div class="countdown-section" id="header">
     <h1>Time until Costa Rica 🌴</h1>
     <div id="countdown"></div>
     <div id="progressBar"><div id="progressFill"></div></div>
   </div>
 
-  <!-- Content Wrapper -->
   <div class="content-wrapper">
-    <!-- Calendar -->
     <main class="calendar" id="calendar"></main>
-
-    <!-- Daily Details -->
     <div id="detailsContainer"></div>
   </div>
 
@@ -236,11 +230,7 @@
       if (tripEvents[day]) {
         dayDiv.classList.add('trip-day');
         dayDiv.addEventListener('click', () => {
-          const targetSection = document.getElementById(`details-${day}`);
-          const headerHeight = document.querySelector('.countdown-section').offsetHeight;
-          const yOffset = -headerHeight + 20; // offset so section starts below header
-          const yPosition = targetSection.getBoundingClientRect().top + window.scrollY + yOffset;
-          window.scrollTo({ top: yPosition, behavior: 'smooth' });
+          document.getElementById(`details-${day}`).scrollIntoView({ behavior: 'smooth' });
         });
       }
 
@@ -261,7 +251,6 @@
   generateCalendar();
   generateDetails();
 
-  // Shrink header on scroll
   window.addEventListener('scroll', () => {
     if (window.scrollY > 50) {
       header.classList.add('shrink');

@@ -137,7 +137,7 @@
 
   .pdf-button {
     display: inline-block;
-    margin-top: 10px;
+    margin: 8px 5px 0 0;
     padding: 10px 15px;
     background-color: #00bfa5;
     color: #fff;
@@ -173,21 +173,37 @@
   const targetDate = new Date('February 7, 2026 23:10:00').getTime();
   const startDate = new Date().getTime();
 
-  // Updated: Tabacón Resort link and Google Drive PDF link styled as button
+  // Updated tripEvents with all requested links
   const tripEvents = {
-    7: "YYC ➜ LIR (WS 2260)\n23:10 | 7:00 +1 day",
-    8: "Arrive LIR 7:00\nCar Rental\nDrive to Playa Hermosa\nStay: El Mangroove Autograph",
+    7: `YYC ➜ LIR (WS 2260)<br>23:10 | 7:00 +1 day<br>
+        <a href="https://drive.google.com/file/d/15WyARvIhapNSi_J1bP_L6RTPtlhHuduv/view?usp=drive_link" target="_blank" class="pdf-button">Luke's Flight</a>
+        <a href="https://drive.google.com/file/d/1eHE0c7kZSQtKIa4XZFsWc3VAvhhWcbK7/view?usp=drive_link" target="_blank" class="pdf-button">Kellie's Flight</a>`,
+    8: `Arrive LIR 7:00<br>Car Rental<br>Drive to Playa Hermosa<br>Stay: El Mangroove Autograph<br>
+        <a href="https://cars.booking.com/voucher/1iIk9ay7--P_zJSyk_UKhciRqw3tRlyWX8R3rtbJ75kaHs6sr8pf6Xr0b9qJoWZ6JykAPJTyJID-4iDvbR81lCds3jwexfjSxLxn5FG09ySZsEuZeNcKhLGWaGRjVXR19C4yLVnnDj3xvfgdts759Q?adcamp=bookingcom-PBBC+-2025-10-16" target="_blank" class="pdf-button">Car Rental Confirmation</a>
+        <a href="https://www.marriott.com/en-us/hotels/lirel-el-mangroove-autograph-collection/overview/" target="_blank" class="pdf-button">El Mangroove Website</a>
+        <a href="https://drive.google.com/file/d/1LUmrraAs68YjhRQ_Bp05xu0OCy9F--_H/view?usp=drive_link" target="_blank" class="pdf-button">El Mangroove Confirmation</a>`,
     9: "Playa Hermosa",
     10: "Playa Hermosa",
     11: `Drive to La Fortuna<br>
-         Stay: <a href="https://www.tabacon.com" target="_blank">Tabacón Resort</a><br>
-         <a href="https://drive.google.com/file/d/1GlfgTpCXimgEjF28s2v0T5aRsUAgtF5t/view?usp=drive_link" target="_blank" class="pdf-button">View Tabacón Confirmation PDF</a>`,
+         <a href="https://www.tabacon.com" target="_blank" class="pdf-button">Tabacón Resort Website</a>
+         <a href="https://drive.google.com/file/d/1GlfgTpCXimgEjF28s2v0T5aRsUAgtF5t/view?usp=drive_link" target="_blank" class="pdf-button">Tabacón Confirmation</a>`,
     12: "La Fortuna",
     13: "La Fortuna",
-    14: "Drive to Nosara<br>Stay: Tierra Magnifica",
-    17: "Stay at Airbnb in Nosara",
-    22: "Stay at Hilton Garden Inn",
-    23: "LIR ➜ YYC (WS 2261)\n7:50 | 14:14"
+    14: `Drive to Nosara<br>
+         <a href="https://www.tierramagnifica.com/?gad_campaignid=22497769187" target="_blank" class="pdf-button">Tierra Magnifica Website</a>
+         <a href="https://drive.google.com/file/d/1hBQwf_vhl478r724CbHEN4uIR4nf2cpB/view?usp=drive_link" target="_blank" class="pdf-button">Tierra Magnifica Confirmation</a>`,
+    15: "Nosara",
+    16: "Nosara",
+    17: `Nosara<br>
+         <a href="https://drive.google.com/file/d/1h8ye8fVBVV3DZ6VpOvTa-K5HbBL5iFqA/view?usp=drive_link" target="_blank" class="pdf-button">Airbnb Confirmation</a>`,
+    18: "Nosara",
+    19: "Nosara",
+    20: "Nosara",
+    21: "Nosara",
+    22: `Stay at Hilton Garden Inn<br>
+         <a href="https://www.guestreservations.com/hilton-garden-inn-liberia-airport/booking?utm_source=google" target="_blank" class="pdf-button">Hilton Garden Website</a>
+         <a href="https://drive.google.com/file/d/1HgnaKfSlEoiN5dm1uQimuviaHYvS-96R/view?usp=drive_link" target="_blank" class="pdf-button">Hilton Garden Confirmation</a>`,
+    23: "LIR ➜ YYC (WS 2261)<br>7:50 | 14:14"
   };
 
   function updateCountdown() {
@@ -257,7 +273,7 @@
       const section = document.createElement('section');
       section.className = 'details';
       section.id = `details-${day}`;
-      section.innerHTML = `<h2>February ${day}, 2026</h2><p>${details.replace(/\n/g, '<br>')}</p>`;
+      section.innerHTML = `<h2>February ${day}, 2026</h2><p>${details}</p>`;
       detailsContainer.appendChild(section);
     }
   }
@@ -275,3 +291,4 @@
 </script>
 </body>
 </html>
+

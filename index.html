@@ -6,6 +6,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Time Until Kel and Luke's Trip to Costa Rica</title>
 
+<!-- Font Import -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
 <style>
   body {
     margin: 0;
@@ -29,22 +32,42 @@
     padding: 20px;
     box-sizing: border-box;
     z-index: 1000;
+    transition: all 0.3s ease;
+  }
+
+  .countdown-section.shrink {
+    padding: 10px;
   }
 
   h1 {
     font-size: 2rem;
     margin-bottom: 10px;
     text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
+    transition: font-size 0.3s ease;
+  }
+
+  .countdown-section.shrink h1 {
+    font-size: 1.5rem;
   }
 
   #countdown {
     font-size: 1.5rem;
     margin-bottom: 10px;
     text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
+    transition: font-size 0.3s ease;
+  }
+
+  .countdown-section.shrink #countdown {
+    font-size: 1.2rem;
   }
 
   .content-wrapper {
     padding-top: 220px;
+    transition: padding-top 0.3s ease;
+  }
+
+  .countdown-section.shrink ~ .content-wrapper {
+    padding-top: 160px;
   }
 
   main.calendar {
@@ -63,6 +86,7 @@
   .day-header {
     font-weight: bold;
     text-transform: uppercase;
+    opacity: 0.9;
     text-align: center;
   }
 
@@ -95,8 +119,7 @@
     margin-top: 0;
   }
 
-  /* Buttons */
-  .stay-button {
+  .pdf-button {
     display: inline-block;
     margin: 8px 5px 0 0;
     padding: 10px 15px;
@@ -108,24 +131,8 @@
     transition: background 0.3s ease;
   }
 
-  .stay-button:hover {
+  .pdf-button:hover {
     background-color: #008080;
-  }
-
-  .drive-button {
-    display: inline-block;
-    margin: 8px 5px 0 0;
-    padding: 10px 15px;
-    background-color: #007bff;
-    color: #fff;
-    font-weight: bold;
-    text-decoration: none;
-    border-radius: 6px;
-    transition: background 0.3s ease;
-  }
-
-  .drive-button:hover {
-    background-color: #0056b3;
   }
 </style>
 </head>
@@ -144,58 +151,42 @@
   const countdownEl = document.getElementById('countdown');
   const calendarEl = document.getElementById('calendar');
   const detailsContainer = document.getElementById('detailsContainer');
+  const header = document.getElementById('header');
   const targetDate = new Date('February 7, 2026 23:10:00').getTime();
+  const startDate = new Date().getTime();
 
-  // Itinerary text only (links will be added dynamically)
+  // Updated tripEvents with all requested links and drive info
   const tripEvents = {
-    7: "YYC ➜ LIR (WS 2260)<br>23:10 | 7:00 +1 day",
-    8: "Arrive LIR 7:00<br>Car Rental<br>Drive to Playa Hermosa (~25 min)<br>Stay: El Mangroove Autograph",
+    7: `YYC ➜ LIR (WS 2260)<br>23:10 | 7:00 +1 day<br>
+        <a href="https://drive.google.com/file/d/15WyARvIhapNSi_J1bP_L6RTPtlhHuduv/view?usp=drive_link" target="_blank" class="pdf-button">Luke's Flight</a>
+        <a href="https://drive.google.com/file/d/1eHE0c7kZSQtKIa4XZFsWc3VAvhhWcbK7/view?usp=drive_link" target="_blank" class="pdf-button">Kellie's Flight</a>`,
+    8: `Arrive LIR 7:00<br>Car Rental<br>Drive to Playa Hermosa (~25 min)<br>Stay: El Mangroove Autograph<br>
+        <a href="https://cars.booking.com/voucher/1iIk9ay7--P_zJSyk_UKhciRqw3tRlyWX8R3rtbJ75kaHs6sr8pf6Xr0b9qJoWZ6JykAPJTyJID-4iDvbR81lCds3jwexfjSxLxn5FG09ySZsEuZeNcKhLGWaGRjVXR19C4yLVnnDj3xvfgdts759Q?adcamp=bookingcom-PBBC+-2025-10-16" target="_blank" class="pdf-button">Car Rental Confirmation</a>
+        <a href="https://www.marriott.com/en-us/hotels/lirel-el-mangroove-autograph-collection/overview/" target="_blank" class="pdf-button">El Mangroove Website</a>
+        <a href="https://drive.google.com/file/d/1LUmrraAs68YjhRQ_Bp05xu0OCy9F--_H/view?usp=drive_link" target="_blank" class="pdf-button">El Mangroove Confirmation</a>
+        <a href="https://www.google.com/maps/dir/Liberia+Airport,+Liberia,+Costa+Rica/El+Mangroove,+Playa+Hermosa,+Costa+Rica/" target="_blank" class="pdf-button">🚗 View Route (~25 min)</a>`,
     9: "Playa Hermosa",
     10: "Playa Hermosa",
-    11: "Drive to La Fortuna (~3 hrs)<br>Stay: Tabacón Resort",
+    11: `Drive to La Fortuna<br>
+        <a href="https://www.tabacon.com" target="_blank" class="pdf-button">Tabacón Resort Website</a>
+        <a href="https://drive.google.com/file/d/1GlfgTpCXimgEjF28s2v0T5aRsUAgtF5t/view?usp=drive_link" target="_blank" class="pdf-button">Tabacón Confirmation</a>`,
     12: "La Fortuna",
     13: "La Fortuna",
-    14: "Drive to Nosara (~4 hrs)<br>Stay: Tierra Magnifica",
+    14: `Drive to Nosara<br>
+        <a href="https://www.tierramagnifica.com/?gad_campaignid=22497769187" target="_blank" class="pdf-button">Tierra Magnifica Website</a>
+        <a href="https://drive.google.com/file/d/1hBQwf_vhl478r724CbHEN4uIR4nf2cpB/view?usp=drive_link" target="_blank" class="pdf-button">Tierra Magnifica Confirmation</a>`,
     15: "Nosara",
     16: "Nosara",
-    17: "Nosara",
+    17: `Nosara<br>
+        <a href="https://drive.google.com/file/d/1h8ye8fVBVV3DZ6VpOvTa-K5HbBL5iFqA/view?usp=drive_link" target="_blank" class="pdf-button">Airbnb Confirmation</a>`,
     18: "Nosara",
     19: "Nosara",
     20: "Nosara",
     21: "Nosara",
-    22: "Stay at Hilton Garden Inn",
+    22: `Stay at Hilton Garden Inn<br>
+        <a href="https://www.guestreservations.com/hilton-garden-inn-liberia-airport/booking?utm_source=google" target="_blank" class="pdf-button">Hilton Garden Website</a>
+        <a href="https://drive.google.com/file/d/1HgnaKfSlEoiN5dm1uQimuviaHYvS-96R/view?usp=drive_link" target="_blank" class="pdf-button">Hilton Garden Confirmation</a>`,
     23: "LIR ➜ YYC (WS 2261)<br>7:50 | 14:14"
-  };
-
-  // Links for stays and drives
-  const links = {
-    7: [
-      { type: "stay", label: "Luke's Flight", url: "https://drive.google.com/file/d/15WyARvIhapNSi_J1bP_L6RTPtlhHuduv/view?usp=drive_link" },
-      { type: "stay", label: "Kellie's Flight", url: "https://drive.google.com/file/d/1eHE0c7kZSQtKIa4XZFsWc3VAvhhWcbK7/view?usp=drive_link" }
-    ],
-    8: [
-      { type: "stay", label: "El Mangroove Website", url: "https://www.marriott.com/en-us/hotels/lirel-el-mangroove-autograph-collection/overview/" },
-      { type: "stay", label: "El Mangroove Confirmation", url: "https://drive.google.com/file/d/1LUmrraAs68YjhRQ_Bp05xu0OCy9F--_H/view?usp=drive_link" },
-      { type: "drive", label: "View Route (~25 min)", url: "https://www.google.com/maps/dir/Liberia+Airport,+Liberia,+Costa+Rica/El+Mangroove,+Playa+Hermosa,+Costa+Rica/" }
-    ],
-    11: [
-      { type: "stay", label: "Tabacón Resort Website", url: "https://www.tabacon.com" },
-      { type: "stay", label: "Tabacón Confirmation", url: "https://drive.google.com/file/d/1GlfgTpCXimgEjF28s2v0T5aRsUAgtF5t/view?usp=drive_link" },
-      { type: "drive", label: "View Route (~3 hrs)", url: "https://www.google.com/maps/dir/Playa+Hermosa,+Costa+Rica/La+Fortuna,+Costa+Rica/" }
-    ],
-    14: [
-      { type: "stay", label: "Tierra Magnifica Website", url: "https://www.tierramagnifica.com" },
-      { type: "stay", label: "Tierra Magnifica Confirmation", url: "https://drive.google.com/file/d/1hBQwf_vhl478r724CbHEN4uIR4nf2cpB/view?usp=drive_link" },
-      { type: "drive", label: "View Route (~4 hrs)", url: "https://www.google.com/maps/dir/La+Fortuna,+Costa+Rica/Nosara,+Costa+Rica/" }
-    ],
-    17: [
-      { type: "stay", label: "Airbnb Confirmation", url: "https://drive.google.com/file/d/1h8ye8fVBVV3DZ6VpOvTa-K5HbBL5iFqA/view?usp=drive_link" }
-    ],
-    22: [
-      { type: "stay", label: "Hilton Garden Website", url: "https://www.guestreservations.com/hilton-garden-inn-liberia-airport/booking?utm_source=google" },
-      { type: "stay", label: "Hilton Garden Confirmation", url: "https://drive.google.com/file/d/1HgnaKfSlEoiN5dm1uQimuviaHYvS-96R/view?usp=drive_link" },
-      { type: "drive", label: "View Route (~2 hrs)", url: "https://www.google.com/maps/dir/Nosara,+Costa+Rica/Liberia+Airport,+Costa+Rica/" }
-    ]
   };
 
   function updateCountdown() {
@@ -220,7 +211,7 @@
 
   function generateCalendar() {
     const year = 2026;
-    const month = 1;
+    const month = 1; // February
     const firstDay = new Date(year, month, 1).getDay();
     const daysInMonth = 28;
 
@@ -255,29 +246,25 @@
   }
 
   function generateDetails() {
-    for (let day = 1; day <= 28; day++) {
+    for (const [day, details] of Object.entries(tripEvents)) {
       const section = document.createElement('section');
       section.className = 'details';
       section.id = `details-${day}`;
-      section.innerHTML = `<h2>February ${day}, 2026</h2><p>${tripEvents[day] || 'No specific plans for this day.'}</p>`;
-
-      if (links[day]) {
-        links[day].forEach(link => {
-          const button = document.createElement('a');
-          button.href = link.url;
-          button.target = "_blank";
-          button.className = link.type === 'stay' ? 'stay-button' : 'drive-button';
-          button.textContent = (link.type === 'stay' ? '🏨 ' : '🚗 ') + link.label;
-          section.appendChild(button);
-        });
-      }
-
+      section.innerHTML = `<h2>February ${day}, 2026</h2><p>${details}</p>`;
       detailsContainer.appendChild(section);
     }
   }
 
   generateCalendar();
   generateDetails();
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      header.classList.add('shrink');
+    } else {
+      header.classList.remove('shrink');
+    }
+  });
 </script>
 </body>
 </html>

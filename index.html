@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -134,14 +135,24 @@ https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap
     margin-top: 0;
   }
 
-  section.details a {
-    color: #00ffff;
-    text-decoration: underline;
+  /* Style for buttons */
+  .pdf-button {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 15px;
+    background-color: #00bfa5;
+    color: #fff;
     font-weight: bold;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: background 0.3s ease;
+  }
+
+  .pdf-button:hover {
+    background-color: #008080;
   }
 </style>
 </head>
-
 <body>
   <div class="countdown-section" id="header">
     <h1>Time until Costa Rica 🌴</h1>
@@ -163,18 +174,15 @@ https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap
   const targetDate = new Date('February 7, 2026 23:10:00').getTime();
   const startDate = new Date().getTime();
 
+  // Updated: Google Drive link styled as button for Feb 11
   const tripEvents = {
     7: "YYC ➜ LIR (WS 2260)\n23:10 | 7:00 +1 day",
     8: "Arrive LIR 7:00\nCar Rental\nDrive to Playa Hermosa\nStay: El Mangroove Autograph",
     9: "Playa Hermosa",
     10: "Playa Hermosa",
-
     11: `Drive to La Fortuna<br>
          Stay: <a href="https://www.tabacon.com" target="_blank">Tabacón Resort</a><br>
-         <a href="https://drive.google.com/file/d/1GlfgTpCXimgEjF28s2v0T5aRsUAgtF5t/view?usp=drive_link" target="_blank">
-         View Tabacón Confirmation PDF (Password Required)
-         </a>`,
-
+         <a href="https://drive.google.com/file/d/1GlfgTpCXimgEjF28s2v0T5aRsUAgtF5t/view?usp=drive_link" target="_blank" class="pdf-button">View Tabacón Confirmation PDF</a>`,
     12: "La Fortuna",
     13: "La Fortuna",
     14: "Drive to Nosara<br>Stay: Tierra Magnifica",
@@ -211,7 +219,7 @@ https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap
 
   function generateCalendar() {
     const year = 2026;
-    const month = 1;
+    const month = 1; // February
     const firstDay = new Date(year, month, 1).getDay();
     const daysInMonth = 28;
 
@@ -259,13 +267,10 @@ https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap
   generateDetails();
 
   window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-      header.classList.add('shrink');
-    } else {
+   lse {
       header.classList.remove('shrink');
     }
   });
 </script>
-
 </body>
 </html>

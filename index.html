@@ -7,7 +7,7 @@
 <title>Time Until Kel and Luke's Trip to Costa Rica</title>
 
 <!-- Font Import -->
-https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
   body {
@@ -135,7 +135,6 @@ https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap
     margin-top: 0;
   }
 
-  /* Style for buttons */
   .pdf-button {
     display: inline-block;
     margin-top: 10px;
@@ -174,7 +173,7 @@ https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap
   const targetDate = new Date('February 7, 2026 23:10:00').getTime();
   const startDate = new Date().getTime();
 
-  // Updated: Google Drive link styled as button for Feb 11
+  // Updated: Tabacón Resort link and Google Drive PDF link styled as button
   const tripEvents = {
     7: "YYC ➜ LIR (WS 2260)\n23:10 | 7:00 +1 day",
     8: "Arrive LIR 7:00\nCar Rental\nDrive to Playa Hermosa\nStay: El Mangroove Autograph",
@@ -267,7 +266,9 @@ https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap
   generateDetails();
 
   window.addEventListener('scroll', () => {
-   lse {
+    if (window.scrollY > 50) {
+      header.classList.add('shrink');
+    } else {
       header.classList.remove('shrink');
     }
   });

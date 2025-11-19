@@ -29,7 +29,6 @@
     padding: 20px;
     box-sizing: border-box;
     z-index: 1000;
-    transition: all 0.3s ease;
   }
 
   h1 {
@@ -147,28 +146,56 @@
   const detailsContainer = document.getElementById('detailsContainer');
   const targetDate = new Date('February 7, 2026 23:10:00').getTime();
 
+  // Itinerary text only (links will be added dynamically)
   const tripEvents = {
-    7: `YYC ➜ LIR (WS 2260)<br>23:10 | 7:00 +1 day<br>
-        ✈️ <a href="https://drive.google.com/file/d/15WyARvIhapNSi_J1bP_L6RTPtlhHuduv/view?usp=drive_link" target="_blank" class="stay-button">Luke's Flight</a>
-        ✈️ <a href="https://drive.google.com/file/d/1eHE0c7kZSQtKIa4XZFsWc3VAvhhWcbK7/view?usp=drive_link" target="_blank" class="stay-button">Kellie's Flight</a>`,
-    8: `Arrive LIR 7:00<br>Car Rental<br>Drive to Playa Hermosa (~25 min)<br>Stay: El Mangroove Autograph<br>
-        🏨 <a href="https://www.marriott.com/en-us/hotels/lirel-el-mangroove-autograph-collection/overview/" target="_blank" class="stay-button">El Mangroove Website</a>
-        📄 <a href="https://drive.google.com/file/d/1LUmrraAs68YjhRQ_Bp05xu0OCy9F--_H/view?usp=drive_link" target="_blank" class="stay-button">El Mangroove Confirmation</a>
-        🚗 <a href="https://www.google.com/maps/dir/Liberia+Airport,+Liberia,+Costa+Rica/El+Mangroove,+Playa+Hermosa,+Costa+Rica/" target="_blank" class="drive-button">View Route (~25 min)</a>`,
-    11: `Drive to La Fortuna (~3 hrs)<br>
-        🏨 <a href="https://www.tabacon.com" target="_blank" class="stay-button">Tabacón Resort Website</a>
-        📄 <a href="https://drive.google.com/file/d/1GlfgTpCXimgEjF28s2v0T5aRsUAgtF5t/view?usp=drive_link" target="_blank" class="stay-button">Tabacón Confirmation</a>
-        🚗 <a href="https://www.google.com/maps/dir/Playa+Hermosa,+Costa+Rica/La+Fortuna,+Costa+Rica/" target="_blank" class="drive-button">View Route (~3 hrs)</a>`,
-    14: `Drive to Nosara (~4 hrs)<br>
-        🏨 <a href="https://www.tierramagnifica.com" target="_blank" class="stay-button">Tierra Magnifica Website</a>
-        📄 <a href="https://drive.google.com/file/d/1hBQwf_vhl478r724CbHEN4uIR4nf2cpB/view?usp=drive_link" target="_blank" class="stay-button">Tierra Magnifica Confirmation</a>
-        🚗 <a href="https://www.google.com/maps/dir/La+Fortuna,+Costa+Rica/Nosara,+Costa+Rica/" target="_blank" class="drive-button">View Route (~4 hrs)</a>`,
-    17: `Nosara<br>
-        📄 <a href="https://drive.google.com/file/d/1h8ye8fVBVV3DZ6VpOvTa-K5HbBL5iFqA/view?usp=drive_link" target="_blank" class="stay-button">Airbnb Confirmation</a>`,
-    22: `Stay at Hilton Garden Inn<br>
-        🏨 <a href="https://www.guestreservations.com/hilton-garden-inn-liberia-airport/booking?utm_source=google" target="_blank" class="stay-button">Hilton Garden Website</a>
-        📄 <a href="https://drive.google.com/file/d/1HgnaKfSlEoiN5dm1uQimuviaHYvS-96R/view?usp=drive_link" target="_blank" class="stay-button">Hilton Garden Confirmation</a>
-        🚗 <a href="https://www.google.com/maps/dir/Nosara,+Costa+Rica/Liberia+Airport,+Costa+Rica/" target="_blank" class="drive-button">View Route (~2 hrs)</a>`
+    7: "YYC ➜ LIR (WS 2260)<br>23:10 | 7:00 +1 day",
+    8: "Arrive LIR 7:00<br>Car Rental<br>Drive to Playa Hermosa (~25 min)<br>Stay: El Mangroove Autograph",
+    9: "Playa Hermosa",
+    10: "Playa Hermosa",
+    11: "Drive to La Fortuna (~3 hrs)<br>Stay: Tabacón Resort",
+    12: "La Fortuna",
+    13: "La Fortuna",
+    14: "Drive to Nosara (~4 hrs)<br>Stay: Tierra Magnifica",
+    15: "Nosara",
+    16: "Nosara",
+    17: "Nosara",
+    18: "Nosara",
+    19: "Nosara",
+    20: "Nosara",
+    21: "Nosara",
+    22: "Stay at Hilton Garden Inn",
+    23: "LIR ➜ YYC (WS 2261)<br>7:50 | 14:14"
+  };
+
+  // Links for stays and drives
+  const links = {
+    7: [
+      { type: "stay", label: "Luke's Flight", url: "https://drive.google.com/file/d/15WyARvIhapNSi_J1bP_L6RTPtlhHuduv/view?usp=drive_link" },
+      { type: "stay", label: "Kellie's Flight", url: "https://drive.google.com/file/d/1eHE0c7kZSQtKIa4XZFsWc3VAvhhWcbK7/view?usp=drive_link" }
+    ],
+    8: [
+      { type: "stay", label: "El Mangroove Website", url: "https://www.marriott.com/en-us/hotels/lirel-el-mangroove-autograph-collection/overview/" },
+      { type: "stay", label: "El Mangroove Confirmation", url: "https://drive.google.com/file/d/1LUmrraAs68YjhRQ_Bp05xu0OCy9F--_H/view?usp=drive_link" },
+      { type: "drive", label: "View Route (~25 min)", url: "https://www.google.com/maps/dir/Liberia+Airport,+Liberia,+Costa+Rica/El+Mangroove,+Playa+Hermosa,+Costa+Rica/" }
+    ],
+    11: [
+      { type: "stay", label: "Tabacón Resort Website", url: "https://www.tabacon.com" },
+      { type: "stay", label: "Tabacón Confirmation", url: "https://drive.google.com/file/d/1GlfgTpCXimgEjF28s2v0T5aRsUAgtF5t/view?usp=drive_link" },
+      { type: "drive", label: "View Route (~3 hrs)", url: "https://www.google.com/maps/dir/Playa+Hermosa,+Costa+Rica/La+Fortuna,+Costa+Rica/" }
+    ],
+    14: [
+      { type: "stay", label: "Tierra Magnifica Website", url: "https://www.tierramagnifica.com" },
+      { type: "stay", label: "Tierra Magnifica Confirmation", url: "https://drive.google.com/file/d/1hBQwf_vhl478r724CbHEN4uIR4nf2cpB/view?usp=drive_link" },
+      { type: "drive", label: "View Route (~4 hrs)", url: "https://www.google.com/maps/dir/La+Fortuna,+Costa+Rica/Nosara,+Costa+Rica/" }
+    ],
+    17: [
+      { type: "stay", label: "Airbnb Confirmation", url: "https://drive.google.com/file/d/1h8ye8fVBVV3DZ6VpOvTa-K5HbBL5iFqA/view?usp=drive_link" }
+    ],
+    22: [
+      { type: "stay", label: "Hilton Garden Website", url: "https://www.guestreservations.com/hilton-garden-inn-liberia-airport/booking?utm_source=google" },
+      { type: "stay", label: "Hilton Garden Confirmation", url: "https://drive.google.com/file/d/1HgnaKfSlEoiN5dm1uQimuviaHYvS-96R/view?usp=drive_link" },
+      { type: "drive", label: "View Route (~2 hrs)", url: "https://www.google.com/maps/dir/Nosara,+Costa+Rica/Liberia+Airport,+Costa+Rica/" }
+    ]
   };
 
   function updateCountdown() {
@@ -228,11 +255,23 @@
   }
 
   function generateDetails() {
-    for (const [day, details] of Object.entries(tripEvents)) {
+    for (let day = 1; day <= 28; day++) {
       const section = document.createElement('section');
       section.className = 'details';
       section.id = `details-${day}`;
-      section.innerHTML = `<h2>February ${day}, 2026</h2><p>${details}</p>`;
+      section.innerHTML = `<h2>February ${day}, 2026</h2><p>${tripEvents[day] || 'No specific plans for this day.'}</p>`;
+
+      if (links[day]) {
+        links[day].forEach(link => {
+          const button = document.createElement('a');
+          button.href = link.url;
+          button.target = "_blank";
+          button.className = link.type === 'stay' ? 'stay-button' : 'drive-button';
+          button.textContent = (link.type === 'stay' ? '🏨 ' : '🚗 ') + link.label;
+          section.appendChild(button);
+        });
+      }
+
       detailsContainer.appendChild(section);
     }
   }

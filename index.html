@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -127,17 +128,28 @@ https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap
     margin-bottom: 20px;
     text-align: left;
     color: #fff;
-    scroll-margin-top: 180px; /* Key fix for header offset */
+    scroll-margin-top: 180px;
   }
 
   section.details h2 {
     margin-top: 0;
   }
 
-  section.details a {
-    color: #00ffff;
-    text-decoration: underline;
+  /* Style for buttons */
+  .pdf-button {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 15px;
+    background-color: #00bfa5;
+    color: #fff;
     font-weight: bold;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: background 0.3s ease;
+  }
+
+  .pdf-button:hover {
+    background-color: #008080;
   }
 </style>
 </head>
@@ -162,15 +174,15 @@ https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap
   const targetDate = new Date('February 7, 2026 23:10:00').getTime();
   const startDate = new Date().getTime();
 
-  // Update: PDF link added for Feb 11
+  // Updated: Google Drive link styled as button for Feb 11
   const tripEvents = {
     7: "YYC ➜ LIR (WS 2260)\n23:10 | 7:00 +1 day",
     8: "Arrive LIR 7:00\nCar Rental\nDrive to Playa Hermosa\nStay: El Mangroove Autograph",
     9: "Playa Hermosa",
     10: "Playa Hermosa",
     11: `Drive to La Fortuna<br>
-         Stay: <a href="https://www.tabacon.com/?utm_source=google_search&utm_medium=cpc&utm_campaign=amadeus_brand&gclsrc=aw.ds&gad_source=1&gad_campaignid=649208604&gbraid=0AAAAADdWOtYJklLWANtzy171Lsz1NB1dr&gclid=CjwKCAiA_dDIBhB6EiwAvzc1cChVD50azvKP0RFosAZfVMwcNAiJngplcu0VL_hTaZ81sE3ULU3izhoCZmsQAvD_BwE" target="_blank">Tabacón Resort</a><br>
-         <a href="Tabacon-confirmation.pdf" target="_blank">View Tabacón Confirmation PDF</a>`,
+         Stay: <a href="https://www.tabacon.com" target="_blank">Tabacón Resort</a><br>
+         <a href="https://drive.google.com/file/d/1GlfgTpCXimgEjF28s2v0T5aRsUAgtF5t/view?usp=drive_link" target="_blank" class="pdf-button">View Tabacón Confirmation PDF</a>`,
     12: "La Fortuna",
     13: "La Fortuna",
     14: "Drive to Nosara<br>Stay: Tierra Magnifica",
@@ -255,13 +267,10 @@ https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap
   generateDetails();
 
   window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-      header.classList.add('shrink');
-    } else {
+   lse {
       header.classList.remove('shrink');
     }
   });
 </script>
 </body>
 </html>
-

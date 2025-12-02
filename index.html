@@ -151,23 +151,20 @@
     background-color: #008080;
   }
 
-  /* Small linked thumbnail for restaurant */
-  .thumb-link {
-    display: inline-block;
-    margin-top: 10px;
-    border-radius: 8px;
-    overflow: hidden;
+  /* Other Notes section styling */
+  section.other-notes {
+    width: 90%;
+    max-width: 900px;
+    background: rgba(0,0,0,0.7);
+    border-radius: 12px;
+    padding: 20px;
+    margin: 40px auto;
+    text-align: left;
+    color: #fff;
+    scroll-margin-top: 180px;
   }
-
-  .thumb-link img {
-    width: 180px;
-    height: auto;
-    display: block;
-    border: 2px solid rgba(255,255,255,0.2);
-  }
-
-  .thumb-link:hover img {
-    border-color: #00bfa5;
+  section.other-notes h2 {
+    margin-top: 0;
   }
 </style>
 </head>
@@ -181,6 +178,8 @@
   <div class="content-wrapper">
     <main class="calendar" id="calendar"></main>
     <div id="detailsContainer"></div>
+    <!-- Other Notes will render here after all day sections -->
+    <div id="otherNotesContainer"></div>
   </div>
 
 <script>
@@ -188,11 +187,12 @@
   const progressFill = document.getElementById('progressFill');
   const calendarEl = document.getElementById('calendar');
   const detailsContainer = document.getElementById('detailsContainer');
+  const otherNotesContainer = document.getElementById('otherNotesContainer');
   const header = document.getElementById('header');
   const targetDate = new Date('February 7, 2026 23:10:00').getTime();
   const startDate = new Date().getTime();
 
-  // Updated tripEvents with links, Feb 19 cooking class, and Feb 14 Huacas reservation + clickable image
+  // Trip events with Feb 14 Huacas (no image), and Feb 19 Cooking Class with Maps + Confirmation
   const tripEvents = {
     7: `YYC ➜ LIR (WS 2260)<br>23:10 | 7:00 +1 day<br>
         <a href="https://drive.google.com/file/d/15WyARvIhapNSi_J1bP_L6RTPtlhHuduv/view?usp=drive_link" target="_blank" class="pdf-button">Luke's Flight</a>
@@ -213,11 +213,7 @@
          <a href="https://drive.google.com/file/d/1hBQwf_vhl478r724CbHEN4uIR4nf2cpB/view?usp=drive_link" target="_blank" class="pdf-button">Tierra Magnifica Confirmation</a>
          <br><br><strong>Reservation: Huacas Restaurant</strong><br>
          19:00<br>
-         <a href="https://www.huacasrest.com/" target="_blank" class="pdf-button">Huacas Website</a>
-         <br>
-         <a href="https://www.huacasrest.com/" target="_blank" class="thumb-link">
-           <img src="image.png" alt="Huacas Restaurant terrace view">
-         </a>`,
+         <a href="https://www.huacasrest.com/" target="_blank" class="pdf-button">Huacas Website</a>`,
     15: "Nosara",
     16: "Nosara",
     17: `Nosara<br>
@@ -226,7 +222,7 @@
     19: `Nosara<br>
          <strong>Cooking Class</strong><br>
          11:00 – 13:00 (2 hrs)<br>
-         Meetup: X8GH+QG Nosara, Costa Rica<br>
+         Meetup: X8GH+QG Nosara, X8GH+QGG Guanacaste Province, Nosara, Costa Rica<br>
          <a href="https://www.google.com/maps/search/?api=1&query=X8GH%2BQG%20Nosara%2C%20X8GH%2BQGG%20Guanacaste%20Province%2C%20Nosara%2C%20Costa%20Rica" target="_blank" class="pdf-button">Open in Maps</a>
          <a href="https://drive.google.com/file/d/10uQjf96GK--yKOTrd27XSG7IoDKSHib7/view?usp=drive_link" target="_blank" class="pdf-button">Cooking Class Confirmation</a>`,
     20: "Nosara",
@@ -309,8 +305,26 @@
     }
   }
 
+  // Generate "Other Notes" section below all days
+  function generateOtherNotes() {
+    const otherNotes = document.createElement('section');
+    otherNotes.className = 'other-notes';
+    otherNotes.id = 'other-notes';
+    otherNotes.innerHTML = `
+      <h2>Other Notes</h2>
+      <p>Helpful resources and extras for the trip:</p>
+      <p>
+        <a href="https://www.livelikeitstheweekend.com/best-restaurants-nosara-costa-rica/" target="_blank" class="pdf-button">
+          Nosara restaurant blog
+        </a>
+      </p>
+    `;
+    otherNotesContainer.appendChild(otherNotes);
+  }
+
   generateCalendar();
   generateDetails();
+  generateOtherNotes();
 
   window.addEventListener('scroll', () => {
     if (window.scrollY > 50) {

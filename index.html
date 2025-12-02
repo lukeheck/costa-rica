@@ -7,16 +7,24 @@
 <title>Time Until Kel and Luke's Trip to Costa Rica</title>
 
 <!-- Font Import -->
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap
 
 <style>
+  :root{
+    --accent: #00bfa5;         /* your button accent */
+    --accent-dark: #008080;    /* hover shade */
+    --bg: #111;
+    --card: #222;
+    --tile: #444;
+  }
+
   body {
     margin: 0;
     padding: 0;
     font-family: 'Poppins', sans-serif;
     color: white;
     text-align: center;
-    background: #111;
+    background: var(--bg);
     scroll-behavior: smooth;
   }
 
@@ -89,7 +97,7 @@
   main.calendar {
     width: 90%;
     max-width: 900px;
-    background: #222;
+    background: var(--card);
     border-radius: 12px;
     padding: 20px;
     display: grid;
@@ -107,7 +115,7 @@
   }
 
   .day {
-    background: #444;
+    background: var(--tile);
     border-radius: 8px;
     padding: 8px;
     font-size: 0.9rem;
@@ -117,6 +125,24 @@
   .day.trip-day {
     background: #008080;
     font-weight: bold;
+  }
+
+  /* Small badge for a label inside a day tile (Feb 14) */
+  .day.has-badge {
+    position: relative;
+  }
+  .tile-label {
+    position: absolute;
+    right: 6px;
+    bottom: 6px;
+    font-size: 0.72rem;
+    background: var(--accent);
+    color: #111;
+    padding: 2px 6px;
+    border-radius: 6px;
+    font-weight: 600;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.35);
+    pointer-events: none; /* keeps click behavior for the tile */
   }
 
   section.details {
@@ -139,8 +165,8 @@
     display: inline-block;
     margin: 8px 5px 0 0;
     padding: 10px 15px;
-    background-color: #00bfa5;
-    color: #fff;
+    background-color: var(--accent);
+    color: #111;
     font-weight: bold;
     text-decoration: none;
     border-radius: 6px;
@@ -148,23 +174,47 @@
   }
 
   .pdf-button:hover {
-    background-color: #008080;
+    background-color: var(--accent-dark);
+    color: #fff;
   }
 
-  /* Other Notes section styling */
+  /* Distinct style for Other Notes */
   section.other-notes {
     width: 90%;
     max-width: 900px;
-    background: rgba(0,0,0,0.7);
-    border-radius: 12px;
-    padding: 20px;
-    margin: 40px auto;
+    border-radius: 16px;
+    padding: 24px;
+    margin: 44px auto;
     text-align: left;
     color: #fff;
-    scroll-margin-top: 180px;
+    background:
+      radial-gradient(1200px 1200px at 90% -200px, rgba(0,191,165,0.18) 0%, rgba(0,191,165,0) 60%),
+      linear-gradient(135deg, #1b1b1b 0%, #101010 100%);
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 16px 30px rgba(0,0,0,0.45);
   }
   section.other-notes h2 {
     margin-top: 0;
+    letter-spacing: 0.5px;
+  }
+  section.other-notes p {
+    margin: 8px 0 16px;
+    opacity: 0.95;
+  }
+  .note-link {
+    display: inline-block;
+    margin-top: 6px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    border: 1px dashed var(--accent);
+    color: #fff;
+    background: transparent;
+  }
+  .note-link:hover {
+    border-style: solid;
+    background: rgba(0,191,165,0.12);
   }
 </style>
 </head>
@@ -192,44 +242,44 @@
   const targetDate = new Date('February 7, 2026 23:10:00').getTime();
   const startDate = new Date().getTime();
 
-  // Trip events with Feb 14 Huacas (no image), and Feb 19 Cooking Class with Maps + Confirmation
+  // Updated tripEvents with proper anchors; includes Feb 14 Huacas reservation and Feb 19 cooking class
   const tripEvents = {
     7: `YYC ➜ LIR (WS 2260)<br>23:10 | 7:00 +1 day<br>
-        <a href="https://drive.google.com/file/d/15WyARvIhapNSi_J1bP_L6RTPtlhHuduv/view?usp=drive_link" target="_blank" class="pdf-button">Luke's Flight</a>
-        <a href="https://drive.google.com/file/d/1eHE0c7kZSQtKIa4XZFsWc3VAvhhWcbK7/view?usp=drive_link" target="_blank" class="pdf-button">Kellie's Flight</a>`,
+        https://drive.google.com/file/d/15WyARvIhapNSi_J1bP_L6RTPtlhHuduv/view?usp=drive_linkLuke's Flight</a>
+        https://drive.google.com/file/d/1eHE0c7kZSQtKIa4XZFsWc3VAvhhWcbK7/view?usp=drive_linkKellie's Flight</a>`,
     8: `Arrive LIR 7:00<br>Car Rental<br>Drive to Playa Hermosa<br>Stay: El Mangroove Autograph<br>
-        <a href="https://cars.booking.com/voucher/1iIk9ay7--P_zJSyk_UKhciRqw3tRlyWX8R3rtbJ75kaHs6sr8pf6Xr0b9qJoWZ6JykAPJTyJID-4iDvbR81lCds3jwexfjSxLxn5FG09ySZsEuZeNcKhLGWaGRjVXR19C4yLVnnDj3xvfgdts759Q?adcamp=bookingcom-PBBC+-2025-10-16" target="_blank" class="pdf-button">Car Rental Confirmation</a>
-        <a href="https://www.marriott.com/en-us/hotels/lirel-el-mangroove-autograph-collection/overview/" target="_blank" class="pdf-button">El Mangroove Website</a>
-        <a href="https://drive.google.com/file/d/1LUmrraAs68YjhRQ_Bp05xu0OCy9F--_H/view?usp=drive_link" target="_blank" class="pdf-button">El Mangroove Confirmation</a>`,
+        https://cars.booking.com/voucher/1iIk9ay7--P_zJSyk_UKhciRqw3tRlyWX8R3rtbJ75kaHs6sr8pf6Xr0b9qJoWZ6JykAPJTyJID-4iDvbR81lCds3jwexfjSxLxn5FG09ySZsEuZeNcKhLGWaGRjVXR19C4yLVnnDj3xvfgdts759Q?adcamp=bookingcom-PBBC+-2025-10-16Car Rental Confirmation</a>
+        https://www.marriott.com/en-us/hotels/lirel-el-mangroove-autograph-collection/overview/El Mangroove Website</a>
+        https://drive.google.com/file/d/1LUmrraAs68YjhRQ_Bp05xu0OCy9F--_H/view?usp=drive_linkEl Mangroove Confirmation</a>`,
     9: "Playa Hermosa",
     10: "Playa Hermosa",
     11: `Drive to La Fortuna<br>
-         <a href="https://www.tabacon.com" target="_blank" class="pdf-button">Tabacón Resort Website</a>
-         <a href="https://drive.google.com/file/d/1GlfgTpCXimgEjF28s2v0T5aRsUAgtF5t/view?usp=drive_link" target="_blank" class="pdf-button">Tabacón Confirmation</a>`,
+         https://www.tabacon.comTabacón Resort Website</a>
+         https://drive.google.com/file/d/1GlfgTpCXimgEjF28s2v0T5aRsUAgtF5t/view?usp=drive_linkTabacón Confirmation</a>`,
     12: "La Fortuna",
     13: "La Fortuna",
     14: `Drive to Nosara<br>
-         <a href="https://www.tierramagnifica.com/?gad_campaignid=22497769187" target="_blank" class="pdf-button">Tierra Magnifica Website</a>
-         <a href="https://drive.google.com/file/d/1hBQwf_vhl478r724CbHEN4uIR4nf2cpB/view?usp=drive_link" target="_blank" class="pdf-button">Tierra Magnifica Confirmation</a>
+         https://www.tierramagnifica.com/?gad_campaignid=22497769187Tierra Magnifica Website</a>
+         https://drive.google.com/file/d/1hBQwf_vhl478r724CbHEN4uIR4nf2cpB/view?usp=drive_linkTierra Magnifica Confirmation</a>
          <br><br><strong>Reservation: Huacas Restaurant</strong><br>
          19:00<br>
-         <a href="https://www.huacasrest.com/" target="_blank" class="pdf-button">Huacas Website</a>`,
+         https://www.huacasrest.com/Huacas Website</a>`,
     15: "Nosara",
     16: "Nosara",
     17: `Nosara<br>
-         <a href="https://drive.google.com/file/d/1h8ye8fVBVV3DZ6VpOvTa-K5HbBL5iFqA/view?usp=drive_link" target="_blank" class="pdf-button">Airbnb Confirmation</a>`,
+         https://drive.google.com/file/d/1h8ye8fVBVV3DZ6VpOvTa-K5HbBL5iFqA/view?usp=drive_linkAirbnb Confirmation</a>`,
     18: "Nosara",
     19: `Nosara<br>
          <strong>Cooking Class</strong><br>
          11:00 – 13:00 (2 hrs)<br>
          Meetup: X8GH+QG Nosara, X8GH+QGG Guanacaste Province, Nosara, Costa Rica<br>
-         <a href="https://www.google.com/maps/search/?api=1&query=X8GH%2BQG%20Nosara%2C%20X8GH%2BQGG%20Guanacaste%20Province%2C%20Nosara%2C%20Costa%20Rica" target="_blank" class="pdf-button">Open in Maps</a>
-         <a href="https://drive.google.com/file/d/10uQjf96GK--yKOTrd27XSG7IoDKSHib7/view?usp=drive_link" target="_blank" class="pdf-button">Cooking Class Confirmation</a>`,
+         https://www.google.com/maps/search/?api=1&query=X8GH%2BQG%20Nosara%2C%20X8GH%2BQGG%20Guanacaste%20Province%2C%20Nosara%2C%20Costa%20RicaOpen in Maps</a>
+         https://drive.google.com/file/d/10uQjf96GK--yKOTrd27XSG7IoDKSHib7/view?usp=drive_linkCooking Class Confirmation</a>`,
     20: "Nosara",
     21: "Nosara",
     22: `Stay at Hilton Garden Inn<br>
-         <a href="https://www.guestreservations.com/hilton-garden-inn-liberia-airport/booking?utm_source=google" target="_blank" class="pdf-button">Hilton Garden Website</a>
-         <a href="https://drive.google.com/file/d/1HgnaKfSlEoiN5dm1uQimuviaHYvS-96R/view?usp=drive_link" target="_blank" class="pdf-button">Hilton Garden Confirmation</a>`,
+         https://www.guestreservations.com/hilton-garden-inn-liberia-airport/booking?utm_source=googleHilton Garden Website</a>
+         https://drive.google.com/file/d/1HgnaKfSlEoiN5dm1uQimuviaHYvS-96R/view?usp=drive_linkHilton Garden Confirmation</a>`,
     23: "LIR ➜ YYC (WS 2261)<br>7:50 | 14:14"
   };
 
@@ -284,6 +334,15 @@
       dayDiv.className = 'day';
       dayDiv.textContent = day;
 
+      // Add a small label on Feb 14 tile
+      if (day === 14) {
+        dayDiv.classList.add('has-badge');
+        const badge = document.createElement('span');
+        badge.className = 'tile-label';
+        badge.textContent = '🍽 19:00';
+        dayDiv.appendChild(badge);
+      }
+
       if (tripEvents[day]) {
         dayDiv.classList.add('trip-day');
         dayDiv.addEventListener('click', () => {
@@ -314,7 +373,7 @@
       <h2>Other Notes</h2>
       <p>Helpful resources and extras for the trip:</p>
       <p>
-        <a href="https://www.livelikeitstheweekend.com/best-restaurants-nosara-costa-rica/" target="_blank" class="pdf-button">
+        https://www.livelikeitstheweekend.com/best-restaurants-nosara-costa-rica/
           Nosara restaurant blog
         </a>
       </p>

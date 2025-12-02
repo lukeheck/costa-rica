@@ -10,56 +10,73 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
+  :root{
+    /* Palette */
+    --clr-text: #fff;
+    --bg-body: #111;
+    --bg-panel: #222;
+    --bg-day: #444;
+
+    /* Location colors */
+    --clr-travel: #7a7a7a;        /* travel gray */
+    --clr-hermosa: #008080;       /* teal */
+    --clr-fortuna: #4b5bdc;       /* indigo */
+    --clr-nosara: #c99a2e;        /* sand/gold */
+
+    /* Subtle shadows */
+    --shadow: 2px 2px 6px rgba(0,0,0,0.5);
+  }
+
   body {
     margin: 0;
     padding: 0;
     font-family: 'Poppins', sans-serif;
-    color: white;
+    color: var(--clr-text);
     text-align: center;
-    background: #111;
+    background: var(--bg-body);
     scroll-behavior: smooth;
   }
 
   .countdown-section {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
+    top: 0; left: 0; width: 100%;
     background-image: url('https://explorerspassage.com/wp-content/uploads/2023/03/costa-rica-beach-Cahuita-National-Park.jpg');
-    background-size: cover;
-    background-position: center;
+    background-size: cover; background-position: center;
     backdrop-filter: brightness(0.7);
     padding: 20px;
     box-sizing: border-box;
     z-index: 1000;
     transition: all 0.3s ease;
   }
+
   .countdown-section.shrink { padding: 10px; }
 
   h1 {
     font-size: 2rem;
     margin-bottom: 10px;
-    text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
+    text-shadow: var(--shadow);
     transition: font-size 0.3s ease;
   }
+
   .countdown-section.shrink h1 { font-size: 1.5rem; }
 
   #countdown {
     font-size: 1.5rem;
     margin-bottom: 10px;
-    text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
+    text-shadow: var(--shadow);
     transition: font-size 0.3s ease;
   }
+
   .countdown-section.shrink #countdown { font-size: 1.2rem; }
 
   #progressBar {
-    width: 80%;
-    height: 12px;
+    width: 80%; height: 12px;
     background: rgba(255,255,255,0.3);
     border-radius: 6px;
     margin: 0 auto;
     overflow: hidden;
   }
+
   #progressFill {
     height: 100%;
     background: #fff;
@@ -77,49 +94,55 @@
   main.calendar {
     width: 90%;
     max-width: 900px;
-    background: #222;
+    background: var(--bg-panel);
     border-radius: 12px;
     padding: 20px;
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 8px;
-    margin: 40px auto 12px auto;
-    color: #fff;
+    margin: 40px auto 12px;
+    color: var(--clr-text);
   }
+
   .day-header {
     font-weight: bold;
     text-transform: uppercase;
     opacity: 0.9;
     text-align: center;
   }
+
   .day {
-    background: #444;
+    background: var(--bg-day);
     border-radius: 8px;
     padding: 8px;
     font-size: 0.9rem;
+    cursor: default;
+    position: relative;
+  }
+
+  /* Trip days are clickable and highlighted */
+  .day.trip-day {
+    font-weight: 600;
     cursor: pointer;
-    transition: transform .15s ease, box-shadow .15s ease;
+    color: #fff;
+    box-shadow: inset 0 0 0 2px rgba(255,255,255,0.2);
   }
-  .day:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 3px 10px rgba(0,0,0,0.35);
-  }
-  .day.trip-day { font-weight: bold; }
 
-  /* Location color-coding */
-  .day.ph { background: #2A6F97; }     /* Playa Hermosa: deep blue */
-  .day.lf { background: #6A994E; }     /* La Fortuna: green */
-  .day.nosara { background: #C26D3A; } /* Nosara: warm orange */
+  /* Color coding */
+  .day.travel-day   { background: var(--clr-travel); }
+  .day.hermosa-day  { background: var(--clr-hermosa); }
+  .day.fortuna-day  { background: var(--clr-fortuna); }
+  .day.nosara-day   { background: var(--clr-nosara); }
 
-  /* Legend below calendar */
+  /* Legend */
   .legend {
     width: 90%;
     max-width: 900px;
-    margin: 0 auto 28px auto;
+    margin: 8px auto 30px;
     display: flex;
     flex-wrap: wrap;
-    gap: 10px 18px;
-    justify-content: flex-start;
+    gap: 10px;
+    justify-content: center;
     align-items: center;
     color: #ddd;
   }
@@ -127,22 +150,20 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    font-size: .95rem;
-    background: rgba(255,255,255,0.05);
+    font-size: 0.95rem;
+    background: rgba(255,255,255,0.06);
     padding: 6px 10px;
-    border-radius: 8px;
+    border-radius: 20px;
   }
-  .swatch {
-    width: 16px;
-    height: 16px;
-    border-radius: 4px;
-    box-shadow: 0 0 0 2px rgba(0,0,0,0.25) inset;
+  .legend-swatch {
+    width: 16px; height: 16px; border-radius: 4px;
+    box-shadow: 0 0 0 2px rgba(0,0,0,0.2) inset;
   }
-  .swatch.ph { background: #2A6F97; }
-  .swatch.lf { background: #6A994E; }
-  .swatch.nosara { background: #C26D3A; }
+  .swatch-travel  { background: var(--clr-travel); }
+  .swatch-hermosa { background: var(--clr-hermosa); }
+  .swatch-fortuna { background: var(--clr-fortuna); }
+  .swatch-nosara  { background: var(--clr-nosara); }
 
-  /* Day details cards */
   section.details {
     width: 90%;
     max-width: 900px;
@@ -156,7 +177,6 @@
   }
   section.details h2 { margin-top: 0; }
 
-  /* Buttons */
   .pdf-button {
     display: inline-block;
     margin: 8px 5px 0 0;
@@ -170,39 +190,19 @@
   }
   .pdf-button:hover { background-color: #008080; }
 
-  /* Other Notes — visually distinct from details */
+  /* Other Notes */
   section.other-notes {
     width: 90%;
     max-width: 900px;
-    background: #1a1a1a;                           /* darker block to stand out */
-    border: 2px solid #FF7E5F;                     /* warm accent border */
-    box-shadow: 0 0 20px rgba(255,126,95,0.25);    /* warm glow */
-    border-radius: 16px;
-    padding: 24px;
-    margin: 48px auto 40px auto;                   /* extra spacing from above sections */
+    background: rgba(0,0,0,0.7);
+    border-radius: 12px;
+    padding: 20px;
+    margin: 40px auto;
     text-align: left;
     color: #fff;
     scroll-margin-top: 180px;
   }
-  section.other-notes h2 {
-    margin: 0 0 12px 0;
-    display: inline-flex;
-    align-items: center;
-    gap: .5rem;
-    font-size: 1.4rem;
-  }
-  .other-notes .links {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 12px;
-  }
-  @media (min-width: 640px) {
-    .other-notes .links { grid-template-columns: 1fr 1fr; }
-  }
-  .other-notes p {
-    margin: 6px 0 0 0;
-    color: #bbb;
-  }
+  section.other-notes h2 { margin-top: 0; }
 </style>
 </head>
 <body>
@@ -215,11 +215,20 @@
   <div class="content-wrapper">
     <main class="calendar" id="calendar"></main>
 
-    <!-- Color legend -->
+    <!-- Legend -->
     <div class="legend" id="legend">
-      <div class="legend-item"><span class="swatch ph" aria-hidden="true"></span> <span>Playa Hermosa (Feb 8–10)</span></div>
-      <div class="legend-item"><span class="swatch lf" aria-hidden="true"></span> <span>La Fortuna (Feb 11–13)</span></div>
-      <div class="legend-item"><span class="swatch nosara" aria-hidden="true"></span> <span>Nosara (Feb 14–21)</span></div>
+      <div class="legend-item">
+        <span class="legend-swatch swatch-travel"></span><span>Travel Day</span>
+      </div>
+      <div class="legend-item">
+        <span class="legend-swatch swatch-hermosa"></span><span>Playa Hermosa (Feb 8–10)</span>
+      </div>
+      <div class="legend-item">
+        <span class="legend-swatch swatch-fortuna"></span><span>La Fortuna (Feb 11–13)</span>
+      </div>
+      <div class="legend-item">
+        <span class="legend-swatch swatch-nosara"></span><span>Nosara (Feb 14–21)</span>
+      </div>
     </div>
 
     <div id="detailsContainer"></div>
@@ -237,7 +246,7 @@
   const targetDate = new Date('February 7, 2026 23:10:00').getTime();
   const startDate = new Date().getTime();
 
-  // Trip events (anchors fixed)
+  // Trip events with details
   const tripEvents = {
     7: `YYC ➜ LIR (WS 2260)<br>23:10 | 7:00 +1 day<br>
         <a href="https://drive.google.com/file/d/15WyARvIhapNSi_J1bP_L6RTPtlhHuduv/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="pdf-button">Luke's Flight</a>
@@ -283,7 +292,7 @@
     const distance = targetDate - now;
 
     if (distance < 0) {
-      countdownEl.innerHTML = 'Enjoy your honeymoon!';
+      countdownEl.textContent = 'Enjoy your honeymoon!';
       progressFill.style.width = '100%';
       return;
     }
@@ -293,20 +302,34 @@
     const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-    countdownEl.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    countdownEl.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
 
     const totalDuration = targetDate - startDate;
     const elapsed = now - startDate;
-    const progressPercent = (elapsed / totalDuration) * 100;
+    const progressPercent = Math.max(0, Math.min(100, (elapsed / totalDuration) * 100));
     progressFill.style.width = `${progressPercent}%`;
   }
 
   setInterval(updateCountdown, 1000);
   updateCountdown();
 
+  // Helper: classify day by location
+  function getLocationClassForDay(day) {
+    // Travel: Feb 7 & 22
+    if (day === 7 || day === 22) return 'travel-day';
+    // Playa Hermosa: Feb 8–10
+    if (day >= 8 && day <= 10) return 'hermosa-day';
+    // La Fortuna: Feb 11–13
+    if (day >= 11 && day <= 13) return 'fortuna-day';
+    // Nosara: Feb 14–21
+    if (day >= 14 && day <= 21) return 'nosara-day';
+    // Non-trip days remain default
+    return null;
+  }
+
   function generateCalendar() {
     const year = 2026;
-    const month = 1; // February
+    const month = 1; // February (0-based index)
     const firstDay = new Date(year, month, 1).getDay();
     const daysInMonth = 28;
 
@@ -318,36 +341,30 @@
       calendarEl.appendChild(headerDiv);
     });
 
+    // Leading blanks
     for (let i = 0; i < firstDay; i++) {
       const emptyDiv = document.createElement('div');
       emptyDiv.className = 'empty';
       calendarEl.appendChild(emptyDiv);
     }
 
+    // Days
     for (let day = 1; day <= daysInMonth; day++) {
       const dayDiv = document.createElement('div');
       dayDiv.className = 'day';
       dayDiv.textContent = day;
 
-      // Color coding by location ranges
-      if (day >= 8 && day <= 10) {
-        dayDiv.classList.add('ph'); // Playa Hermosa
-        dayDiv.setAttribute('title', 'Playa Hermosa');
-        dayDiv.setAttribute('aria-label', `February ${day}, 2026 — Playa Hermosa`);
-      } else if (day >= 11 && day <= 13) {
-        dayDiv.classList.add('lf'); // La Fortuna
-        dayDiv.setAttribute('title', 'La Fortuna');
-        dayDiv.setAttribute('aria-label', `February ${day}, 2026 — La Fortuna`);
-      } else if (day >= 14 && day <= 21) {
-        dayDiv.classList.add('nosara'); // Nosara
-        dayDiv.setAttribute('title', 'Nosara');
-        dayDiv.setAttribute('aria-label', `February ${day}, 2026 — Nosara`);
+      const locClass = getLocationClassForDay(day);
+      if (locClass) {
+        dayDiv.classList.add(locClass);
       }
 
       if (tripEvents[day]) {
         dayDiv.classList.add('trip-day');
+        dayDiv.setAttribute('aria-label', `February ${day}, 2026 trip details`);
         dayDiv.addEventListener('click', () => {
-          document.getElementById(`details-${day}`).scrollIntoView({ behavior: 'smooth' });
+          const detailsEl = document.getElementById(`details-${day}`);
+          if (detailsEl) detailsEl.scrollIntoView({ behavior: 'smooth' });
         });
       }
 
@@ -365,35 +382,32 @@
     }
   }
 
-  // Generate "Other Notes" section below all days — visually distinct & with fixed anchors
   function generateOtherNotes() {
     const otherNotes = document.createElement('section');
     otherNotes.className = 'other-notes';
     otherNotes.id = 'other-notes';
-
     otherNotes.innerHTML = `
-      <h2>🧡 Other Notes</h2>
+      <h2>Other Notes</h2>
       <p>Helpful resources and extras for the trip:</p>
 
-      <div class="links">
-        <div>
-          <a href="https://www.livelikeitstheweekend.com/best-restaurants-nosara-costa-rica/"
-             target="_blank" rel="noopener noreferrer" class="pdf-button">
-             🍳 Nosara Restaurant Blog (personal)
-          </a>
-          <p>Our short‑list picks for cafés & restaurants in Nosara.</p>
-        </div>
+      <p>
+        <a href="https://www.livelikeitstheweekend.com/best-restaurants-nosara-costa-rica/"
+           target="_blank" rel="noopener noreferrer" class="pdf-button">
+          🍳 Nosara Restaurant Blog (personal)
+        </a>
+        <br/>
+        <small style="color:#bbb;">Our short‑list picks for cafés &amp; restaurants in Nosara.</small>
+      </p>
 
-        <div>
-          <a href="https://maddysavenue.com/best-restaurants-in-nosara/"
-             target="_blank" rel="noopener noreferrer" class="pdf-button">
-             🥐 Maddy’s Avenue — Best Restaurants in Nosara (external)
-          </a>
-          <p>Independent guide with detailed recommendations and reviews.</p>
-        </div>
-      </div>
+      <p>
+        <a href="https://maddysavenue.com/best-restaurants-in-nosara/"
+           target="_blank" rel="noopener noreferrer" class="pdf-button">
+          🥐 Maddy’s Avenue — Best Restaurants in Nosara (external)
+        </a>
+        <br/>
+        <small style="color:#bbb;">Independent guide with detailed recommendations and reviews.</small>
+      </p>
     `;
-
     otherNotesContainer.appendChild(otherNotes);
   }
 

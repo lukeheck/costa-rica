@@ -151,6 +151,24 @@
     background-color: #008080;
   }
 
+  /* Small linked thumbnail for restaurant */
+  .thumb-link {
+    display: inline-block;
+    margin-top: 10px;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .thumb-link img {
+    width: 180px;
+    height: auto;
+    display: block;
+    border: 2px solid rgba(255,255,255,0.2);
+  }
+
+  .thumb-link:hover img {
+    border-color: #00bfa5;
+  }
 </style>
 </head>
 <body>
@@ -174,7 +192,7 @@
   const targetDate = new Date('February 7, 2026 23:10:00').getTime();
   const startDate = new Date().getTime();
 
-  // Updated tripEvents with links and the Feb 19 cooking class + confirmation + maps
+  // Updated tripEvents with links, Feb 19 cooking class, and Feb 14 Huacas reservation + clickable image
   const tripEvents = {
     7: `YYC ➜ LIR (WS 2260)<br>23:10 | 7:00 +1 day<br>
         <a href="https://drive.google.com/file/d/15WyARvIhapNSi_J1bP_L6RTPtlhHuduv/view?usp=drive_link" target="_blank" class="pdf-button">Luke's Flight</a>
@@ -192,21 +210,25 @@
     13: "La Fortuna",
     14: `Drive to Nosara<br>
          <a href="https://www.tierramagnifica.com/?gad_campaignid=22497769187" target="_blank" class="pdf-button">Tierra Magnifica Website</a>
-         <a href="https://drive.google.com/file/d/1hBQwf_vhl478r724CbHEN4uIR4nf2cpB/view?usp=drive_link" target="_blank" class="pdf-button">Tierra Magnifica Confirmation</a>`,
+         <a href="https://drive.google.com/file/d/1hBQwf_vhl478r724CbHEN4uIR4nf2cpB/view?usp=drive_link" target="_blank" class="pdf-button">Tierra Magnifica Confirmation</a>
+         <br><br><strong>Reservation: Huacas Restaurant</strong><br>
+         19:00<br>
+         <a href="https://www.huacasrest.com/" target="_blank" class="pdf-button">Huacas Website</a>
+         <br>
+         <a href="https://www.huacasrest.com/" target="_blank" class="thumb-link">
+           <img src="image.png" alt="Huacas Restaurant terrace view">
+         </a>`,
     15: "Nosara",
     16: "Nosara",
     17: `Nosara<br>
          <a href="https://drive.google.com/file/d/1h8ye8fVBVV3DZ6VpOvTa-K5HbBL5iFqA/view?usp=drive_link" target="_blank" class="pdf-button">Airbnb Confirmation</a>`,
     18: "Nosara",
-
-    /* UPDATED: Feb 19 now includes the cooking class, maps link, and confirmation */
     19: `Nosara<br>
          <strong>Cooking Class</strong><br>
          11:00 – 13:00 (2 hrs)<br>
-         Meetup: X8GH+QG Nosara,Costa Rica<br>
+         Meetup: X8GH+QG Nosara, Costa Rica<br>
          <a href="https://www.google.com/maps/search/?api=1&query=X8GH%2BQG%20Nosara%2C%20X8GH%2BQGG%20Guanacaste%20Province%2C%20Nosara%2C%20Costa%20Rica" target="_blank" class="pdf-button">Open in Maps</a>
          <a href="https://drive.google.com/file/d/10uQjf96GK--yKOTrd27XSG7IoDKSHib7/view?usp=drive_link" target="_blank" class="pdf-button">Cooking Class Confirmation</a>`,
-
     20: "Nosara",
     21: "Nosara",
     22: `Stay at Hilton Garden Inn<br>
@@ -268,7 +290,6 @@
 
       if (tripEvents[day]) {
         dayDiv.classList.add('trip-day');
-
         dayDiv.addEventListener('click', () => {
           document.getElementById(`details-${day}`).scrollIntoView({ behavior: 'smooth' });
         });
@@ -301,5 +322,3 @@
 </script>
 </body>
 </html>
-
-

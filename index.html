@@ -34,7 +34,6 @@
     z-index: 1000;
     transition: all 0.3s ease;
   }
-
   .countdown-section.shrink { padding: 10px; }
 
   h1 {
@@ -46,7 +45,9 @@
   .countdown-section.shrink h1 { font-size: 1.5rem; }
 
   #countdown {
-    font-size: 1.    text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
     transition: font-size 0.3s ease;
   }
   .countdown-section.shrink #countdown { font-size: 1.2rem; }
@@ -160,7 +161,7 @@
     display: inline-block;
     margin: 8px 5px 0 0;
     padding: 10px 15px;
-    background-color: #00bfa5; /* keep original accent for action buttons */
+    background-color: #00bfa5;
     color: #fff;
     font-weight: bold;
     text-decoration: none;
@@ -236,44 +237,44 @@
   const targetDate = new Date('February 7, 2026 23:10:00').getTime();
   const startDate = new Date().getTime();
 
-  // Trip events with Feb 14 Huacas (no image), and Feb 19 Cooking Class with Maps + Confirmation
+  // Trip events (anchors fixed)
   const tripEvents = {
     7: `YYC ➜ LIR (WS 2260)<br>23:10 | 7:00 +1 day<br>
-        https://drive.google.com/file/d/15WyARvIhapNSi_J1bP_L6RTPtlhHuduv/view?usp=drive_linkLuke's Flight</a>
-        https://drive.google.com/file/d/1eHE0c7kZSQtKIa4XZFsWc3VAvhhWcbK7/view?usp=drive_linkKellie's Flight</a>`,
+        <a href="https://drive.google.com/file/d/15WyARvIhapNSi_J1bP_L6RTPtlhHuduv/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="pdf-button">Luke's Flight</a>
+        <a href="https://drive.google.com/file/d/1eHE0c7kZSQtKIa4XZFsWc3VAvhhWcbK7/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="pdf-button">Kellie's Flight</a>`,
     8: `Arrive LIR 7:00<br>Car Rental<br>Drive to Playa Hermosa<br>Stay: El Mangroove Autograph<br>
-        https://cars.booking.com/voucher/1iIk9ay7--P_zJSyk_UKhciRqw3tRlyWX8R3rtbJ75kaHs6sr8pf6Xr0b9qJoWZ6JykAPJTyJID-4iDvbR81lCds3jwexfjSxLxn5FG09ySZsEuZeNcKhLGWaGRjVXR19C4yLVnnDj3xvfgdts759Q?adcamp=bookingcom-PBBC+-2025-10-16Car Rental Confirmation</a>
-        https://www.marriott.com/en-us/hotels/lirel-el-mangroove-autograph-collection/overview/El Mangroove Website</a>
-        https://drive.google.com/file/d/1LUmrraAs68YjhRQ_Bp05xu0OCy9F--_H/view?usp=drive_linkEl Mangroove Confirmation</a>`,
+        <a href="https://cars.booking.com/voucher/1iIk9ay7--P_zJSyk_UKhciRqw3tRlyWX8R3rtbJ75kaHs6sr8pf6Xr0b9qJoWZ6JykAPJTyJID-4iDvbR81lCds3jwexfjSxLxn5FG09ySZsEuZeNcKhLGWaGRjVXR19C4yLVnnDj3xvfgdts759Q?adcamp=bookingcom-PBBC+-2025-10-16" target="_blank" rel="noopener noreferrer" class="pdf-button">Car Rental Confirmation</a>
+        <a href="https://www.marriott.com/en-us/hotels/lirel-el-mangroove-autograph-collection/overview/" target="_blank" rel="noopener noreferrer" class="pdf-button">El Mangroove Website</a>
+        <a href="https://drive.google.com/file/d/1LUmrraAs68YjhRQ_Bp05xu0OCy9F--_H/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="pdf-button">El Mangroove Confirmation</a>`,
     9: "Playa Hermosa",
     10: "Playa Hermosa",
     11: `Drive to La Fortuna<br>
-         https://www.tabacon.comTabacón Resort Website</a>
-         https://drive.google.com/file/d/1GlfgTpCXimgEjF28s2v0T5aRsUAgtF5t/view?usp=drive_linkTabacón Confirmation</a>`,
+         <a href="https://www.tabacon.com" target="_blank" rel="noopener noreferrer" class="pdf-button">Tabacón Resort Website</a>
+         <a href="https://drive.google.com/file/d/1GlfgTpCXimgEjF28s2v0T5aRsUAgtF5t/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="pdf-button">Tabacón Confirmation</a>`,
     12: "La Fortuna",
     13: "La Fortuna",
     14: `Drive to Nosara<br>
-         https://www.tierramagnifica.com/?gad_campaignid=22497769187Tierra Magnifica Website</a>
-         https://drive.google.com/file/d/1hBQwf_vhl478r724CbHEN4uIR4nf2cpB/view?usp=drive_linkTierra Magnifica Confirmation</a>
+         <a href="https://www.tierramagnifica.com/?gad_campaignid=22497769187" target="_blank" rel="noopener noreferrer" class="pdf-button">Tierra Magnifica Website</a>
+         <a href="https://drive.google.com/file/d/1hBQwf_vhl478r724CbHEN4uIR4nf2cpB/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="pdf-button">Tierra Magnifica Confirmation</a>
          <br><br><strong>Reservation: Huacas Restaurant</strong><br>
          19:00<br>
-         https://www.huacasrest.com/Huacas Website</a>`,
+         <a href="https://www.huacasrest.com/" target="_blank" rel="noopener noreferrer" class="pdf-button">Huacas Website</a>`,
     15: "Nosara",
     16: "Nosara",
     17: `Nosara<br>
-         https://drive.google.com/file/d/1h8ye8fVBVV3DZ6VpOvTa-K5HbBL5iFqA/view?usp=drive_linkAirbnb Confirmation</a>`,
+         <a href="https://drive.google.com/file/d/1h8ye8fVBVV3DZ6VpOvTa-K5HbBL5iFqA/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="pdf-button">Airbnb Confirmation</a>`,
     18: "Nosara",
     19: `Nosara<br>
          <strong>Cooking Class</strong><br>
          11:00 – 13:00 (2 hrs)<br>
          Meetup: X8GH+QG Nosara, X8GH+QGG Guanacaste Province, Nosara, Costa Rica<br>
-         https://www.google.com/maps/search/?api=1&query=X8GH%2BQG%20Nosara%2C%20X8GH%2BQGG%20Guanacaste%20Province%2C%20Nosara%2C%20Costa%20RicaOpen in Maps</a>
-         https://drive.google.com/file/d/10uQjf96GK--yKOTrd27XSG7IoDKSHib7/view?usp=drive_linkCooking Class Confirmation</a>`,
+         <a href="https://www.google.com/maps/search/?api=1&query=X8GH%2BQG%20Nosara%2C%20X8GH%2BQGG%20Guanacaste%20Province%2C%20Nosara%2C%20Costa%20Rica" target="_blank" rel="noopener noreferrer" class="pdf-button">Open in Maps</a>
+         <a href="https://drive.google.com/file/d/10uQjf96GK--yKOTrd27XSG7IoDKSHib7/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="pdf-button">Cooking Class Confirmation</a>`,
     20: "Nosara",
     21: "Nosara",
     22: `Stay at Hilton Garden Inn<br>
-         https://www.guestreservations.com/hilton-garden-inn-liberia-airport/booking?utm_source=googleHilton Garden Website</a>
-         https://drive.google.com/file/d/1HgnaKfSlEoiN5dm1uQimuviaHYvS-96R/view?usp=drive_linkHilton Garden Confirmation</a>`,
+         <a href="https://www.guestreservations.com/hilton-garden-inn-liberia-airport/booking?utm_source=google" target="_blank" rel="noopener noreferrer" class="pdf-button">Hilton Garden Website</a>
+         <a href="https://drive.google.com/file/d/1HgnaKfSlEoiN5dm1uQimuviaHYvS-96R/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="pdf-button">Hilton Garden Confirmation</a>`,
     23: "LIR ➜ YYC (WS 2261)<br>7:50 | 14:14"
   };
 
@@ -364,7 +365,7 @@
     }
   }
 
-  // Generate "Other Notes" section below all days — visually distinct
+  // Generate "Other Notes" section below all days — visually distinct & with fixed anchors
   function generateOtherNotes() {
     const otherNotes = document.createElement('section');
     otherNotes.className = 'other-notes';
@@ -376,15 +377,17 @@
 
       <div class="links">
         <div>
-          https://www.livelikeitstheweekend.com/best-restaurants-nosara-costa-rica/
-            🍳 Nosara Restaurant Blog (personal)
+          <a href="https://www.livelikeitstheweekend.com/best-restaurants-nosara-costa-rica/"
+             target="_blank" rel="noopener noreferrer" class="pdf-button">
+             🍳 Nosara Restaurant Blog (personal)
           </a>
           <p>Our short‑list picks for cafés & restaurants in Nosara.</p>
         </div>
 
         <div>
-          https://maddysavenue.com/best-restaurants-in-nosara/
-            🥐 Maddy’s Avenue — Best Restaurants in Nosara (external)
+          <a href="https://maddysavenue.com/best-restaurants-in-nosara/"
+             target="_blank" rel="noopener noreferrer" class="pdf-button">
+             🥐 Maddy’s Avenue — Best Restaurants in Nosara (external)
           </a>
           <p>Independent guide with detailed recommendations and reviews.</p>
         </div>

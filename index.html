@@ -151,11 +151,6 @@
     background-color: #008080;
   }
 
-  /* Optional highlight for activity days (used if you want visual emphasis) */
-  .activity-day {
-    outline: 2px solid #ffcc66;
-    box-shadow: 0 0 8px rgba(255, 204, 102, 0.6);
-  }
 </style>
 </head>
 <body>
@@ -274,11 +269,6 @@
       if (tripEvents[day]) {
         dayDiv.classList.add('trip-day');
 
-        // Optional: visually highlight activity days that contain "Cooking Class"
-        if (typeof tripEvents[day] === 'string' && tripEvents[day].toLowerCase().includes('cooking class')) {
-          dayDiv.classList.add('activity-day');
-        }
-
         dayDiv.addEventListener('click', () => {
           document.getElementById(`details-${day}`).scrollIntoView({ behavior: 'smooth' });
         });
@@ -311,3 +301,4 @@
 </script>
 </body>
 </html>
+

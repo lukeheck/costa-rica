@@ -218,7 +218,7 @@
     <!-- Legend -->
     <div class="legend" id="legend">
       <div class="legend-item">
-        <span class="legend-swatch swatch-travel"></span><span>Travel Day</span>
+        <span class="legend-swatch swatch-travel"></span><span>Travel Day (Feb 7, 22–23)</span>
       </div>
       <div class="legend-item">
         <span class="legend-swatch swatch-hermosa"></span><span>Playa Hermosa (Feb 8–10)</span>
@@ -246,7 +246,7 @@
   const targetDate = new Date('February 7, 2026 23:10:00').getTime();
   const startDate = new Date().getTime();
 
-  // Trip events with details
+  // Trip events with details (links are proper <a> elements)
   const tripEvents = {
     7: `YYC ➜ LIR (WS 2260)<br>23:10 | 7:00 +1 day<br>
         <a href="https://drive.google.com/file/d/15WyARvIhapNSi_J1bP_L6RTPtlhHuduv/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="pdf-button">Luke's Flight</a>
@@ -271,6 +271,7 @@
     15: "Nosara",
     16: "Nosara",
     17: `Nosara<br>
+         <a href="https://www.airbnb.ca/trips/v1/reservation-details/ro/RESERVATION2_CHECKIN/HMBKXXKQ99" target="_blank" rel="noopener noreferrer" class="pdf-button">🏡 Airbnb Listing</a>
          <a href="https://drive.google.com/file/d/1h8ye8fVBVV3DZ6VpOvTa-K5HbBL5iFqA/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="pdf-button">Airbnb Confirmation</a>`,
     18: "Nosara",
     19: `Nosara<br>
@@ -425,4 +426,3 @@
 </script>
 </body>
 </html>
-

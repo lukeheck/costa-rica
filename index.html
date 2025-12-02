@@ -315,8 +315,8 @@
 
   // Helper: classify day by location
   function getLocationClassForDay(day) {
-    // Travel: Feb 7 & 22
-    if (day === 7 || day === 22) return 'travel-day';
+    // Travel: Feb 7, 22 & 23
+    if (day === 7 || day === 22 || day === 23) return 'travel-day';
     // Playa Hermosa: Feb 8–10
     if (day >= 8 && day <= 10) return 'hermosa-day';
     // La Fortuna: Feb 11–13
@@ -425,3 +425,4 @@
 </script>
 </body>
 </html>
+

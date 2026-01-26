@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +7,7 @@
 <title>Time Until Kel and Luke's Trip to Costa Rica</title>
 
 <!-- Font Import -->
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
 
 <style>
   :root{
@@ -86,10 +85,35 @@
   }
 
   .content-wrapper {
-    padding-top: 220px;
+    padding-top: 220px; /* space under fixed header */
     transition: padding-top 0.3s ease;
   }
   .countdown-section.shrink ~ .content-wrapper { padding-top: 160px; }
+
+  /* Photo between header and calendar */
+  .hero-photo {
+    width: 90%;
+    max-width: 900px;
+    margin: 18px auto 8px;
+    text-align: center;
+  }
+  .hero-photo-img {
+    width: 100%;
+    max-width: 620px;
+    height: auto;
+    border-radius: 18px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.45);
+    border: 2px solid rgba(255,255,255,0.6);
+  }
+  .hero-photo-caption {
+    margin-top: 10px;
+    font-size: 0.95rem;
+    color: #ccc;
+    opacity: 0.85;
+  }
+  .countdown-section.shrink ~ .content-wrapper .hero-photo {
+    margin-top: 10px;
+  }
 
   /* Calendar grid */
   main.calendar {
@@ -101,7 +125,7 @@
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 8px;
-    margin: 40px auto 12px;
+    margin: 20px auto 12px;
     color: var(--clr-text);
   }
 
@@ -204,28 +228,6 @@
     scroll-margin-top: 180px;
   }
   section.other-notes h2 { margin-top: 0; }
-
-  /* Footer image section */
-  .site-footer {
-    margin: 70px auto 40px;
-    text-align: center;
-    width: 90%;
-    max-width: 900px;
-  }
-  .footer-image {
-    width: 90%;
-    max-width: 420px;
-    height: auto;
-    border-radius: 18px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.45);
-    border: 2px solid rgba(255,255,255,0.6);
-  }
-  .footer-caption {
-    margin-top: 12px;
-    font-size: 0.95rem;
-    color: #ccc;
-    opacity: 0.85;
-  }
 </style>
 </head>
 <body>
@@ -236,6 +238,18 @@
   </div>
 
   <div class="content-wrapper">
+    <!-- Trip photo between header and calendar -->
+    <figure class="hero-photo">
+      <img
+        src="kel-and-luke-costa-pic.jpg"
+        alt="Kel and Luke in Costa Rica"
+        class="hero-photo-img"
+        loading="lazy"
+        decoding="async"
+      />
+      <figcaption class="hero-photo-caption">Costa Rica 🇨🇷 • February 2026</figcaption>
+    </figure>
+
     <main class="calendar" id="calendar"></main>
 
     <!-- Legend -->
@@ -286,7 +300,6 @@
     12: "La Fortuna",
     13: `La Fortuna<br>
          <br><strong>🚣‍♂️ White Water Rafting — Arenal Rafting</strong><br>
-         8:20 AM - 1:20 PM (5 hrs)<br>
          <a href="https://www.arenalrafting.com" target="_blank" rel="noopener noreferrer" class="pdf-button">Arenal Rafting Website</a>
          <a href="https://drive.google.com/file/d/1kpRMCd-ozGoPL1o4JIWF7_K1VJKc3WCP/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="pdf-button">Rafting Confirmation</a>`,
     14: `Drive to Nosara<br>
@@ -422,8 +435,7 @@
       <p>Helpful resources and extras for the trip:</p>
 
       <p>
-        <a href="https://www.livelikeitstheweekend.com/best-restaurants-nosara-costa-rica/"
-           target="_blank" rel="noopener noreferrer" class="pdf-button">
+        <a href="https://www.livelikeitstheweekend.com/best-restaurants-nosara-costa-rica/" target="_blank" rel="noopener noreferrer" class="pdf-button">
           🍳 Nosara Restaurant Blog (personal)
         </a>
         <br/>
@@ -431,8 +443,7 @@
       </p>
 
       <p>
-        <a href="https://maddysavenue.com/best-restaurants-in-nosara/"
-           target="_blank" rel="noopener noreferrer" class="pdf-button">
+        <a href="https://maddysavenue.com/best-restaurants-in-nosara/" target="_blank" rel="noopener noreferrer" class="pdf-button">
           🥐 Maddy’s Avenue — Best Restaurants in Nosara (external)
         </a>
         <br/>
@@ -454,19 +465,5 @@
     }
   });
 </script>
-
-<!-- 📸 Bottom image (JPEG placed in the same folder as index.html) -->
-<footer class="site-footer">
-  <img
-    src="kel-and-luke-costa-pic.jpg"
-    alt="Kel and Luke in Costa Rica"
-    class="footer-image"
-    loading="lazy"
-    decoding="async"
-  />
-  <p class="footer-caption">Costa Rica 🇨🇷 • February 2026</p>
-</footer>
-
 </body>
 </html>
-

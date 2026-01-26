@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -203,6 +204,28 @@
     scroll-margin-top: 180px;
   }
   section.other-notes h2 { margin-top: 0; }
+
+  /* Footer image section */
+  .site-footer {
+    margin: 70px auto 40px;
+    text-align: center;
+    width: 90%;
+    max-width: 900px;
+  }
+  .footer-image {
+    width: 90%;
+    max-width: 420px;
+    height: auto;
+    border-radius: 18px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.45);
+    border: 2px solid rgba(255,255,255,0.6);
+  }
+  .footer-caption {
+    margin-top: 12px;
+    font-size: 0.95rem;
+    color: #ccc;
+    opacity: 0.85;
+  }
 </style>
 </head>
 <body>
@@ -263,22 +286,22 @@
     12: "La Fortuna",
     13: `La Fortuna<br>
          <br><strong>🚣‍♂️ White Water Rafting — Arenal Rafting</strong><br>
-         8:20 AM - 1:20 PM (5 hrs)<br>
+         <a href="https://www.arenalrafting.com" target="_blank" rel="noopener noreferrer" class="pdf-button">Arenal Rafting Website</a>
          <a href="https://drive.google.com/file/d/1kpRMCd-ozGoPL1o4JIWF7_K1VJKc3WCP/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="pdf-button">Rafting Confirmation</a>`,
     14: `Drive to Nosara<br>
          <a href="https://www.tierramagnifica.com/?gad_campaignid=22497769187" target="_blank" rel="noopener noreferrer" class="pdf-button">Tierra Magnifica Website</a>
          <a href="https://drive.google.com/file/d/1hBQwf_vhl478r724CbHEN4uIR4nf2cpB/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="pdf-button">Tierra Magnifica Confirmation</a>
          <br><br><strong>Reservation: Huacas Restaurant</strong><br>
-         19:00 (7:00 PM)<br>
+         19:00<br>
          <a href="https://www.huacasrest.com/" target="_blank" rel="noopener noreferrer" class="pdf-button">Huacas Website</a>`,
     15: "Nosara",
-    16: "Nosara",    
+    16: "Nosara",
     17: `Nosara<br>
          <a href="https://www.airbnb.ca/trips/v1/reservation-details/ro/RESERVATION2_CHECKIN/HMBKXXKQ99" target="_blank" rel="noopener noreferrer" class="pdf-button">🏡 Airbnb Listing</a>
          <a href="https://drive.google.com/file/d/1h8ye8fVBVV3DZ6VpOvTa-K5HbBL5iFqA/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="pdf-button">Airbnb Confirmation</a>
          <br><br><strong>Reservation: La Luna Nosara</strong><br>
          17:00 (5:00 PM)<br>
-     <a href="https://www.lalunanosara.com/" target="_blank" rel="noopener noreferrer" class="pdf-button">La Luna Website</a>`,
+         <a href="https://www.lalunanosara.com/" target="_blank" rel="noopener noreferrer" class="pdf-button">La Luna Website</a>`,
     18: "Nosara",
     19: `Nosara<br>
          <strong>Cooking Class</strong><br>
@@ -430,6 +453,18 @@
     }
   });
 </script>
+
+<!-- 📸 Bottom image (JPEG placed in the same folder as index.html) -->
+<footer class="site-footer">
+  <img
+    src="kel-and-luke-costa-pic.jpg"
+    alt="Kel and Luke in Costa Rica"
+    class="footer-image"
+    loading="lazy"
+    decoding="async"
+  />
+  <p class="footer-caption">Costa Rica 🇨🇷 • February 2026</p>
+</footer>
+
 </body>
 </html>
-

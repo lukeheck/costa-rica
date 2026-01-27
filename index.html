@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +7,7 @@
 <title>Time Until Kel and Luke's Trip to Costa Rica</title>
 
 <!-- Font Import -->
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
 
 <style>
   :root{
@@ -70,7 +69,7 @@
 
   .countdown-section.shrink #countdown { font-size: 1.2rem; }
 
- #progressBar {
+  #progressBar {
     width: 80%; height: 12px;
     background: rgba(255,255,255,0.3);
     border-radius: 6px;
@@ -90,7 +89,32 @@
     transition: padding-top 0.3s ease;
   }
   .countdown-section.shrink ~ .content-wrapper { padding-top: 160px; }
-  
+
+  /* Photo between header and calendar */
+  .hero-photo {
+    width: 90%;
+    max-width: 900px;
+    margin: 18px auto 8px;
+    text-align: center;
+  }
+  .hero-photo-img {
+    width: 100%;
+    max-width: 620px;
+    height: auto;
+    border-radius: 18px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.45);
+    border: 2px solid rgba(255,255,255,0.6);
+  }
+  .hero-photo-caption {
+    margin-top: 10px;
+    font-size: 0.95rem;
+    color: #ccc;
+    opacity: 0.85;
+  }
+  .countdown-section.shrink ~ .content-wrapper .hero-photo {
+    margin-top: 10px;
+  }
+
   /* Calendar grid */
   main.calendar {
     width: 90%;
@@ -101,7 +125,7 @@
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 8px;
-    margin: 40px auto 12px;
+    margin: 20px auto 12px;
     color: var(--clr-text);
   }
 
@@ -204,28 +228,6 @@
     scroll-margin-top: 180px;
   }
   section.other-notes h2 { margin-top: 0; }
-
-  /* Footer image section */
-  .site-footer {
-    margin: 70px auto 40px;
-    text-align: center;
-    width: 90%;
-    max-width: 900px;
-  }
-  .footer-image {
-    width: 90%;
-    max-width: 420px;
-    height: auto;
-    border-radius: 18px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.45);
-    border: 2px solid rgba(255,255,255,0.6);
-  }
-  .footer-caption {
-    margin-top: 12px;
-    font-size: 0.95rem;
-    color: #ccc;
-    opacity: 0.85;
-  }
 </style>
 </head>
 <body>
@@ -236,12 +238,24 @@
   </div>
 
   <div class="content-wrapper">
+    <!-- Trip photo between header and calendar -->
+    <figure class="hero-photo">
+      <img
+        src="kel-and-luke-costa-pic.jpg"
+        alt="Kel and Luke in Costa Rica"
+        class="hero-photo-img"
+        loading="lazy"
+        decoding="async"
+      />
+      <figcaption class="hero-photo-caption">Costa Rica 🇨🇷 • February 2026</figcaption>
+    </figure>
+
     <main class="calendar" id="calendar"></main>
 
     <!-- Legend -->
     <div class="legend" id="legend">
       <div class="legend-item">
-        <span class="legend-swatch swatch-travel"></span><span>Travel Day (Feb 7, 22–23)</span>
+        <span class="legend-swatch swatch-travel"></span><span>Travel Day (Feb 7, 23)</span>
       </div>
       <div class="legend-item">
         <span class="legend-swatch swatch-hermosa"></span><span>Playa Hermosa (Feb 8–10)</span>
@@ -250,7 +264,7 @@
         <span class="legend-swatch swatch-fortuna"></span><span>La Fortuna (Feb 11–13)</span>
       </div>
       <div class="legend-item">
-        <span class="legend-swatch swatch-nosara"></span><span>Nosara (Feb 14–21)</span>
+        <span class="legend-swatch swatch-nosara"></span><span>Nosara (Feb 14–22)</span>
       </div>
     </div>
 
@@ -272,8 +286,8 @@
   // Trip events with details (links are proper <a> elements)
   const tripEvents = {
     7: `YYC ➜ LIR (WS 2260)<br>23:10 | 7:00 +1 day<br>
-        <a href="https://drive.google.com/file/d/15WyARvIhapNSi_J1bP_L6RTPtlhHuduv/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="pdf-button">Luke's Flight</a>
-        <a href="https://drive.google.com/file/d/1eHE0c7kZSQtKIa4XZFsWc3VAvhhWcbK7/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="pdf-button">Kellie's Flight</a>`,
+        <a href="https://drive.google.com/file/d/15WyARvIhapNSi_J1bP_L6RTPtlhHuduv/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="pdf-button">✈️ Luke's Flight</a>
+        <a href="https://drive.google.com/file/d/1eHE0c7kZSQtKIa4XZFsWc3VAvhhWcbK7/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="pdf-button">✈️ Kellie's Flight</a>`,
     8: `Arrive LIR 7:00<br>Car Rental<br>Drive to Playa Hermosa<br>Stay: El Mangroove Autograph<br>
         <a href="https://cars.booking.com/voucher/1iIk9ay7--P_zJSyk_UKhciRqw3tRlyWX8R3rtbJ75kaHs6sr8pf6Xr0b9qJoWZ6JykAPJTyJID-4iDvbR81lCds3jwexfjSxLxn5FG09ySZsEuZeNcKhLGWaGRjVXR19C4yLVnnDj3xvfgdts759Q?adcamp=bookingcom-PBBC+-2025-10-16" target="_blank" rel="noopener noreferrer" class="pdf-button">Car Rental Confirmation</a>
         <a href="https://www.marriott.com/en-us/hotels/lirel-el-mangroove-autograph-collection/overview/" target="_blank" rel="noopener noreferrer" class="pdf-button">El Mangroove Website</a>
@@ -286,13 +300,14 @@
     12: "La Fortuna",
     13: `La Fortuna<br>
          <br><strong>🚣‍♂️ White Water Rafting — Arenal Rafting</strong><br>
+         8:20 AM - 1:20 PM (5 hrs)<br>
          <a href="https://www.arenalrafting.com" target="_blank" rel="noopener noreferrer" class="pdf-button">Arenal Rafting Website</a>
          <a href="https://drive.google.com/file/d/1kpRMCd-ozGoPL1o4JIWF7_K1VJKc3WCP/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="pdf-button">Rafting Confirmation</a>`,
     14: `Drive to Nosara<br>
          <a href="https://www.tierramagnifica.com/?gad_campaignid=22497769187" target="_blank" rel="noopener noreferrer" class="pdf-button">Tierra Magnifica Website</a>
          <a href="https://drive.google.com/file/d/1hBQwf_vhl478r724CbHEN4uIR4nf2cpB/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="pdf-button">Tierra Magnifica Confirmation</a>
          <br><br><strong>Reservation: Huacas Restaurant</strong><br>
-         19:00<br>
+         19:00 (7:00 PM)<br>
          <a href="https://www.huacasrest.com/" target="_blank" rel="noopener noreferrer" class="pdf-button">Huacas Website</a>`,
     15: "Nosara",
     16: "Nosara",
@@ -304,10 +319,8 @@
          <a href="https://www.lalunanosara.com/" target="_blank" rel="noopener noreferrer" class="pdf-button">La Luna Website</a>`,
     18: "Nosara",
     19: `Nosara<br>
-         <strong>Cooking Class</strong><br>
-         11:00 – 13:00 (2 hrs)<br>
-         Meetup: X8GH+QG Nosara, X8GH+QGG Guanacaste Province, Nosara, Costa Rica<br>
-         <a href="https://www.google.com/maps/search/?api=1&query=X8GH%2BQG%20Nosara%2C%20X8GH%2BQGG%20Guanacaste%20Province%2C%20Nosara%2C%20Costa%20Rica" target="_blank" rel="noopener noreferrer" class="pdf-button">Open in Maps</a>
+         <strong>👨‍🍳 Cooking Class 👩‍🍳</strong><br>
+         11:00 AM – 1:00 PM (2 hrs)<br>
          <a href="https://drive.google.com/file/d/10uQjf96GK--yKOTrd27XSG7IoDKSHib7/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="pdf-button">Cooking Class Confirmation</a>`,
     20: "Nosara",
     21: "Nosara",
@@ -345,14 +358,14 @@
 
   // Helper: classify day by location
   function getLocationClassForDay(day) {
-    // Travel: Feb 7, 22 & 23
-    if (day === 7 || day === 22 || day === 23) return 'travel-day';
+    // Travel: Feb 7 & 23
+    if (day === 7 || day === 23) return 'travel-day';
     // Playa Hermosa: Feb 8–10
     if (day >= 8 && day <= 10) return 'hermosa-day';
     // La Fortuna: Feb 11–13
     if (day >= 11 && day <= 13) return 'fortuna-day';
-    // Nosara: Feb 14–21
-    if (day >= 14 && day <= 21) return 'nosara-day';
+    // Nosara: Feb 14–22
+    if (day >= 14 && day <= 22) return 'nosara-day';
     // Non-trip days remain default
     return null;
   }
@@ -421,8 +434,7 @@
       <p>Helpful resources and extras for the trip:</p>
 
       <p>
-        <a href="https://www.livelikeitstheweekend.com/best-restaurants-nosara-costa-rica/"
-           target="_blank" rel="noopener noreferrer" class="pdf-button">
+        <a href="https://www.livelikeitstheweekend.com/best-restaurants-nosara-costa-rica/" target="_blank" rel="noopener noreferrer" class="pdf-button">
           🍳 Nosara Restaurant Blog (personal)
         </a>
         <br/>
@@ -430,8 +442,7 @@
       </p>
 
       <p>
-        <a href="https://maddysavenue.com/best-restaurants-in-nosara/"
-           target="_blank" rel="noopener noreferrer" class="pdf-button">
+        <a href="https://maddysavenue.com/best-restaurants-in-nosara/" target="_blank" rel="noopener noreferrer" class="pdf-button">
           🥐 Maddy’s Avenue — Best Restaurants in Nosara (external)
         </a>
         <br/>
@@ -453,19 +464,6 @@
     }
   });
 </script>
-
-<!-- 📸 Bottom image (JPEG placed in the same folder as index.html) -->
-<footer class="site-footer">
-  <img
-    src="kel-and-luke-costa-pic.jpg"
-    alt="Kel and Luke in Costa Rica"
-    class="footer-image"
-    loading="lazy"
-    decoding="async"
-  />
-  <p class="footer-caption">Costa Rica 🇨🇷 • February 2026</p>
-</footer>
-
 </body>
 </html>
 

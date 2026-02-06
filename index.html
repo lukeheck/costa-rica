@@ -228,11 +228,18 @@
     scroll-margin-top: 180px;
   }
   section.other-notes h2 { margin-top: 0; }
+  
+  /* Red-highlighted activity label */
+  .activity-red {
+    color: #ff3b30;
+    font-weight: 700;
+  }
+
 </style>
 </head>
 <body>
   <div class="countdown-section" id="header">
-    <h1>Time until Costa Rica 🌴</h1>
+    <h1>Time Until Costa Rica 🌴</h1>
     <div id="countdown"></div>
     <div id="progressBar"><div id="progressFill"></div></div>
   </div>
@@ -285,49 +292,68 @@
 
   // Trip events with details (links are proper <a> elements)
   const tripEvents = {
-    7: `YYC ➜ LIR (WS 2260)<br>23:10 | 7:00 +1 day<br>
-        <a href="https://drive.google.com/file/d/15WyARvIhapNSi_J1bP_L6RTPtlhHuduv/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="pdf-button">✈️ Luke's Flight</a>
-        <a href="https://drive.google.com/file/d/1eHE0c7kZSQtKIa4XZFsWc3VAvhhWcbK7/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="pdf-button">✈️ Kellie's Flight</a>`,
-    8: `Arrive LIR 7:00<br>Car Rental<br>Drive to Playa Hermosa<br>Stay: El Mangroove Autograph<br>
-        <a href="https://cars.booking.com/voucher/1iIk9ay7--P_zJSyk_UKhciRqw3tRlyWX8R3rtbJ75kaHs6sr8pf6Xr0b9qJoWZ6JykAPJTyJID-4iDvbR81lCds3jwexfjSxLxn5FG09ySZsEuZeNcKhLGWaGRjVXR19C4yLVnnDj3xvfgdts759Q?adcamp=bookingcom-PBBC+-2025-10-16" target="_blank" rel="noopener noreferrer" class="pdf-button">Car Rental Confirmation</a>
+    7: `<strong>✈️ YYC ➜ LIR (WS 2260)</strong><br>23:10 | 7:00 +1 day<br>
+        <a href="https://drive.google.com/file/d/15WyARvIhapNSi_J1bP_L6RTPtlhHuduv/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="pdf-button">Luke's Flight</a>
+        <a href="https://drive.google.com/file/d/1eHE0c7kZSQtKIa4XZFsWc3VAvhhWcbK7/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="pdf-button">Kellie's Flight</a>`,
+    8: `Arrive LIR 7:00<br>
+       <br><strong>🚙 Car Rental + Drive to Playa Hermosa</strong><br>
+       22 min<br>
+       <a href="https://cars.booking.com/voucher/1iIk9ay7--P_zJSyk_UKhciRqw3tRlyWX8R3rtbJ75kaHs6sr8pf6Xr0b9qJoWZ6JykAPJTyJID-4iDvbR81lCds3jwexfjSxLxn5FG09ySZsEuZeNcKhLGWaGRjVXR19C4yLVnnDj3xvfgdts759Q?adcamp=bookingcom-PBBC+-2025-10-16" target="_blank" rel="noopener noreferrer" class="pdf-button">Car Rental Confirmation</a>
+       <br>
+       <br><strong>🛏️ Stay: El Mangroove Autograph</strong><br>
         <a href="https://www.marriott.com/en-us/hotels/lirel-el-mangroove-autograph-collection/overview/" target="_blank" rel="noopener noreferrer" class="pdf-button">El Mangroove Website</a>
         <a href="https://drive.google.com/file/d/1LUmrraAs68YjhRQ_Bp05xu0OCy9F--_H/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="pdf-button">El Mangroove Confirmation</a>`,
     9: "Playa Hermosa",
     10: "Playa Hermosa",
-    11: `Drive to La Fortuna<br>
+    11: `<strong>🚙 Drive to La Fortuna</strong><br>
+         2 hrs 45 min<br>
+         <br><strong>🛏️ Stay: Tababon - Thermal Resort and Spa</strong><br>
          <a href="https://www.tabacon.com" target="_blank" rel="noopener noreferrer" class="pdf-button">Tabacón Resort Website</a>
          <a href="https://drive.google.com/file/d/1GlfgTpCXimgEjF28s2v0T5aRsUAgtF5t/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="pdf-button">Tabacón Confirmation</a>`,
-    12: "La Fortuna",
+    12: `La Fortuna<br>
+         <br><strong>🪂 Ziplining - Sky Adventures</strong><br>
+         11:30 AM<br>
+         <a href="https://drive.google.com/file/d/1LED5zEiq9csGfpxamj6wY6Ixvhru1qm3/view?usp=drive_link"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="pdf-button">Ziplining Confirmation</a>`,
     13: `La Fortuna<br>
          <br><strong>🚣‍♂️ White Water Rafting — Arenal Rafting</strong><br>
          8:20 AM - 1:20 PM (5 hrs)<br>
          <a href="https://www.arenalrafting.com" target="_blank" rel="noopener noreferrer" class="pdf-button">Arenal Rafting Website</a>
          <a href="https://drive.google.com/file/d/1kpRMCd-ozGoPL1o4JIWF7_K1VJKc3WCP/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="pdf-button">Rafting Confirmation</a>`,
-    14: `Drive to Nosara<br>
+    14: `<strong>🚙 Drive to Nosara</strong><br>
+         3 hrs 58 min<br>
+         <br><strong>🛏️ Stay: Tierra Magnifica</strong><br>
          <a href="https://www.tierramagnifica.com/?gad_campaignid=22497769187" target="_blank" rel="noopener noreferrer" class="pdf-button">Tierra Magnifica Website</a>
          <a href="https://drive.google.com/file/d/1hBQwf_vhl478r724CbHEN4uIR4nf2cpB/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="pdf-button">Tierra Magnifica Confirmation</a>
-         <br><br><strong>Reservation: Huacas Restaurant</strong><br>
+         <br><br><strong>🍽️ Reservation: Huacas Restaurant</strong><br>
          19:00 (7:00 PM)<br>
          <a href="https://www.huacasrest.com/" target="_blank" rel="noopener noreferrer" class="pdf-button">Huacas Website</a>`,
     15: "Nosara",
     16: "Nosara",
     17: `Nosara<br>
-         <a href="https://www.airbnb.ca/trips/v1/reservation-details/ro/RESERVATION2_CHECKIN/HMBKXXKQ99" target="_blank" rel="noopener noreferrer" class="pdf-button">🏡 Airbnb Listing</a>
-         <a href="https://drive.google.com/file/d/1h8ye8fVBVV3DZ6VpOvTa-K5HbBL5iFqA/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="pdf-button">Airbnb Confirmation</a>
-         <br><br><strong>Reservation: La Luna Nosara</strong><br>
-         17:00 (5:00 PM)<br>
-         <a href="https://www.lalunanosara.com/" target="_blank" rel="noopener noreferrer" class="pdf-button">La Luna Website</a>`,
+        <br>
+        <span class="activity-red">🩺 Call with Dr. Laws</span><br>
+        <br><strong>🏠 Move to Airbnb</strong><br>
+        <a href="https://www.airbnb.ca/trips/v1/reservation-details/ro/RESERVATION2_CHECKIN/HMBKXXKQ99" target="_blank" rel="noopener noreferrer" class="pdf-button">🏡 Airbnb Listing</a>
+        <a href="https://drive.google.com/file/d/1h8ye8fVBVV3DZ6VpOvTa-K5HbBL5iFqA/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="pdf-button">Airbnb Confirmation</a>
+        <br><br><strong>🍽️ Reservation: La Luna Nosara</strong><br>
+        17:00 (5:00 PM)<br>
+        <a href="https://www.lalunanosara.com/" target="_blank" rel="noopener noreferrer" class="pdf-button">La Luna Website</a>`,
     18: "Nosara",
     19: `Nosara<br>
-         <strong>👨‍🍳 Cooking Class 👩‍🍳</strong><br>
+         <br><strong>👨‍🍳 Cooking Class 👩‍🍳</strong><br>
          11:00 AM – 1:00 PM (2 hrs)<br>
          <a href="https://drive.google.com/file/d/10uQjf96GK--yKOTrd27XSG7IoDKSHib7/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="pdf-button">Cooking Class Confirmation</a>`,
     20: "Nosara",
     21: "Nosara",
-    22: `Stay at Hilton Garden Inn<br>
+    22: `<strong>🚙 Drive to Liberia</strong><br>
+        2 hrs 21 min<br>
+       <br><strong>🛏️ Stay: Hilton Garden Inn</strong><br>
          <a href="https://www.guestreservations.com/hilton-garden-inn-liberia-airport/booking?utm_source=google" target="_blank" rel="noopener noreferrer" class="pdf-button">Hilton Garden Website</a>
          <a href="https://drive.google.com/file/d/1HgnaKfSlEoiN5dm1uQimuviaHYvS-96R/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="pdf-button">Hilton Garden Confirmation</a>`,
-    23: "LIR ➜ YYC (WS 2261)<br>7:50 | 14:14"
+    23: "<strong>✈️ LIR ➜ YYC (WS 2261)</strong><br>7:50 | 14:14"
   };
 
   function updateCountdown() {
@@ -466,5 +492,16 @@
 </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
 
 

@@ -228,11 +228,18 @@
     scroll-margin-top: 180px;
   }
   section.other-notes h2 { margin-top: 0; }
+  
+  /* Red-highlighted activity label */
+  .activity-red {
+    color: #ff3b30;
+    font-weight: 700;
+  }
+
 </style>
 </head>
 <body>
   <div class="countdown-section" id="header">
-    <h1>Time until Costa Rica 🌴</h1>
+    <h1>Time Until Costa Rica 🌴</h1>
     <div id="countdown"></div>
     <div id="progressBar"><div id="progressFill"></div></div>
   </div>
@@ -318,6 +325,7 @@
     15: "Nosara",
     16: "Nosara",
     17: `Nosara<br>
+        <span class="activity-red">🏥 Call with Dr. Laws</span><br>
          <a href="https://www.airbnb.ca/trips/v1/reservation-details/ro/RESERVATION2_CHECKIN/HMBKXXKQ99" target="_blank" rel="noopener noreferrer" class="pdf-button">🏡 Airbnb Listing</a>
          <a href="https://drive.google.com/file/d/1h8ye8fVBVV3DZ6VpOvTa-K5HbBL5iFqA/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="pdf-button">Airbnb Confirmation</a>
          <br><br><strong>Reservation: La Luna Nosara</strong><br>
@@ -472,6 +480,7 @@
 </script>
 </body>
 </html>
+
 
 
 

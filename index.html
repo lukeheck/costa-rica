@@ -235,6 +235,27 @@
     font-weight: 700;
   }
 
+/* Location badge shown in the daily details */
+.location-badge{
+  display:inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.2px;
+  margin-left: 10px;
+  vertical-align: middle;
+  box-shadow: var(--shadow);
+  color: #fff;
+}
+
+/* Match your existing location palette */
+.location-badge.travel  { background: var(--clr-travel); }
+.location-badge.hermosa { background: var(--clr-hermosa); }
+.location-badge.fortuna { background: var(--clr-fortuna); }
+.location-badge.nosara  { background: var(--clr-nosara); }
+``
+
 </style>
 </head>
 <body>
@@ -396,6 +417,14 @@
     return null;
   }
 
+function getLocationLabelForDay(day) {
+  if (day === 7 || day === 23) return { key: 'travel',  text: 'Travel Day' };
+  if (day >= 8  && day <= 10) return { key: 'hermosa', text: 'Playa Hermosa' };
+  if (day >= 11 && day <= 13) return { key: 'fortuna', text: 'La Fortuna' };
+  if (day >= 14 && day <= 22) return { key: 'nosara',  text: 'Nosara' };
+  return null;
+}
+  
   function generateCalendar() {
     const year = 2026;
     const month = 1; // February (0-based index)
@@ -441,15 +470,24 @@
     }
   }
 
-  function generateDetails() {
-    for (const [day, details] of Object.entries(tripEvents)) {
-      const section = document.createElement('section');
-      section.className = 'details';
-      section.id = `details-${day}`;
-      section.innerHTML = `<h2>February ${day}, 2026</h2><p>${details}</p>`;
-      detailsContainer.appendChild(section);
-    }
+ 
+function generateDetails() {
+  for (const [dayStr, details] of Object.entries(tripEvents)) {
+    const day = Number(dayStr);
+    const section = document.createElement('section');
+    section.className = 'details';
+    section.id = `details-${day}`;
+
+    const loc = getLocationLabelForDay(day);
+    const badgeHtml = loc
+      ? `<span class="location-badge ${loc.key}">${loc.text}</span>`
+      : '';
+
+    section.innerHTML = `<h2>February ${day}, 2026 ${badgeHtml}</h2><p>${details}</p>`;
+    detailsContainer.appendChild(section);
   }
+}
+
 
   function generateOtherNotes() {
     const otherNotes = document.createElement('section');
@@ -492,6 +530,7 @@
 </script>
 </body>
 </html>
+
 
 
 

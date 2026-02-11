@@ -393,11 +393,11 @@
       23: "<strong>✈️ LIR ➜ YYC (WS 2261)</strong><br>7:20 | 13:44 (7 hrs 24 min)"
     };
 
-    // ONLY days you have content for right now (8, 9, 10)
-    // Photos are styled like the hero photo, but appear ONLY in details.
+    // ONLY days you have recap/photo content for right now (8, 9, 10)
+    // (No Feb 7 recap/photo)
     const dayRecaps = {
       8: {
-        summary: "Today we arrived at our resort near Playa Hermosa. We got in early after a relatively sleepless red-eye flight. Once settling in we hunkered down next to the pool for a morning nap, and a few coffees. After lunch at the beach cabana bar, I surprised Kellie with a Bday couples massage that was incredible. We had a happy hour at the beach bar and then went to hotel restaurant for dinner, followed by an early bedtime. Amazing first day, but we were wiped. ",
+        summary: "Today we arrived at our resort near Playa Hermosa. We got in early after a relatively sleepless red-eye flight. Once settling in we hunkered down next to the pool for a morning nap, and a few coffees. After lunch at the beach cabana bar, I surprised Kellie with a Bday couples massage that was incredible. We had a happy hour at the beach bar and then went to hotel restaurant for dinner, followed by an early bedtime. Amazing first day, but we were wiped.",
         photo: "photos/2026-02-08.jpg",
         caption: "Photo of the day — Feb 8"
       },
@@ -499,7 +499,13 @@
         // Recap appears immediately below itinerary (only for days that exist in dayRecaps)
         const recapHtml = recap ? `
           <div class="day-recap">
-            <h3>Day Recap</h3of the day — Feb ${day}"
+            <h3>Day Recap</h3>
+            <p class="day-summary">${recap.summary}</p>
+
+            <figure class="day-photo">
+              <img
+                src="${recap.photo}"
+                alt="Photo of the day — Feb ${day}"
                 class="day-photo-img"
                 loading="lazy"
                 decoding="async"

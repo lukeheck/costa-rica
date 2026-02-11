@@ -235,27 +235,6 @@
     font-weight: 700;
   }
 
-/* Location badge shown in the daily details */
-.location-badge{
-  display:inline-block;
-  padding: 4px 10px;
-  border-radius: 999px;
-  font-weight: 700;
-  font-size: 0.9rem;
-  letter-spacing: 0.2px;
-  margin-left: 10px;
-  vertical-align: middle;
-  box-shadow: var(--shadow);
-  color: #fff;
-}
-
-/* Match your existing location palette */
-.location-badge.travel  { background: var(--clr-travel); }
-.location-badge.hermosa { background: var(--clr-hermosa); }
-.location-badge.fortuna { background: var(--clr-fortuna); }
-.location-badge.nosara  { background: var(--clr-nosara); }
-``
-
 </style>
 </head>
 <body>
@@ -313,32 +292,33 @@
 
   // Trip events with details (links are proper <a> elements)
   const tripEvents = {
-    7: `<strong>✈️ YYC ➜ LIR (WS 2260)</strong><br>23:10 | 7:00 +1 day<br>
+    7: `<strong>✈️ YYC ➜ LIR (WS 2260)</strong><br>22:40 | 6:30 +1 day (6 hr 50 min)<br>
         <a href="https://drive.google.com/file/d/15WyARvIhapNSi_J1bP_L6RTPtlhHuduv/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="pdf-button">Luke's Flight</a>
         <a href="https://drive.google.com/file/d/1eHE0c7kZSQtKIa4XZFsWc3VAvhhWcbK7/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="pdf-button">Kellie's Flight</a>`,
-    8: `Arrive LIR 7:00<br>
+    8: `Arrive LIR 6:30<br>
        <br><strong>🚙 Car Rental + Drive to Playa Hermosa</strong><br>
        22 min<br>
        <a href="https://cars.booking.com/voucher/1iIk9ay7--P_zJSyk_UKhciRqw3tRlyWX8R3rtbJ75kaHs6sr8pf6Xr0b9qJoWZ6JykAPJTyJID-4iDvbR81lCds3jwexfjSxLxn5FG09ySZsEuZeNcKhLGWaGRjVXR19C4yLVnnDj3xvfgdts759Q?adcamp=bookingcom-PBBC+-2025-10-16" target="_blank" rel="noopener noreferrer" class="pdf-button">Car Rental Confirmation</a>
+       <a href="https://drive.google.com/file/d/1iw0JOoPRlEKaiIdLm8zOApSbvP54Xtel/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="pdf-button">Car Rental Voucher</a>
        <br>
        <br><strong>🛏️ Stay: El Mangroove Autograph</strong><br>
         <a href="https://www.marriott.com/en-us/hotels/lirel-el-mangroove-autograph-collection/overview/" target="_blank" rel="noopener noreferrer" class="pdf-button">El Mangroove Website</a>
         <a href="https://drive.google.com/file/d/1LUmrraAs68YjhRQ_Bp05xu0OCy9F--_H/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="pdf-button">El Mangroove Confirmation</a>`,
-    9: "Playa Hermosa",
-    10: "Playa Hermosa",
+    9: "<strong>Playa Hermosa</strong>",
+    10: "<strong>Playa Hermosa</strong>",
     11: `<strong>🚙 Drive to La Fortuna</strong><br>
          2 hrs 45 min<br>
          <br><strong>🛏️ Stay: Tababon - Thermal Resort and Spa</strong><br>
          <a href="https://www.tabacon.com" target="_blank" rel="noopener noreferrer" class="pdf-button">Tabacón Resort Website</a>
          <a href="https://drive.google.com/file/d/1GlfgTpCXimgEjF28s2v0T5aRsUAgtF5t/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="pdf-button">Tabacón Confirmation</a>`,
-    12: `La Fortuna<br>
+    12: `<strong>La Fortuna</strong><br>
          <br><strong>🪂 Ziplining - Sky Adventures</strong><br>
          11:30 AM<br>
          <a href="https://drive.google.com/file/d/1LED5zEiq9csGfpxamj6wY6Ixvhru1qm3/view?usp=drive_link"
         target="_blank"
         rel="noopener noreferrer"
         class="pdf-button">Ziplining Confirmation</a>`,
-    13: `La Fortuna<br>
+    13: `<strong>La Fortuna</strong><br>
          <br><strong>🚣‍♂️ White Water Rafting — Arenal Rafting</strong><br>
          8:20 AM - 1:20 PM (5 hrs)<br>
          <a href="https://www.arenalrafting.com" target="_blank" rel="noopener noreferrer" class="pdf-button">Arenal Rafting Website</a>
@@ -351,9 +331,9 @@
          <br><br><strong>🍽️ Reservation: Huacas Restaurant</strong><br>
          19:00 (7:00 PM)<br>
          <a href="https://www.huacasrest.com/" target="_blank" rel="noopener noreferrer" class="pdf-button">Huacas Website</a>`,
-    15: "Nosara",
-    16: "Nosara",
-    17: `Nosara<br>
+    15: "<strong>Nosara</strong>",
+    16: "<strong>Nosara</strong>",
+    17: `<strong>Nosara</strong><br>
         <br>
         <span class="activity-red">🩺 Call with Dr. Laws</span><br>
         <br><strong>🏠 Move to Airbnb</strong><br>
@@ -362,19 +342,19 @@
         <br><br><strong>🍽️ Reservation: La Luna Nosara</strong><br>
         17:00 (5:00 PM)<br>
         <a href="https://www.lalunanosara.com/" target="_blank" rel="noopener noreferrer" class="pdf-button">La Luna Website</a>`,
-    18: "Nosara",
-    19: `Nosara<br>
+    18: "<strong>Nosara</strong>",
+    19: `<strong>Nosara</strong><br>
          <br><strong>👨‍🍳 Cooking Class 👩‍🍳</strong><br>
          11:00 AM – 1:00 PM (2 hrs)<br>
          <a href="https://drive.google.com/file/d/10uQjf96GK--yKOTrd27XSG7IoDKSHib7/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="pdf-button">Cooking Class Confirmation</a>`,
-    20: "Nosara",
-    21: "Nosara",
+    20: "<strong>Nosara</strong>",
+    21: "<strong>Nosara</strong>",
     22: `<strong>🚙 Drive to Liberia</strong><br>
         2 hrs 21 min<br>
        <br><strong>🛏️ Stay: Hilton Garden Inn</strong><br>
          <a href="https://www.guestreservations.com/hilton-garden-inn-liberia-airport/booking?utm_source=google" target="_blank" rel="noopener noreferrer" class="pdf-button">Hilton Garden Website</a>
          <a href="https://drive.google.com/file/d/1HgnaKfSlEoiN5dm1uQimuviaHYvS-96R/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="pdf-button">Hilton Garden Confirmation</a>`,
-    23: "<strong>✈️ LIR ➜ YYC (WS 2261)</strong><br>7:50 | 14:14"
+    23: "<strong>✈️ LIR ➜ YYC (WS 2261)</strong><br>7:20 | 13:44 (7 hrs 24 min)"
   };
 
   function updateCountdown() {
@@ -417,14 +397,6 @@
     return null;
   }
 
-function getLocationLabelForDay(day) {
-  if (day === 7 || day === 23) return { key: 'travel',  text: 'Travel Day' };
-  if (day >= 8  && day <= 10) return { key: 'hermosa', text: 'Playa Hermosa' };
-  if (day >= 11 && day <= 13) return { key: 'fortuna', text: 'La Fortuna' };
-  if (day >= 14 && day <= 22) return { key: 'nosara',  text: 'Nosara' };
-  return null;
-}
-  
   function generateCalendar() {
     const year = 2026;
     const month = 1; // February (0-based index)
@@ -470,24 +442,15 @@ function getLocationLabelForDay(day) {
     }
   }
 
- 
-function generateDetails() {
-  for (const [dayStr, details] of Object.entries(tripEvents)) {
-    const day = Number(dayStr);
-    const section = document.createElement('section');
-    section.className = 'details';
-    section.id = `details-${day}`;
-
-    const loc = getLocationLabelForDay(day);
-    const badgeHtml = loc
-      ? `<span class="location-badge ${loc.key}">${loc.text}</span>`
-      : '';
-
-    section.innerHTML = `<h2>February ${day}, 2026 ${badgeHtml}</h2><p>${details}</p>`;
-    detailsContainer.appendChild(section);
+  function generateDetails() {
+    for (const [day, details] of Object.entries(tripEvents)) {
+      const section = document.createElement('section');
+      section.className = 'details';
+      section.id = `details-${day}`;
+      section.innerHTML = `<h2>February ${day}, 2026</h2><p>${details}</p>`;
+      detailsContainer.appendChild(section);
+    }
   }
-}
-
 
   function generateOtherNotes() {
     const otherNotes = document.createElement('section');
@@ -530,17 +493,3 @@ function generateDetails() {
 </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-

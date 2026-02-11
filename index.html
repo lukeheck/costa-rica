@@ -90,7 +90,7 @@
     }
     .countdown-section.shrink ~ .content-wrapper { padding-top: 160px; }
 
-    /* Photo between header and calendar */
+    /* Hero photo between header and calendar */
     .hero-photo {
       width: 90%;
       max-width: 900px;
@@ -235,54 +235,44 @@
       font-weight: 700;
     }
 
-    /* Day recap + photo (DETAILS ONLY) */
+    /* Recap block (sits right below itinerary) */
     .day-recap {
       margin-top: 14px;
-      padding: 14px 14px 12px;
-      border-radius: 10px;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.14);
+      padding-top: 10px;
+      border-top: 1px solid rgba(255,255,255,0.18);
     }
-
-    .day-recap h3 {
-      margin: 0 0 8px;
+    .day-recap h3{
+      margin: 6px 0 8px;
       font-size: 1.05rem;
       letter-spacing: 0.2px;
     }
-
     .day-summary {
-      margin: 0 0 12px;
-      line-height: 1.55;
+      margin: 0 0 14px;
+      line-height: 1.6;
       color: #f1f1f1;
       opacity: 0.95;
     }
 
-    .photo-of-day {
-      margin: 0;
-    }
-
-    .photo-of-day img {
+    /* Photo-of-day styled like hero photo */
+    .day-photo {
       width: 100%;
-      max-height: 420px;
-      object-fit: cover;
-      border-radius: 12px;
-      border: 2px solid rgba(255,255,255,0.25);
-      box-shadow: 0 10px 26px rgba(0,0,0,0.45);
+      max-width: 900px;
+      margin: 8px 0 0;
+    }
+    .day-photo-img {
+      width: 100%;
+      max-width: 620px; /* matches hero-photo feel */
+      height: auto;
+      border-radius: 18px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.45);
+      border: 2px solid rgba(255,255,255,0.6);
       display: block;
     }
-
-    .photo-of-day figcaption {
-      margin-top: 8px;
-      font-size: 0.9rem;
-      color: #d8d8d8;
+    .day-photo-caption {
+      margin-top: 10px;
+      font-size: 0.95rem;
+      color: #ccc;
       opacity: 0.85;
-    }
-
-    .placeholder-note {
-      font-size: 0.85rem;
-      color: #cfcfcf;
-      opacity: 0.8;
-      margin-top: 6px;
     }
   </style>
 </head>
@@ -326,7 +316,6 @@
     </div>
 
     <div id="detailsContainer"></div>
-    <!-- Other Notes will render here after all day sections -->
     <div id="otherNotesContainer"></div>
   </div>
 
@@ -337,10 +326,11 @@
     const detailsContainer = document.getElementById('detailsContainer');
     const otherNotesContainer = document.getElementById('otherNotesContainer');
     const header = document.getElementById('header');
+
     const targetDate = new Date('February 7, 2026 23:10:00').getTime();
     const startDate = new Date().getTime();
 
-    // Trip events with details (links are proper <a> elements)
+    // Trip events (itinerary)
     const tripEvents = {
       7: `<strong>✈️ YYC ➜ LIR (WS 2260)</strong><br>22:40 | 6:30 +1 day (6 hr 50 min)<br>
           <a href="https://drive.google.com/file/d/15WyARvIhapNSi_J1bP_L6RTPtlhHuduv/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="pdf-button">Luke's Flight</a>
@@ -364,10 +354,7 @@
       12: `<strong>La Fortuna</strong><br>
            <br><strong>🪂 Ziplining - Sky Adventures</strong><br>
            11:30 AM<br>
-           <a href="https://drive.google.com/file/d/1LED5zEiq9csGfpxamj6wY6Ixvhru1qm3/view?usp=drive_link"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="pdf-button">Ziplining Confirmation</a>`,
+           <a href="https://drive.google.com/file/d/1LED5zEiq9csGfpxamj6wY6Ixvhru1qm3/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="pdf-button">Ziplining Confirmation</a>`,
       13: `<strong>La Fortuna</strong><br>
            <br><strong>🚣‍♂️ White Water Rafting — Arenal Rafting</strong><br>
            8:20 AM - 1:20 PM (5 hrs)<br>
@@ -383,15 +370,14 @@
            <a href="https://www.huacasrest.com/" target="_blank" rel="noopener noreferrer" class="pdf-button">Huacas Website</a>`,
       15: "<strong>Nosara</strong>",
       16: "<strong>Nosara</strong>",
-      17: `<strong>Nosara</strong><br>
-          <br>
-          <span class="activity-red">🩺 Call with Dr. Laws</span><br>
-          <br><strong>🏠 Move to Airbnb</strong><br>
-          <a href="https://www.airbnb.ca/trips/v1/reservation-details/ro/RESERVATION2_CHECKIN/HMBKXXKQ99" target="_blank" rel="noopener noreferrer" class="pdf-button">🏡 Airbnb Listing</a>
-          <a href="https://drive.google.com/file/d/1h8ye8fVBVV3DZ6VpOvTa-K5HbBL5iFqA/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="pdf-button">Airbnb Confirmation</a>
-          <br><br><strong>🍽️ Reservation: La Luna Nosara</strong><br>
-          17:00 (5:00 PM)<br>
-          <a href="https://www.lalunanosara.com/" target="_blank" rel="noopener noreferrer" class="pdf-button">La Luna Website</a>`,
+      17: `<strong>Nosara</strong><br><br>
+           <span class="activity-red">🩺 Call with Dr. Laws</span><br><br>
+           <strong>🏠 Move to Airbnb</strong><br>
+           <a href="https://www.airbnb.ca/trips/v1/reservation-details/ro/RESERVATION2_CHECKIN/HMBKXXKQ99" target="_blank" rel="noopener noreferrer" class="pdf-button">🏡 Airbnb Listing</a>
+           <a href="https://drive.google.com/file/d/1h8ye8fVBVV3DZ6VpOvTa-K5HbBL5iFqA/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="pdf-button">Airbnb Confirmation</a>
+           <br><br><strong>🍽️ Reservation: La Luna Nosara</strong><br>
+           17:00 (5:00 PM)<br>
+           <a href="https://www.lalunanosara.com/" target="_blank" rel="noopener noreferrer" class="pdf-button">La Luna Website</a>`,
       18: "<strong>Nosara</strong>",
       19: `<strong>Nosara</strong><br>
            <br><strong>👨‍🍳 Cooking Class 👩‍🍳</strong><br>
@@ -400,32 +386,31 @@
       20: "<strong>Nosara</strong>",
       21: "<strong>Nosara</strong>",
       22: `<strong>🚙 Drive to Liberia</strong><br>
-          2 hrs 21 min<br>
-          <br><strong>🛏️ Stay: Hilton Garden Inn</strong><br>
-          <a href="https://www.guestreservations.com/hilton-garden-inn-liberia-airport/booking?utm_source=google" target="_blank" rel="noopener noreferrer" class="pdf-button">Hilton Garden Website</a>
-          <a href="https://drive.google.com/file/d/1HgnaKfSlEoiN5dm1uQimuviaHYvS-96R/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="pdf-button">Hilton Garden Confirmation</a>`,
+           2 hrs 21 min<br>
+           <br><strong>🛏️ Stay: Hilton Garden Inn</strong><br>
+           <a href="https://www.guestreservations.com/hilton-garden-inn-liberia-airport/booking?utm_source=google" target="_blank" rel="noopener noreferrer" class="pdf-button">Hilton Garden Website</a>
+           <a href="https://drive.google.com/file/d/1HgnaKfSlEoiN5dm1uQimuviaHYvS-96R/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="pdf-button">Hilton Garden Confirmation</a>`,
       23: "<strong>✈️ LIR ➜ YYC (WS 2261)</strong><br>7:20 | 13:44 (7 hrs 24 min)"
     };
 
-    // Daily recaps: summary + photo + caption (PHOTOS DISPLAY IN DETAILS ONLY)
-    // Update these anytime during the trip!
+    // ONLY days you have content for right now (8, 9, 10)
+    // Photos are styled like the hero photo, but appear ONLY in details.
     const dayRecaps = {
-      8:  { summary: "Today we arrived at our resort near Playa Hermosa. We got in early after a relatively sleepless red-eye flight. Once settling in we hunkered down next to the pool for a morning nap, and a few coffees. After lunch at the beach cabana bar, I surprised Kellie with a Bday couples massage that was incredible. We had a happy hour at the beach bar and then went to hotel restaurant for dinner, followed by an early bedtime. Amazing first day, but we were wiped. ", photo: "photos/2026-02-08.jpg", caption: "Hello Costa Rica 🇨🇷" },
-      9:  { summary: "Slow beach day in Playa Hermosa — sunshine, swims, and relaxing together.", photo: "photos/2026-02-09.jpg", caption: "Playa Hermosa vibes 🌊" },
-      10: { summary: "Another Hermosa day — exploring nearby spots and enjoying the resort.", photo: "photos/2026-02-10.jpg", caption: "Golden hour 🌅" },
-      11: { summary: "Road trip to La Fortuna and check-in to Tabacón to enjoy the hot springs.", photo: "photos/2026-02-11.jpg", caption: "Arenal region 🏔️" },
-      12: { summary: "Ziplining day with Sky Adventures — epic views and adrenaline!", photo: "photos/2026-02-12.jpg", caption: "Above the canopy 🌳" },
-      13: { summary: "White water rafting on the river — wild, fun, and unforgettable.", photo: "photos/2026-02-13.jpg", caption: "Rapids & laughter 🚣‍♂️" },
-      14: { summary: "Big drive to Nosara and dinner at Huacas to celebrate the next chapter.", photo: "photos/2026-02-14.jpg", caption: "Nosara nights ✨" },
-      15: { summary: "Nosara day — beach time, wandering town, and soaking it all in.", photo: "photos/2026-02-15.jpg", caption: "Nosara 🌴" },
-      16: { summary: "Rest + recharge day. Slow morning, ocean air, and lots of smiles.", photo: "photos/2026-02-16.jpg", caption: "Slow mornings ☕" },
-      17: { summary: "Moved to the Airbnb and wrapped the day with sunset dinner at La Luna.", photo: "photos/2026-02-17.jpg", caption: "Sunset dinner 🌙" },
-      18: { summary: "Another Nosara day — exploring and enjoying the little moments.", photo: "photos/2026-02-18.jpg", caption: "Little moments ❤️" },
-      19: { summary: "Cooking class today — learned new flavors and ate so well.", photo: "photos/2026-02-19.jpg", caption: "Chef mode 👩‍🍳👨‍🍳" },
-      20: { summary: "Beach + downtime day — the best kind of honeymoon pace.", photo: "photos/2026-02-20.jpg", caption: "Beach day 🏖️" },
-      21: { summary: "Savoring the last full Nosara days — grateful for every second together.", photo: "photos/2026-02-21.jpg", caption: "Soaking it in 💛" },
-      22: { summary: "Back toward Liberia — final night near the airport and reminiscing already.", photo: "photos/2026-02-22.jpg", caption: "Final night 🌟" },
-      23: { summary: "Travel home day — grateful, happy, and full of memories.", photo: "photos/2026-02-23.jpg", caption: "Until next adventure ✈️" }
+      8: {
+        summary: "Today we arrived at our resort near Playa Hermosa. We got in early after a relatively sleepless red-eye flight. Once settling in we hunkered down next to the pool for a morning nap, and a few coffees. After lunch at the beach cabana bar, I surprised Kellie with a Bday couples massage that was incredible. We had a happy hour at the beach bar and then went to hotel restaurant for dinner, followed by an early bedtime. Amazing first day, but we were wiped. ",
+        photo: "photos/2026-02-08.jpg",
+        caption: "Photo of the day — Feb 8"
+      },
+      9: {
+        summary: "Add your Feb 9 recap here ✍️",
+        photo: "photos/2026-02-09.jpg",
+        caption: "Photo of the day — Feb 9"
+      },
+      10: {
+        summary: "Add your Feb 10 recap here ✍️",
+        photo: "photos/2026-02-10.jpg",
+        caption: "Photo of the day — Feb 10"
+      }
     };
 
     function updateCountdown() {
@@ -454,42 +439,34 @@
     setInterval(updateCountdown, 1000);
     updateCountdown();
 
-    // Helper: classify day by location
     function getLocationClassForDay(day) {
-      // Travel: Feb 7 & 23
       if (day === 7 || day === 23) return 'travel-day';
-      // Playa Hermosa: Feb 8–10
       if (day >= 8 && day <= 10) return 'hermosa-day';
-      // La Fortuna: Feb 11–13
       if (day >= 11 && day <= 13) return 'fortuna-day';
-      // Nosara: Feb 14–22
       if (day >= 14 && day <= 22) return 'nosara-day';
-      // Non-trip days remain default
       return null;
     }
 
     function generateCalendar() {
       const year = 2026;
-      const month = 1; // February (0-based index)
+      const month = 1; // February
       const firstDay = new Date(year, month, 1).getDay();
       const daysInMonth = 28;
 
       const headers = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-      headers.forEach(day => {
+      headers.forEach(d => {
         const headerDiv = document.createElement('div');
         headerDiv.className = 'day-header';
-        headerDiv.textContent = day;
+        headerDiv.textContent = d;
         calendarEl.appendChild(headerDiv);
       });
 
-      // Leading blanks
       for (let i = 0; i < firstDay; i++) {
         const emptyDiv = document.createElement('div');
         emptyDiv.className = 'empty';
         calendarEl.appendChild(emptyDiv);
       }
 
-      // Days (NO PHOTOS HERE)
       for (let day = 1; day <= daysInMonth; day++) {
         const dayDiv = document.createElement('div');
         dayDiv.className = 'day';
@@ -517,30 +494,20 @@
         section.className = 'details';
         section.id = `details-${day}`;
 
-        const recap = dayRecaps[day] || null;
+        const recap = dayRecaps[day];
 
-        // Build recap HTML (with placeholders if missing)
-        const recapHtml = recap
-          ? `
-            <div class="day-recap">
-              <h3>Day Summary</h3>
-              <p class="day-summary">${recap.summary || "Add today’s summary here ✍️"}</p>
-
-              <figure class="photo-of-day">
-                <img src="${recap.photo || ""}" alt="Photo of the day — Feb ${day}" loading="lazy" decoding="async" />
-                <figcaption>${recap.caption || `Photo of the day — February ${day}`}</figcaption>
-              </figure>
-
-              ${(!recap.photo) ? `<div class="placeholder-note">Tip: Add a photo filename in <code>dayRecaps</code> for this day.</div>` : ``}
-            </div>
-          `
-          : `
-            <div class="day-recap">
-              <h3>Day Summary</h3>
-              <p class="day-summary">Add today’s summary here ✍️</p>
-              <div class="placeholder-note">Tip: Add a <code>dayRecaps[${day}]</code> entry with <code>summary</code>, <code>photo</code>, and <code>caption</code>.</div>
-            </div>
-          `;
+        // Recap appears immediately below itinerary (only for days that exist in dayRecaps)
+        const recapHtml = recap ? `
+          <div class="day-recap">
+            <h3>Day Recap</h3of the day — Feb ${day}"
+                class="day-photo-img"
+                loading="lazy"
+                decoding="async"
+              />
+              <figcaption class="day-photo-caption">${recap.caption}</figcaption>
+            </figure>
+          </div>
+        ` : '';
 
         section.innerHTML = `
           <h2>February ${day}, 2026</h2>
@@ -590,4 +557,3 @@
   </script>
 </body>
 </html>
-

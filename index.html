@@ -2,241 +2,315 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Time Until Kel and Luke's Trip to Costa Rica</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Time Until Kel and Luke's Trip to Costa Rica</title>
 
-<!-- Font Import -->
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <!-- Font Import -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
 
-<style>
-  :root{
-    /* Palette */
-    --clr-text: #fff;
-    --bg-body: #111;
-    --bg-panel: #222;
-    --bg-day: #444;
+  <style>
+    :root{
+      /* Palette */
+      --clr-text: #fff;
+      --bg-body: #111;
+      --bg-panel: #222;
+      --bg-day: #444;
 
-    /* Location colors */
-    --clr-travel: #7a7a7a;        /* travel gray */
-    --clr-hermosa: #008080;       /* teal */
-    --clr-fortuna: #4b5bdc;       /* indigo */
-    --clr-nosara: #c99a2e;        /* sand/gold */
+      /* Location colors */
+      --clr-travel: #7a7a7a;        /* travel gray */
+      --clr-hermosa: #008080;       /* teal */
+      --clr-fortuna: #4b5bdc;       /* indigo */
+      --clr-nosara: #c99a2e;        /* sand/gold */
 
-    /* Subtle shadows */
-    --shadow: 2px 2px 6px rgba(0,0,0,0.5);
-  }
+      /* Subtle shadows */
+      --shadow: 2px 2px 6px rgba(0,0,0,0.5);
+    }
 
-  body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Poppins', sans-serif;
-    color: var(--clr-text);
-    text-align: center;
-    background: var(--bg-body);
-    scroll-behavior: smooth;
-  }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      color: var(--clr-text);
+      text-align: center;
+      background: var(--bg-body);
+      scroll-behavior: smooth;
+    }
 
-  .countdown-section {
-    position: fixed;
-    top: 0; left: 0; width: 100%;
-    background-image: url('https://explorerspassage.com/wp-content/uploads/2023/03/costa-rica-beach-Cahuita-National-Park.jpg');
-    background-size: cover; background-position: center;
-    backdrop-filter: brightness(0.7);
-    padding: 20px;
-    box-sizing: border-box;
-    z-index: 1000;
-    transition: all 0.3s ease;
-  }
+    .countdown-section {
+      position: fixed;
+      top: 0; left: 0; width: 100%;
+      background-image: url('https://explorerspassage.com/wp-content/uploads/2023/03/costa-rica-beach-Cahuita-National-Park.jpg');
+      background-size: cover; background-position: center;
+      backdrop-filter: brightness(0.7);
+      padding: 20px;
+      box-sizing: border-box;
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
 
-  .countdown-section.shrink { padding: 10px; }
+    .countdown-section.shrink { padding: 10px; }
 
-  h1 {
-    font-size: 2rem;
-    margin-bottom: 10px;
-    text-shadow: var(--shadow);
-    transition: font-size 0.3s ease;
-  }
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      text-shadow: var(--shadow);
+      transition: font-size 0.3s ease;
+    }
 
-  .countdown-section.shrink h1 { font-size: 1.5rem; }
+    .countdown-section.shrink h1 { font-size: 1.5rem; }
 
-  #countdown {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
-    text-shadow: var(--shadow);
-    transition: font-size 0.3s ease;
-  }
+    #countdown {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+      text-shadow: var(--shadow);
+      transition: font-size 0.3s ease;
+    }
 
-  .countdown-section.shrink #countdown { font-size: 1.2rem; }
+    .countdown-section.shrink #countdown { font-size: 1.2rem; }
 
-  #progressBar {
-    width: 80%; height: 12px;
-    background: rgba(255,255,255,0.3);
-    border-radius: 6px;
-    margin: 0 auto;
-    overflow: hidden;
-  }
+    #progressBar {
+      width: 80%; height: 12px;
+      background: rgba(255,255,255,0.3);
+      border-radius: 6px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
 
-  #progressFill {
-    height: 100%;
-    background: #fff;
-    width: 0%;
-    transition: width 0.5s ease;
-  }
+    #progressFill {
+      height: 100%;
+      background: #fff;
+      width: 0%;
+      transition: width 0.5s ease;
+    }
 
-  .content-wrapper {
-    padding-top: 220px; /* space under fixed header */
-    transition: padding-top 0.3s ease;
-  }
-  .countdown-section.shrink ~ .content-wrapper { padding-top: 160px; }
+    .content-wrapper {
+      padding-top: 220px; /* space under fixed header */
+      transition: padding-top 0.3s ease;
+    }
+    .countdown-section.shrink ~ .content-wrapper { padding-top: 160px; }
 
-  /* Photo between header and calendar */
-  .hero-photo {
-    width: 90%;
-    max-width: 900px;
-    margin: 18px auto 8px;
-    text-align: center;
-  }
-  .hero-photo-img {
-    width: 100%;
-    max-width: 620px;
-    height: auto;
-    border-radius: 18px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.45);
-    border: 2px solid rgba(255,255,255,0.6);
-  }
-  .hero-photo-caption {
-    margin-top: 10px;
-    font-size: 0.95rem;
-    color: #ccc;
-    opacity: 0.85;
-  }
-  .countdown-section.shrink ~ .content-wrapper .hero-photo {
-    margin-top: 10px;
-  }
+    /* Hero photo between header and calendar */
+    .hero-photo {
+      width: 90%;
+      max-width: 900px;
+      margin: 18px auto 8px;
+      text-align: center;
+    }
+    .hero-photo-img {
+      width: 100%;
+      max-width: 620px;
+      height: auto;
+      border-radius: 18px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.45);
+      border: 2px solid rgba(255,255,255,0.6);
+    }
+    .hero-photo-caption {
+      margin-top: 10px;
+      font-size: 0.95rem;
+      color: #ccc;
+      opacity: 0.85;
+    }
+    .countdown-section.shrink ~ .content-wrapper .hero-photo {
+      margin-top: 10px;
+    }
 
-  /* Calendar grid */
-  main.calendar {
-    width: 90%;
-    max-width: 900px;
-    background: var(--bg-panel);
-    border-radius: 12px;
-    padding: 20px;
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 8px;
-    margin: 20px auto 12px;
-    color: var(--clr-text);
-  }
+    /* Calendar grid */
+    main.calendar {
+      width: 90%;
+      max-width: 900px;
+      background: var(--bg-panel);
+      border-radius: 12px;
+      padding: 20px;
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 8px;
+      margin: 20px auto 12px;
+      color: var(--clr-text);
+    }
 
-  .day-header {
-    font-weight: bold;
-    text-transform: uppercase;
-    opacity: 0.9;
-    text-align: center;
-  }
+    .day-header {
+      font-weight: bold;
+      text-transform: uppercase;
+      opacity: 0.9;
+      text-align: center;
+    }
 
-  .day {
-    background: var(--bg-day);
-    border-radius: 8px;
-    padding: 8px;
-    font-size: 0.9rem;
-    cursor: default;
-    position: relative;
-  }
+    .day {
+      background: var(--bg-day);
+      border-radius: 8px;
+      padding: 8px;
+      font-size: 0.9rem;
+      cursor: default;
+      position: relative;
+    }
 
-  /* Trip days are clickable and highlighted */
-  .day.trip-day {
-    font-weight: 600;
-    cursor: pointer;
-    color: #fff;
-    box-shadow: inset 0 0 0 2px rgba(255,255,255,0.2);
-  }
+    /* Trip days are clickable and highlighted */
+    .day.trip-day {
+      font-weight: 600;
+      cursor: pointer;
+      color: #fff;
+      box-shadow: inset 0 0 0 2px rgba(255,255,255,0.2);
+    }
 
-  /* Color coding */
-  .day.travel-day   { background: var(--clr-travel); }
-  .day.hermosa-day  { background: var(--clr-hermosa); }
-  .day.fortuna-day  { background: var(--clr-fortuna); }
-  .day.nosara-day   { background: var(--clr-nosara); }
+    /* Color coding */
+    .day.travel-day   { background: var(--clr-travel); }
+    .day.hermosa-day  { background: var(--clr-hermosa); }
+    .day.fortuna-day  { background: var(--clr-fortuna); }
+    .day.nosara-day   { background: var(--clr-nosara); }
 
-  /* Legend */
-  .legend {
-    width: 90%;
-    max-width: 900px;
-    margin: 8px auto 30px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: center;
-    align-items: center;
-    color: #ddd;
-  }
-  .legend-item {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.95rem;
-    background: rgba(255,255,255,0.06);
-    padding: 6px 10px;
-    border-radius: 20px;
-  }
-  .legend-swatch {
-    width: 16px; height: 16px; border-radius: 4px;
-    box-shadow: 0 0 0 2px rgba(0,0,0,0.2) inset;
-  }
-  .swatch-travel  { background: var(--clr-travel); }
-  .swatch-hermosa { background: var(--clr-hermosa); }
-  .swatch-fortuna { background: var(--clr-fortuna); }
-  .swatch-nosara  { background: var(--clr-nosara); }
+    /* Legend */
+    .legend {
+      width: 90%;
+      max-width: 900px;
+      margin: 8px auto 30px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      align-items: center;
+      color: #ddd;
+    }
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.95rem;
+      background: rgba(255,255,255,0.06);
+      padding: 6px 10px;
+      border-radius: 20px;
+    }
+    .legend-swatch {
+      width: 16px; height: 16px; border-radius: 4px;
+      box-shadow: 0 0 0 2px rgba(0,0,0,0.2) inset;
+    }
+    .swatch-travel  { background: var(--clr-travel); }
+    .swatch-hermosa { background: var(--clr-hermosa); }
+    .swatch-fortuna { background: var(--clr-fortuna); }
+    .swatch-nosara  { background: var(--clr-nosara); }
 
-  section.details {
-    width: 90%;
-    max-width: 900px;
-    background: rgba(0,0,0,0.6);
-    border-radius: 12px;
-    padding: 20px;
-    margin-bottom: 20px;
-    text-align: left;
-    color: #fff;
-    scroll-margin-top: 180px;
-  }
-  section.details h2 { margin-top: 0; }
+    section.details {
+      width: 90%;
+      max-width: 900px;
+      background: rgba(0,0,0,0.6);
+      border-radius: 12px;
+      padding: 20px;
+      margin: 0 auto 20px;
+      text-align: left;
+      color: #fff;
+      scroll-margin-top: 180px;
+    }
+    section.details h2 { margin-top: 0; }
 
-  .pdf-button {
-    display: inline-block;
-    margin: 8px 5px 0 0;
-    padding: 10px 15px;
-    background-color: #00bfa5;
-    color: #fff;
-    font-weight: bold;
-    text-decoration: none;
-    border-radius: 6px;
-    transition: background 0.3s ease;
-  }
-  .pdf-button:hover { background-color: #008080; }
+    .pdf-button {
+      display: inline-block;
+      margin: 8px 5px 0 0;
+      padding: 10px 15px;
+      background-color: #00bfa5;
+      color: #fff;
+      font-weight: bold;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: background 0.3s ease;
+    }
+    .pdf-button:hover { background-color: #008080; }
 
-  /* Other Notes */
-  section.other-notes {
-    width: 90%;
-    max-width: 900px;
-    background: rgba(0,0,0,0.7);
-    border-radius: 12px;
-    padding: 20px;
-    margin: 40px auto;
-    text-align: left;
-    color: #fff;
-    scroll-margin-top: 180px;
-  }
-  section.other-notes h2 { margin-top: 0; }
-  
-  /* Red-highlighted activity label */
-  .activity-red {
-    color: #ff3b30;
-    font-weight: 700;
-  }
+    /* Other Notes */
+    section.other-notes {
+      width: 90%;
+      max-width: 900px;
+      background: rgba(0,0,0,0.7);
+      border-radius: 12px;
+      padding: 20px;
+      margin: 40px auto;
+      text-align: left;
+      color: #fff;
+      scroll-margin-top: 180px;
+    }
+    section.other-notes h2 { margin-top: 0; }
 
-</style>
+    /* Red-highlighted activity label */
+    .activity-red {
+      color: #ff3b30;
+      font-weight: 700;
+    }
+
+    /* Recap block (sits right below itinerary) */
+    .day-recap {
+      margin-top: 14px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(255,255,255,0.18);
+    }
+    .day-recap h3{
+      margin: 6px 0 8px;
+      font-size: 1.05rem;
+      letter-spacing: 0.2px;
+    }
+    .day-summary {
+      margin: 0 0 14px;
+      line-height: 1.6;
+      color: #f1f1f1;
+      opacity: 0.95;
+    }
+
+    /* Photo-of-day styled like hero photo */
+    .day-photo {
+      width: 100%;
+      max-width: 900px;
+      margin: 8px 0 0;
+    }
+    .day-photo-img {
+      width: 100%;
+      max-width: 620px; /* matches hero-photo feel */
+      height: auto;
+      border-radius: 18px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.45);
+      border: 2px solid rgba(255,255,255,0.6);
+      display: block;
+    }
+    .day-photo-caption {
+      margin-top: 10px;
+      font-size: 0.95rem;
+      color: #ccc;
+      opacity: 0.85;
+    }
+
+    
+/* Two photos side-by-side (responsive) */
+.day-photo-grid {
+  display: flex;
+  gap: 12px;              /* space between photos */
+  align-items: stretch;
+  flex-wrap: wrap;        /* allows stacking on small screens */
+  margin-top: 8px;
+}
+
+.day-photo-grid figure {
+  flex: 1 1 calc(50% - 6px);   /* two columns */
+  margin: 0;                   /* remove default figure margin */
+  text-align: center;
+}
+
+.day-photo-grid img {
+  width: 100%;
+  height: auto;
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.45);
+  border: 2px solid rgba(255,255,255,0.6);
+  display: block;
+}
+
+.day-photo-grid figcaption {
+  margin-top: 10px;
+  font-size: 0.95rem;
+  color: #ccc;
+  opacity: 0.85;
+}
+
+  </style>
 </head>
+
+
 <body>
   <div class="countdown-section" id="header">
     <h1>Time Until Costa Rica 🌴</h1>
@@ -276,237 +350,274 @@
     </div>
 
     <div id="detailsContainer"></div>
-    <!-- Other Notes will render here after all day sections -->
     <div id="otherNotesContainer"></div>
   </div>
 
-<script>
-  const countdownEl = document.getElementById('countdown');
-  const progressFill = document.getElementById('progressFill');
-  const calendarEl = document.getElementById('calendar');
-  const detailsContainer = document.getElementById('detailsContainer');
-  const otherNotesContainer = document.getElementById('otherNotesContainer');
-  const header = document.getElementById('header');
-  const targetDate = new Date('February 7, 2026 23:10:00').getTime();
-  const startDate = new Date().getTime();
+  <script>
+    const countdownEl = document.getElementById('countdown');
+    const progressFill = document.getElementById('progressFill');
+    const calendarEl = document.getElementById('calendar');
+    const detailsContainer = document.getElementById('detailsContainer');
+    const otherNotesContainer = document.getElementById('otherNotesContainer');
+    const header = document.getElementById('header');
 
-  // Trip events with details (links are proper <a> elements)
-  const tripEvents = {
-    7: `<strong>✈️ YYC ➜ LIR (WS 2260)</strong><br>22:40 | 6:30 +1 day (6 hr 50 min)<br>
-        <a href="https://drive.google.com/file/d/15WyARvIhapNSi_J1bP_L6RTPtlhHuduv/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="pdf-button">Luke's Flight</a>
-        <a href="https://drive.google.com/file/d/1eHE0c7kZSQtKIa4XZFsWc3VAvhhWcbK7/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="pdf-button">Kellie's Flight</a>`,
-    8: `Arrive LIR 6:30<br>
-       <br><strong>🚙 Car Rental + Drive to Playa Hermosa</strong><br>
-       22 min<br>
-       <a href="https://cars.booking.com/voucher/1iIk9ay7--P_zJSyk_UKhciRqw3tRlyWX8R3rtbJ75kaHs6sr8pf6Xr0b9qJoWZ6JykAPJTyJID-4iDvbR81lCds3jwexfjSxLxn5FG09ySZsEuZeNcKhLGWaGRjVXR19C4yLVnnDj3xvfgdts759Q?adcamp=bookingcom-PBBC+-2025-10-16" target="_blank" rel="noopener noreferrer" class="pdf-button">Car Rental Confirmation</a>
-       <a href="https://drive.google.com/file/d/1iw0JOoPRlEKaiIdLm8zOApSbvP54Xtel/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="pdf-button">Car Rental Voucher</a>
-       <br>
-       <br><strong>🛏️ Stay: El Mangroove Autograph</strong><br>
-        <a href="https://www.marriott.com/en-us/hotels/lirel-el-mangroove-autograph-collection/overview/" target="_blank" rel="noopener noreferrer" class="pdf-button">El Mangroove Website</a>
-        <a href="https://drive.google.com/file/d/1LUmrraAs68YjhRQ_Bp05xu0OCy9F--_H/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="pdf-button">El Mangroove Confirmation</a>`,
-    9: "<strong>Playa Hermosa</strong>",
-    10: "<strong>Playa Hermosa</strong>",
-    11: `<strong>🚙 Drive to La Fortuna</strong><br>
-         2 hrs 45 min<br>
-         <br><strong>🛏️ Stay: Tababon - Thermal Resort and Spa</strong><br>
-         <a href="https://www.tabacon.com" target="_blank" rel="noopener noreferrer" class="pdf-button">Tabacón Resort Website</a>
-         <a href="https://drive.google.com/file/d/1GlfgTpCXimgEjF28s2v0T5aRsUAgtF5t/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="pdf-button">Tabacón Confirmation</a>`,
-    12: `<strong>La Fortuna</strong><br>
-         <br><strong>🪂 Ziplining - Sky Adventures</strong><br>
-         11:30 AM<br>
-         <a href="https://drive.google.com/file/d/1LED5zEiq9csGfpxamj6wY6Ixvhru1qm3/view?usp=drive_link"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="pdf-button">Ziplining Confirmation</a>`,
-    13: `<strong>La Fortuna</strong><br>
-         <br><strong>🚣‍♂️ White Water Rafting — Arenal Rafting</strong><br>
-         8:20 AM - 1:20 PM (5 hrs)<br>
-         <a href="https://www.arenalrafting.com" target="_blank" rel="noopener noreferrer" class="pdf-button">Arenal Rafting Website</a>
-         <a href="https://drive.google.com/file/d/1kpRMCd-ozGoPL1o4JIWF7_K1VJKc3WCP/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="pdf-button">Rafting Confirmation</a>`,
-    14: `<strong>🚙 Drive to Nosara</strong><br>
-         3 hrs 58 min<br>
-         <br><strong>🛏️ Stay: Tierra Magnifica</strong><br>
-         <a href="https://www.tierramagnifica.com/?gad_campaignid=22497769187" target="_blank" rel="noopener noreferrer" class="pdf-button">Tierra Magnifica Website</a>
-         <a href="https://drive.google.com/file/d/1hBQwf_vhl478r724CbHEN4uIR4nf2cpB/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="pdf-button">Tierra Magnifica Confirmation</a>
-         <br><br><strong>🍽️ Reservation: Huacas Restaurant</strong><br>
-         19:00 (7:00 PM)<br>
-         <a href="https://www.huacasrest.com/" target="_blank" rel="noopener noreferrer" class="pdf-button">Huacas Website</a>`,
-    15: "<strong>Nosara</strong>",
-    16: "<strong>Nosara</strong>",
-    17: `<strong>Nosara</strong><br>
-        <br>
-        <span class="activity-red">🩺 Call with Dr. Laws</span><br>
-        <br><strong>🏠 Move to Airbnb</strong><br>
-        <a href="https://www.airbnb.ca/trips/v1/reservation-details/ro/RESERVATION2_CHECKIN/HMBKXXKQ99" target="_blank" rel="noopener noreferrer" class="pdf-button">🏡 Airbnb Listing</a>
-        <a href="https://drive.google.com/file/d/1h8ye8fVBVV3DZ6VpOvTa-K5HbBL5iFqA/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="pdf-button">Airbnb Confirmation</a>
-        <br><br><strong>🍽️ Reservation: La Luna Nosara</strong><br>
-        17:00 (5:00 PM)<br>
-        <a href="https://www.lalunanosara.com/" target="_blank" rel="noopener noreferrer" class="pdf-button">La Luna Website</a>`,
-    18: "<strong>Nosara</strong>",
-    19: `<strong>Nosara</strong><br>
-         <br><strong>👨‍🍳 Cooking Class 👩‍🍳</strong><br>
-         11:00 AM – 1:00 PM (2 hrs)<br>
-         <a href="https://drive.google.com/file/d/10uQjf96GK--yKOTrd27XSG7IoDKSHib7/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="pdf-button">Cooking Class Confirmation</a>`,
-    20: "<strong>Nosara</strong>",
-    21: "<strong>Nosara</strong>",
-    22: `<strong>🚙 Drive to Liberia</strong><br>
-        2 hrs 21 min<br>
-       <br><strong>🛏️ Stay: Hilton Garden Inn</strong><br>
-         <a href="https://www.guestreservations.com/hilton-garden-inn-liberia-airport/booking?utm_source=google" target="_blank" rel="noopener noreferrer" class="pdf-button">Hilton Garden Website</a>
-         <a href="https://drive.google.com/file/d/1HgnaKfSlEoiN5dm1uQimuviaHYvS-96R/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="pdf-button">Hilton Garden Confirmation</a>`,
-    23: "<strong>✈️ LIR ➜ YYC (WS 2261)</strong><br>7:20 | 13:44 (7 hrs 24 min)"
-  };
+    const targetDate = new Date('February 7, 2026 23:10:00').getTime();
+    const startDate = new Date().getTime();
 
-  function updateCountdown() {
-    const now = new Date().getTime();
-    const distance = targetDate - now;
+    // Trip events (itinerary)
+    const tripEvents = {
+      7: `<strong>✈️ YYC ➜ LIR (WS 2260)</strong><br>22:40 | 6:30 +1 day (6 hr 50 min)<br>
+          <a href="https://drive.google.com/file/d/15WyARvIhapNSi_J1bP_L6RTPtlhHuduv/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="pdf-button">Luke's Flight</a>
+          <a href="https://drive.google.com/file/d/1eHE0c7kZSQtKIa4XZFsWc3VAvhhWcbK7/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="pdf-button">Kellie's Flight</a>`,
+      8: `Arrive LIR 6:30<br>
+          <br><strong>🚙 Car Rental + Drive to Playa Hermosa</strong><br>
+          22 min<br>
+          <a href="https://cars.booking.com/voucher/1iIk9ay7--P_zJSyk_UKhciRqw3tRlyWX8R3rtbJ75kaHs6sr8pf6Xr0b9qJoWZ6JykAPJTyJID-4iDvbR81lCds3jwexfjSxLxn5FG09ySZsEuZeNcKhLGWaGRjVXR19C4yLVnnDj3xvfgdts759Q?adcamp=bookingcom-PBBC+-2025-10-16" target="_blank" rel="noopener noreferrer" class="pdf-button">Car Rental Confirmation</a>
+          <a href="https://drive.google.com/file/d/1iw0JOoPRlEKaiIdLm8zOApSbvP54Xtel/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="pdf-button">Car Rental Voucher</a>
+          <br>
+          <br><strong>🛏️ Stay: El Mangroove Autograph</strong><br>
+          <a href="https://www.marriott.com/en-us/hotels/lirel-el-mangroove-autograph-collection/overview/" target="_blank" rel="noopener noreferrer" class="pdf-button">El Mangroove Website</a>
+          <a href="https://drive.google.com/file/d/1LUmrraAs68YjhRQ_Bp05xu0OCy9F--_H/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="pdf-button">El Mangroove Confirmation</a>`,
+      9: "<strong>Playa Hermosa</strong>",
+      10: "<strong>Playa Hermosa</strong>",
+      11: `<strong>🚙 Drive to La Fortuna</strong><br>
+           2 hrs 45 min<br>
+           <br><strong>🛏️ Stay: Tababon - Thermal Resort and Spa</strong><br>
+           <a href="https://www.tabacon.com" target="_blank" rel="noopener noreferrer" class="pdf-button">Tabacón Resort Website</a>
+           <a href="https://drive.google.com/file/d/1GlfgTpCXimgEjF28s2v0T5aRsUAgtF5t/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="pdf-button">Tabacón Confirmation</a>`,
+      12: `<strong>La Fortuna</strong><br>
+           <br><strong>🪂 Ziplining - Sky Adventures</strong><br>
+           11:30 AM<br>
+           <a href="https://drive.google.com/file/d/1LED5zEiq9csGfpxamj6wY6Ixvhru1qm3/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="pdf-button">Ziplining Confirmation</a>`,
+      13: `<strong>La Fortuna</strong><br>
+           <br><strong>🚣‍♂️ White Water Rafting — Arenal Rafting</strong><br>
+           8:20 AM - 1:20 PM (5 hrs)<br>
+           <a href="https://www.arenalrafting.com" target="_blank" rel="noopener noreferrer" class="pdf-button">Arenal Rafting Website</a>
+           <a href="https://drive.google.com/file/d/1kpRMCd-ozGoPL1o4JIWF7_K1VJKc3WCP/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="pdf-button">Rafting Confirmation</a>`,
+      14: `<strong>🚙 Drive to Nosara</strong><br>
+           3 hrs 58 min<br>
+           <br><strong>🛏️ Stay: Tierra Magnifica</strong><br>
+           <a href="https://www.tierramagnifica.com/?gad_campaignid=22497769187" target="_blank" rel="noopener noreferrer" class="pdf-button">Tierra Magnifica Website</a>
+           <a href="https://drive.google.com/file/d/1hBQwf_vhl478r724CbHEN4uIR4nf2cpB/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="pdf-button">Tierra Magnifica Confirmation</a>
+           <br><br><strong>🍽️ Reservation: Huacas Restaurant</strong><br>
+           19:00 (7:00 PM)<br>
+           <a href="https://www.huacasrest.com/" target="_blank" rel="noopener noreferrer" class="pdf-button">Huacas Website</a>`,
+      15: "<strong>Nosara</strong>",
+      16: "<strong>Nosara</strong>",
+      17: `<strong>Nosara</strong><br><br>
+           <span class="activity-red">🩺 Call with Dr. Laws</span><br><br>
+           <strong>🏠 Move to Airbnb</strong><br>
+           <a href="https://www.airbnb.ca/trips/v1/reservation-details/ro/RESERVATION2_CHECKIN/HMBKXXKQ99" target="_blank" rel="noopener noreferrer" class="pdf-button">🏡 Airbnb Listing</a>
+           <a href="https://drive.google.com/file/d/1h8ye8fVBVV3DZ6VpOvTa-K5HbBL5iFqA/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="pdf-button">Airbnb Confirmation</a>
+           <br><br><strong>🍽️ Reservation: La Luna Nosara</strong><br>
+           17:00 (5:00 PM)<br>
+           <a href="https://www.lalunanosara.com/" target="_blank" rel="noopener noreferrer" class="pdf-button">La Luna Website</a>`,
+      18: "<strong>Nosara</strong>",
+      19: `<strong>Nosara</strong><br>
+           <br><strong>👨‍🍳 Cooking Class 👩‍🍳</strong><br>
+           11:00 AM – 1:00 PM (2 hrs)<br>
+           <a href="https://drive.google.com/file/d/10uQjf96GK--yKOTrd27XSG7IoDKSHib7/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="pdf-button">Cooking Class Confirmation</a>`,
+      20: "<strong>Nosara</strong>",
+      21: "<strong>Nosara</strong>",
+      22: `<strong>🚙 Drive to Liberia</strong><br>
+           2 hrs 21 min<br>
+           <br><strong>🛏️ Stay: Hilton Garden Inn</strong><br>
+           <a href="https://www.guestreservations.com/hilton-garden-inn-liberia-airport/booking?utm_source=google" target="_blank" rel="noopener noreferrer" class="pdf-button">Hilton Garden Website</a>
+           <a href="https://drive.google.com/file/d/1HgnaKfSlEoiN5dm1uQimuviaHYvS-96R/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="pdf-button">Hilton Garden Confirmation</a>`,
+      23: "<strong>✈️ LIR ➜ YYC (WS 2261)</strong><br>7:20 | 13:44 (7 hrs 24 min)"
+    };
 
-    if (distance < 0) {
-      countdownEl.textContent = 'Enjoy your honeymoon!';
-      progressFill.style.width = '100%';
-      return;
-    }
+    // ONLY days you have recap/photo content for right now (8, 9, 10)
+    // (No Feb 7 recap/photo)
+    const dayRecaps = {
+      8: {
+        summary: "Today we arrived at our resort near Playa Hermosa. We got in early after a relatively sleepless red-eye flight. Once settling in we hunkered down next to the pool for a morning nap, and a few coffees. After lunch at the beach cabana bar, I surprised Kellie with a Bday couples massage that was incredible. We had a happy hour at the beach bar and then went to hotel restaurant for dinner, followed by an early bedtime. Amazing first day, but we were wiped.",      
+        photos: [
+          { src: "2026-02-08-1.jpg", caption: "Arrival + pool nap ☀️" },
+          { src: "2026-02-08-2.jpg", caption: "Couples massage surprise 💆‍♀️💆‍♂️" }
+                ]
+      },
+      9: {
+        summary: "After a 12-hour sleep, Kel and I were up early with a cup of Costa Rican coffee and smoothie. We headed to the beach to get the lay of the land and explore the surrounding area. After hitting a local grocery store to stock up on a few snacks and drinks, we then took to the pool where we lounged, drank Imperial lights, and relaxed the day away. We watched the sunset from the beach and then headed to Gingers for dinner, which was in the town of Hermosa.",
+        photos: [
+          { src: "2026-02-09-1.jpg", caption: "Arrival + pool nap ☀️" },
+          { src: "2026-02-09-2.jpg", caption: "Couples massage surprise 💆‍♀️💆‍♂️" }
+                ]
+      },
+      10: {
+        summary: "After our morning coffee + beach walk ritual, we loaded up the car and drove to the Papagayo Peninsula which was across the bay from our resort. We ate lunch at the Marina Dive Bar (best tacos yet) and stared at the superyachts moored in the marina. After, we headed to playa Virador which was accessible via a bus and a 700-stair descent from the top of peninsula all the way to beach. With golden sand, tropical surroundings, and no one else in sight, it was the perfect place to post up for the afternoon. Following a leg-burner of a stair-climb out of our oasis, we headed to the Ritz-Carlton for a drink and dinner. Although the Ritz was way out of our snack bracket, we played the part, and enjoyed the most beautiful sunset over the Costa Rican coast. It was an incredibly special and memorable place. ",
+        photos: [
+          { src: "2026-02-10-1.jpg", caption: "Arrival + pool nap ☀️" },
+          { src: "2026-02-10-2.jpg", caption: "Couples massage surprise 💆‍♀️💆‍♂️" }
+                ]
+      }
+    };
 
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
 
-    countdownEl.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-
-    const totalDuration = targetDate - startDate;
-    const elapsed = now - startDate;
-    const progressPercent = Math.max(0, Math.min(100, (elapsed / totalDuration) * 100));
-    progressFill.style.width = `${progressPercent}%`;
-  }
-
-  setInterval(updateCountdown, 1000);
-  updateCountdown();
-
-  // Helper: classify day by location
-  function getLocationClassForDay(day) {
-    // Travel: Feb 7 & 23
-    if (day === 7 || day === 23) return 'travel-day';
-    // Playa Hermosa: Feb 8–10
-    if (day >= 8 && day <= 10) return 'hermosa-day';
-    // La Fortuna: Feb 11–13
-    if (day >= 11 && day <= 13) return 'fortuna-day';
-    // Nosara: Feb 14–22
-    if (day >= 14 && day <= 22) return 'nosara-day';
-    // Non-trip days remain default
-    return null;
-  }
-
-  function generateCalendar() {
-    const year = 2026;
-    const month = 1; // February (0-based index)
-    const firstDay = new Date(year, month, 1).getDay();
-    const daysInMonth = 28;
-
-    const headers = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    headers.forEach(day => {
-      const headerDiv = document.createElement('div');
-      headerDiv.className = 'day-header';
-      headerDiv.textContent = day;
-      calendarEl.appendChild(headerDiv);
-    });
-
-    // Leading blanks
-    for (let i = 0; i < firstDay; i++) {
-      const emptyDiv = document.createElement('div');
-      emptyDiv.className = 'empty';
-      calendarEl.appendChild(emptyDiv);
-    }
-
-    // Days
-    for (let day = 1; day <= daysInMonth; day++) {
-      const dayDiv = document.createElement('div');
-      dayDiv.className = 'day';
-      dayDiv.textContent = day;
-
-      const locClass = getLocationClassForDay(day);
-      if (locClass) {
-        dayDiv.classList.add(locClass);
+      if (distance < 0) {
+        countdownEl.textContent = 'Enjoy your honeymoon!';
+        progressFill.style.width = '100%';
+        return;
       }
 
-      if (tripEvents[day]) {
-        dayDiv.classList.add('trip-day');
-        dayDiv.setAttribute('aria-label', `February ${day}, 2026 trip details`);
-        dayDiv.addEventListener('click', () => {
-          const detailsEl = document.getElementById(`details-${day}`);
-          if (detailsEl) detailsEl.scrollIntoView({ behavior: 'smooth' });
-        });
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      countdownEl.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+
+      const totalDuration = targetDate - startDate;
+      const elapsed = now - startDate;
+      const progressPercent = Math.max(0, Math.min(100, (elapsed / totalDuration) * 100));
+      progressFill.style.width = `${progressPercent}%`;
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    function getLocationClassForDay(day) {
+      if (day === 7 || day === 23) return 'travel-day';
+      if (day >= 8 && day <= 10) return 'hermosa-day';
+      if (day >= 11 && day <= 13) return 'fortuna-day';
+      if (day >= 14 && day <= 22) return 'nosara-day';
+      return null;
+    }
+
+    function generateCalendar() {
+      const year = 2026;
+      const month = 1; // February
+      const firstDay = new Date(year, month, 1).getDay();
+      const daysInMonth = 28;
+
+      const headers = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+      headers.forEach(d => {
+        const headerDiv = document.createElement('div');
+        headerDiv.className = 'day-header';
+        headerDiv.textContent = d;
+        calendarEl.appendChild(headerDiv);
+      });
+
+      for (let i = 0; i < firstDay; i++) {
+        const emptyDiv = document.createElement('div');
+        emptyDiv.className = 'empty';
+        calendarEl.appendChild(emptyDiv);
       }
 
-      calendarEl.appendChild(dayDiv);
+      for (let day = 1; day <= daysInMonth; day++) {
+        const dayDiv = document.createElement('div');
+        dayDiv.className = 'day';
+        dayDiv.textContent = day;
+
+        const locClass = getLocationClassForDay(day);
+        if (locClass) dayDiv.classList.add(locClass);
+
+        if (tripEvents[day]) {
+          dayDiv.classList.add('trip-day');
+          dayDiv.setAttribute('aria-label', `February ${day}, 2026 trip details`);
+          dayDiv.addEventListener('click', () => {
+            const detailsEl = document.getElementById(`details-${day}`);
+            if (detailsEl) detailsEl.scrollIntoView({ behavior: 'smooth' });
+          });
+        }
+
+        calendarEl.appendChild(dayDiv);
+      }
     }
-  }
 
-  function generateDetails() {
-    for (const [day, details] of Object.entries(tripEvents)) {
-      const section = document.createElement('section');
-      section.className = 'details';
-      section.id = `details-${day}`;
-      section.innerHTML = `<h2>February ${day}, 2026</h2><p>${details}</p>`;
-      detailsContainer.appendChild(section);
-    }
-  }
 
-  function generateOtherNotes() {
-    const otherNotes = document.createElement('section');
-    otherNotes.className = 'other-notes';
-    otherNotes.id = 'other-notes';
-    otherNotes.innerHTML = `
-      <h2>Other Notes</h2>
-      <p>Helpful resources and extras for the trip:</p>
 
-      <p>
-        <a href="https://www.livelikeitstheweekend.com/best-restaurants-nosara-costa-rica/" target="_blank" rel="noopener noreferrer" class="pdf-button">
-          🍳 Nosara Restaurant Blog (personal)
-        </a>
-        <br/>
-        <small style="color:#bbb;">Our short‑list picks for cafés &amp; restaurants in Nosara.</small>
-      </p>
+function generateDetails() {
+  for (const [day, details] of Object.entries(tripEvents)) {
+    const section = document.createElement('section');
+    section.className = 'details';
+    section.id = `details-${day}`;
 
-      <p>
-        <a href="https://maddysavenue.com/best-restaurants-in-nosara/" target="_blank" rel="noopener noreferrer" class="pdf-button">
-          🥐 Maddy’s Avenue — Best Restaurants in Nosara (external)
-        </a>
-        <br/>
-        <small style="color:#bbb;">Independent guide with detailed recommendations and reviews.</small>
-      </p>
+    const recap = dayRecaps[day];
+
+    // Build photos (two side-by-side)
+    const photosHtml =
+      recap && recap.photos && recap.photos.length
+        ? `
+          <div class="day-photo-grid">
+            ${recap.photos.map((p, idx) => `
+              <figure>
+                <img
+                  src="${p.src}"
+                  alt="Photo ${idx + 1} from February ${day}"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <figcaption>${p.caption || ""}</figcaption>
+              </figure>
+            `).join("")}
+          </div>
+        `
+        : "";
+
+    // Build recap block
+    const recapHtml = recap
+      ? `
+        <div class="day-recap">
+          <h3>Day Recap</h3>
+          <p class="day-summary">${recap.summary}</p>
+          ${photosHtml}
+        </div>
+      `
+      : "";
+
+    // Assemble section
+    section.innerHTML = `
+      <h2>February ${day}, 2026</h2>
+      <p>${details}</p>
+      ${recapHtml}
     `;
-    otherNotesContainer.appendChild(otherNotes);
+
+    detailsContainer.appendChild(section);
   }
+}
 
-  generateCalendar();
-  generateDetails();
-  generateOtherNotes();
 
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-      header.classList.add('shrink');
-    } else {
-      header.classList.remove('shrink');
+
+    function generateOtherNotes() {
+      const otherNotes = document.createElement('section');
+      otherNotes.className = 'other-notes';
+      otherNotes.id = 'other-notes';
+      otherNotes.innerHTML = `
+        <h2>Other Notes</h2>
+        <p>Helpful resources and extras for the trip:</p>
+
+        <p>
+          <a href="https://www.livelikeitstheweekend.com/best-restaurants-nosara-costa-rica/" target="_blank" rel="noopener noreferrer" class="pdf-button">
+            🍳 Nosara Restaurant Blog (personal)
+          </a>
+          <br/>
+          <small style="color:#bbb;">Our short‑list picks for cafés &amp; restaurants in Nosara.</small>
+        </p>
+
+        <p>
+          <a href="https://maddysavenue.com/best-restaurants-in-nosara/" target="_blank" rel="noopener noreferrer" class="pdf-button">
+            🥐 Maddy’s Avenue — Best Restaurants in Nosara (external)
+          </a>
+          <br/>
+          <small style="color:#bbb;">Independent guide with detailed recommendations and reviews.</small>
+        </p>
+      `;
+      otherNotesContainer.appendChild(otherNotes);
     }
-  });
-</script>
+
+    generateCalendar();
+    generateDetails();
+    generateOtherNotes();
+
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) header.classList.add('shrink');
+      else header.classList.remove('shrink');
+    });
+  </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

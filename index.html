@@ -274,8 +274,42 @@
       color: #ccc;
       opacity: 0.85;
     }
+
+    
+/* Two photos side-by-side (responsive) */
+.day-photo-grid {
+  display: flex;
+  gap: 12px;              /* space between photos */
+  align-items: stretch;
+  flex-wrap: wrap;        /* allows stacking on small screens */
+  margin-top: 8px;
+}
+
+.day-photo-grid figure {
+  flex: 1 1 calc(50% - 6px);   /* two columns */
+  margin: 0;                   /* remove default figure margin */
+  text-align: center;
+}
+
+.day-photo-grid img {
+  width: 100%;
+  height: auto;
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.45);
+  border: 2px solid rgba(255,255,255,0.6);
+  display: block;
+}
+
+.day-photo-grid figcaption {
+  margin-top: 10px;
+  font-size: 0.95rem;
+  color: #ccc;
+  opacity: 0.85;
+}
+
   </style>
 </head>
+
 
 <body>
   <div class="countdown-section" id="header">
@@ -397,19 +431,25 @@
     // (No Feb 7 recap/photo)
     const dayRecaps = {
       8: {
-        summary: "Today we arrived at our resort near Playa Hermosa. We got in early after a relatively sleepless red-eye flight. Once settling in we hunkered down next to the pool for a morning nap, and a few coffees. After lunch at the beach cabana bar, I surprised Kellie with a Bday couples massage that was incredible. We had a happy hour at the beach bar and then went to hotel restaurant for dinner, followed by an early bedtime. Amazing first day, but we were wiped.",
-        photo: "photos/2026-02-08.jpg",
-        caption: "Photo of the day — Feb 8"
+        summary: "Today we arrived at our resort near Playa Hermosa. We got in early after a relatively sleepless red-eye flight. Once settling in we hunkered down next to the pool for a morning nap, and a few coffees. After lunch at the beach cabana bar, I surprised Kellie with a Bday couples massage that was incredible. We had a happy hour at the beach bar and then went to hotel restaurant for dinner, followed by an early bedtime. Amazing first day, but we were wiped.",      
+        photos: [
+          { src: "2026-02-08-1.jpg", caption: "Arrival + pool nap ☀️" },
+          { src: "2026-02-08-2.jpg", caption: "Couples massage surprise 💆‍♀️💆‍♂️" }
+                ]
       },
       9: {
-        summary: "Add your Feb 9 recap here ✍️",
-        photo: "photos/2026-02-09.jpg",
-        caption: "Photo of the day — Feb 9"
+        summary: "After a 12-hour sleep, Kel and I were up early with a cup of Costa Rican coffee and smoothie. We headed to the beach to get the lay of the land and explore the surrounding area. After hitting a local grocery store to stock up on a few snacks and drinks, we then took to the pool where we lounged, drank Imperial lights, and relaxed the day away. We watched the sunset from the beach and then headed to Gingers for dinner, which was in the town of Hermosa.",
+        photos: [
+          { src: "2026-02-09-1.jpg", caption: "Arrival + pool nap ☀️" },
+          { src: "2026-02-09-2.jpg", caption: "Couples massage surprise 💆‍♀️💆‍♂️" }
+                ]
       },
       10: {
-        summary: "Add your Feb 10 recap here ✍️",
-        photo: "photos/2026-02-10.jpg",
-        caption: "Photo of the day — Feb 10"
+        summary: "After our morning coffee + beach walk ritual, we loaded up the car and drove to the Papagayo Peninsula which was across the bay from our resort. We ate lunch at the Marina Dive Bar (best tacos yet) and stared at the superyachts moored in the marina. After, we headed to playa Virador which was accessible via a bus and a 700-stair descent from the top of peninsula all the way to beach. With golden sand, tropical surroundings, and no one else in sight, it was the perfect place to post up for the afternoon. Following a leg-burner of a stair-climb out of our oasis, we headed to the Ritz-Carlton for a drink and dinner. Although the Ritz was way out of our snack bracket, we played the part, and enjoyed the most beautiful sunset over the Costa Rican coast. It was an incredibly special and memorable place. ",
+        photos: [
+          { src: "2026-02-10-1.jpg", caption: "Arrival + pool nap ☀️" },
+          { src: "2026-02-10-2.jpg", caption: "Couples massage surprise 💆‍♀️💆‍♂️" }
+                ]
       }
     };
 
@@ -488,42 +528,46 @@
       }
     }
 
-    function generateDetails() {
-      for (const [day, details] of Object.entries(tripEvents)) {
-        const section = document.createElement('section');
-        section.className = 'details';
-        section.id = `details-${day}`;
 
-        const recap = dayRecaps[day];
+function generateDetails() {
+  for (const [day, details] of Object.entries(tripEvents)) {
+    const section = document.createElement('section');
+    section.className = 'details';
+    section.id = `details-${day}`;
 
-        // Recap appears immediately below itinerary (only for days that exist in dayRecaps)
-        const recapHtml = recap ? `
-          <div class="day-recap">
-            <h3>Day Recap</h3>
-            <p class="day-summary">${recap.summary}</p>
+    const recap = dayRecaps[day];
 
-            <figure class="day-photo">
+    const photosHtml = (recap && recap.photos && recap.photos.length)
+      ? `
+        <div class="day-photo-grid">
+          ${recap.photos.map((p, idx) => `
+            <figure>
               <img
-                src="${recap.photo}"
-                alt="Photo of the day — Feb ${day}"
-                class="day-photo-img"
-                loading="lazy"
-                decoding="async"
-              />
-              <figcaption class="day-photo-caption">${recap.caption}</figcaption>
-            </figure>
-          </div>
-        ` : '';
+                src="${p.src}"
+                alt="Photo ${idx + 1} of   </figure>
+          `).join("")}
+        </div>
+      `
+      : "";
 
-        section.innerHTML = `
-          <h2>February ${day}, 2026</h2>
-          <p>${details}</p>
-          ${recapHtml}
-        `;
+    const recapHtml = recap ? `
+      <div class="day-recap">
+        <h3>Day Recap</h3>
+        <p class="day-summary">${recap.summary}</p>
+        ${photosHtml}
+      </div>
+    ` : '';
 
-        detailsContainer.appendChild(section);
-      }
-    }
+    section.innerHTML = `
+      <h2>February ${day}, 2026</h2>
+      <p>${details}</p>
+      ${recapHtml}
+    `;
+
+    detailsContainer.appendChild(section);
+  }
+}
+
 
     function generateOtherNotes() {
       const otherNotes = document.createElement('section');
@@ -563,3 +607,4 @@
   </script>
 </body>
 </html>
+
